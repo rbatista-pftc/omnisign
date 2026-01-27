@@ -298,6 +298,5 @@ nav a:hover::after {
   height: 46px;
   width: auto;
   display: block;
-  filter: brightness(0) invert(1); /* white logo */
 }
 
