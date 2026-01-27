@@ -218,39 +218,39 @@
 
 <script>
   document.getElementById("year").textContent = new Date().getFullYear();
-</script>
-<script>
   // Price auto-fill
   const serviceSelect = document.getElementById('serviceSelect');
   const priceField = document.getElementById('priceField');
-
   serviceSelect.addEventListener('change', () => {
     const price = serviceSelect.selectedOptions[0].dataset.price;
     priceField.value = price ? `$${price}` : '';
   });
-
   // Delivery toggle
   const delivery = document.getElementById('deliveryMethod');
   const upload = document.getElementById('uploadField');
   const mail = document.getElementById('mailField');
-
   delivery.addEventListener('change', () => {
     upload.style.display = delivery.value === 'upload' ? 'block' : 'none';
     mail.style.display = delivery.value === 'mail' ? 'block' : 'none';
   });
-
   // Booking confirmation
   document.getElementById('bookingForm').addEventListener('submit', e => {
     e.preventDefault();
     document.getElementById('bookingMsg').textContent =
       "Thank you! We’ll contact you shortly to confirm your booking.";
   });
-
   // Contact confirmation
   document.getElementById('contactForm').addEventListener('submit', e => {
     e.preventDefault();
     document.getElementById('contactMsg').textContent =
       "Thank you for your inquiry. Please allow 1–2 business days for a response.";
+  });
+  const btn = document.getElementById("backToTop");
+  window.addEventListener("scroll", () => {
+    btn.style.display = window.scrollY > 400 ? "block" : "none";
+  });
+  btn.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
   });
 </script>
 
