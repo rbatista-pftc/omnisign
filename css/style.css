@@ -117,7 +117,7 @@ footer {
 
 }
 .top-bar {
-  background:#020617;
+  background:#020617 !important;
   color:#fff;
   font-size:0.9rem;
 }
