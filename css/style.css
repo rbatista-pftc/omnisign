@@ -365,17 +365,22 @@ nav a:hover::after {
   margin-bottom: 6px;
 }
 
+.service-col.featured {
+  position: relative;
+}
 .featured-badge {
-  display: inline-block;
-  margin: 6px 0 10px;
-  padding: 4px 10px;
+  position: absolute;
+  top: -14px;
+  left: 18px;
+  background: #14b8a6;
+  color: #ffffff;
   font-size: 0.7rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  color: #0f766e;
-  background: rgba(20, 184, 166, 0.15);
+  padding: 6px 12px;
   border-radius: 999px;
+  box-shadow: 0 6px 14px rgba(20, 184, 166, 0.35);
 }
 
 /* smaller buttons */
