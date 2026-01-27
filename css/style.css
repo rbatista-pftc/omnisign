@@ -126,12 +126,34 @@ footer {
   align-items:center;
   padding:15px 0;
 }
-
 nav a {
-  margin-left:20px;
-  font-weight:600;
-  text-decoration:none;
-  color:#0f172a;
+  position: relative;
+  margin-left: 20px;
+  font-weight: 600;
+  text-decoration: none;
+  color: #0f172a;
+  padding-bottom: 4px;
+  transition: color 0.25s ease;
+}
+
+/* underline animation */
+nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0%;
+  height: 2px;
+  background: #14b8a6;
+  transition: width 0.25s ease;
+}
+
+nav a:hover {
+  color: #14b8a6;
+}
+
+nav a:hover::after {
+  width: 100%;
 }
 .booking form {
   background:#ffffff;
