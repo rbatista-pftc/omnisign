@@ -166,4 +166,42 @@ nav a {
   color:#14b8a6;
   font-weight:600;
 }
+.contact-section {
+  background:#f8fafc;
+}
+
+.contact-grid {
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap:50px;
+}
+
+.contact-info p {
+  margin:15px 0;
+  font-size:1.05rem;
+}
+
+.contact-info a {
+  color:#0f172a;
+  font-weight:600;
+}
+
+.icon {
+  margin-right:8px;
+  font-size:1.2rem;
+}
+
+.after-hours {
+  margin-top:20px;
+  font-style:italic;
+  color:#334155;
+}
+
+.contact-form input,
+.contact-form select,
+.contact-form textarea {
+  width:100%;
+  padding:12px;
+  margin:10px 0;
+}
 
