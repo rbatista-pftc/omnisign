@@ -220,7 +220,10 @@
   <p>© <span id="year"></span> OmniSign. All rights reserved.</p>
 </footer>
 
-<button id="backToTop">↑</button>
+<div id="backToTopWrapper" aria-label="Back to top">
+  <span class="back-text">Back to top</span>
+  <button id="backToTop">↑</button>
+</div>
 
 <script>
   document.getElementById("year").textContent = new Date().getFullYear();
