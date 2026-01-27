@@ -299,4 +299,7 @@ nav a:hover::after {
   width: auto;
   display: block;
 }
+.main-header {
+  border-bottom: 1px solid #e5e7eb;
+}
 
