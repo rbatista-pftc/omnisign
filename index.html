@@ -32,7 +32,6 @@
   </div>
 </header>
 
-
 <header class="hero">
   <div class="container">
     <h1>OmniSign</h1>
@@ -65,7 +64,7 @@
   </div>
 </section>
 
-<section class="services">
+<section id="services" class="services">
   <div class="container">
     <h3>Our Services</h3>
     <ul>
@@ -141,29 +140,47 @@
   </div>
 </section>
 
-<section id="contact" class="contact">
-  <div class="container">
-    <h3>Contact Us</h3>
-
-    <p>
-      📞 <a href="tel:+11234567890">(123) 456-7890</a><br>
-      📧 <a href="mailto:info@omnisign.com">info@omnisign.com</a>
-    </p>
-
-    <form id="contactForm">
-      <input type="text" placeholder="Name" required>
-      <input type="email" placeholder="Email" required>
-
-      <select required>
-        <option value="">Inquiry Type</option>
-        <option>General Question</option>
-        <option>Pricing</option>
-        <option>Scheduling</option>
-      </select>
-      <textarea placeholder="Your message…" required></textarea>
-      <button type="submit" class="btn primary">Send Message</button>
-      <p id="contactMsg" class="form-msg"></p>
-    </form>
+<section id="contact" class="contact-section">
+  <div class="container contact-grid">
+    <!-- LEFT: CONTACT INFO -->
+    <div class="contact-info">
+      <h3>Contact OmniSign</h3>
+      <p>
+        <span class="icon">📞</span>
+        <a href="tel:+11234567890">(123) 456-7890</a>
+      </p>
+      <p>
+        <span class="icon">📧</span>
+        <a href="mailto:info@omnisign.com">info@omnisign.com</a>
+      </p>
+      <p>
+        <span class="icon">🕒</span>
+        <strong>Hours:</strong><br>
+        Monday – Saturday<br>
+        10:00 AM – 6:00 PM
+      </p>
+      <p class="after-hours">
+        After-hours customer support available if necessary.
+        A member of our team will always respond.
+      </p>
+    </div>
+    <!-- RIGHT: CONTACT FORM -->
+    <div class="contact-form">
+      <h3>Send Us a Message</h3>
+      <form id="contactForm">
+        <input type="text" placeholder="Name" required>
+        <input type="email" placeholder="Email" required>
+        <select required>
+          <option value="">Inquiry Type</option>
+          <option>General Question</option>
+          <option>Booking</option>
+          <option>Pricing</option>
+        </select>
+        <textarea placeholder="Your message…" required></textarea>
+        <button type="submit" class="btn primary">Send Message</button>
+        <p id="contactMsg" class="form-msg"></p>
+      </form>
+    </div>
   </div>
 </section>
 
