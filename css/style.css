@@ -304,77 +304,61 @@ nav a:hover::after {
     text-align: left;
   }
 }
-.services-section {
+.services-simple {
   background: #f8fafc;
 }
 
-.section-title {
+.services-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 25px;
+}
+
+.icon-card {
   text-align: center;
-  margin-bottom: 50px;
-}
-
-/* shared card styles */
-.service-card {
-  background: #ffffff;
-  padding: 35px;
+  padding: 30px 25px;
   border-radius: 14px;
-  box-shadow: 0 15px 30px rgba(0,0,0,0.08);
-  margin-bottom: 40px;
-}
-
-.service-card h4 {
-  margin-bottom: 15px;
-}
-
-.service-list {
-  margin: 20px 0;
-  padding-left: 20px;
-}
-
-.service-list li {
-  margin-bottom: 8px;
-}
-
-/* featured service */
-.featured-service {
-  border-left: 6px solid #14b8a6;
+  background: #ffffff;
+  box-shadow: 0 12px 25px rgba(0,0,0,0.06);
   position: relative;
 }
 
-.featured-badge {
-  position: absolute;
-  top: -14px;
-  left: 20px;
-  background: #14b8a6;
-  color: #ffffff;
-  padding: 6px 12px;
-  font-size: 0.8rem;
-  font-weight: 700;
-  border-radius: 6px;
+.service-icon {
+  font-size: 2.2rem;
+  margin-bottom: 12px;
 }
 
-.service-intro {
-  font-size: 1.05rem;
+.icon-card h4 {
+  margin-bottom: 8px;
 }
 
-.reassurance {
-  margin: 20px 0;
-  padding: 15px;
-  background: rgba(109, 40, 217, 0.08); /* subtle purple echo */
-  border-left: 4px solid #6d28d9;
-  border-radius: 8px;
-}
-
-.small-note {
-  font-size: 0.9rem;
+.icon-card p {
+  font-size: 0.95rem;
   color: #334155;
+  margin-bottom: 18px;
 }
 
-/* grid for secondary services */
-.service-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 30px;
+/* featured legal service */
+.featured {
+  border-top: 4px solid #14b8a6;
+}
+
+.featured-tag {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  background: rgba(20, 184, 166, 0.15);
+  color: #0f766e;
+  padding: 4px 8px;
+  border-radius: 999px;
+}
+
+/* smaller buttons */
+.btn.small {
+  padding: 8px 16px;
+  font-size: 0.85rem;
 }
 
 
