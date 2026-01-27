@@ -257,11 +257,15 @@ nav a:hover::after {
   z-index: 9999;
 }
 .back-text {
-  display: block;
+  display: inline-block;
   margin-bottom: 6px;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   font-weight: 600;
   color: #0f172a;
+  background: rgba(255, 255, 255, 0.85);
+  padding: 4px 8px;
+  border-radius: 6px;
+  backdrop-filter: blur(4px);
 }
 #backToTop {
   background: #14b8a6;
