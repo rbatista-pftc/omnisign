@@ -120,3 +120,50 @@ footer {
   padding: 20px;
   font-size: 0.9rem;
 }
+.top-bar {
+  background:#020617;
+  color:#fff;
+  font-size:0.9rem;
+}
+
+.top-bar a { color:#14b8a6; }
+
+.top-bar-inner {
+  display:flex;
+  justify-content:space-between;
+  padding:8px 0;
+}
+
+.main-header {
+  background:#fff;
+  border-bottom:1px solid #e5e7eb;
+}
+
+.nav-inner {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:15px 0;
+}
+
+nav a {
+  margin-left:20px;
+  font-weight:600;
+  text-decoration:none;
+  color:#0f172a;
+}
+
+.booking input,
+.booking select,
+.booking textarea {
+  width:100%;
+  padding:12px;
+  margin:10px 0;
+}
+
+.form-msg {
+  margin-top:15px;
+  color:#14b8a6;
+  font-weight:600;
+}
+
