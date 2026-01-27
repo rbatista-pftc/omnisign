@@ -1,0 +1,122 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', Arial, sans-serif;
+}
+
+body {
+  line-height: 1.6;
+  color: #1f2933;
+  background: #ffffff;
+}
+
+.container {
+  width: 90%;
+  max-width: 1100px;
+  margin: auto;
+}
+
+.hero {
+  background: #0f172a;
+  color: #ffffff;
+  padding: 90px 0;
+  text-align: center;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  letter-spacing: 1px;
+}
+
+.hero h2 {
+  font-size: 2rem;
+  margin: 20px 0;
+  font-weight: 500;
+}
+
+.hero p {
+  max-width: 700px;
+  margin: auto;
+  font-size: 1.1rem;
+  opacity: 0.9;
+}
+
+.cta-buttons {
+  margin-top: 30px;
+}
+
+.btn {
+  display: inline-block;
+  padding: 12px 26px;
+  border-radius: 6px;
+  text-decoration: none;
+  margin: 5px;
+  font-weight: 600;
+}
+
+.btn.primary {
+  background: #14b8a6;
+  color: #ffffff;
+}
+
+.btn.secondary {
+  border: 2px solid #14b8a6;
+  color: #14b8a6;
+}
+
+section {
+  padding: 70px 0;
+}
+
+h3 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.why .intro {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 15px;
+}
+
+.feature {
+  background: #f1f5f9;
+  padding: 18px;
+  border-radius: 6px;
+}
+
+.services ul {
+  max-width: 600px;
+  margin: auto;
+  list-style: none;
+}
+
+.services li {
+  padding: 10px 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.areas {
+  background: #f8fafc;
+  text-align: center;
+  font-size: 1.1rem;
+}
+
+.contact {
+  text-align: center;
+}
+
+footer {
+  background: #020617;
+  color: #cbd5f5;
+  text-align: center;
+  padding: 20px;
+  font-size: 0.9rem;
+}
