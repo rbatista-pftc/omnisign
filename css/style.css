@@ -326,6 +326,16 @@ nav a:hover::after {
   font-size: 2rem;
   margin-bottom: 8px;
 }
+.service-col ul {
+  margin-top: 14px;     /* space from title/description */
+  margin-bottom: 20px; /* space before button */
+  padding-left: 18px;
+}
+
+.service-col ul li {
+  margin-bottom: 6px;
+  line-height: 1.4;
+}
 
 .service-col h4 {
   margin-bottom: 6px;
@@ -347,21 +357,17 @@ nav a:hover::after {
   margin-bottom: 6px;
 }
 
-/* featured legal service */
-.featured {
-  border-top: 4px solid #14b8a6;
-}
-
 .featured-badge {
-  position: absolute;
-  top: 14px;
-  right: 14px;
+  display: inline-block;
+  margin: 6px 0 10px;
+  padding: 4px 10px;
   font-size: 0.7rem;
   font-weight: 700;
-  padding: 4px 8px;
-  border-radius: 999px;
-  background: rgba(20, 184, 166, 0.15);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
   color: #0f766e;
+  background: rgba(20, 184, 166, 0.15);
+  border-radius: 999px;
 }
 
 /* smaller buttons */
