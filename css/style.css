@@ -312,5 +312,16 @@ nav a:hover::after {
   width: auto;
   display: block;
 }
+@media (max-width: 768px) {
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .contact-info,
+  .contact-form {
+    text-align: left;
+  }
+}
 
 
