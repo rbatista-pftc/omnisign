@@ -294,4 +294,10 @@ nav a:hover::after {
 .hero::after {
   z-index: 1;
 }
+.logo img {
+  height: 46px;
+  width: auto;
+  display: block;
+  filter: brightness(0) invert(1); /* white logo */
+}
 
