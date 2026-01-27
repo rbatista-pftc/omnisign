@@ -254,11 +254,11 @@
     document.getElementById('contactMsg').textContent =
       "Thank you for your inquiry. Please allow 1–2 business days for a response.";
   });
-  const btn = document.getElementById("backToTop");
+  const wrapper = document.getElementById("backToTopWrapper");
   window.addEventListener("scroll", () => {
-    btn.style.display = window.scrollY > 400 ? "block" : "none";
+    wrapper.style.display = window.scrollY > 400 ? "block" : "none";
   });
-  btn.addEventListener("click", () => {
+  document.getElementById("backToTop").addEventListener("click", () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   });
 </script>
