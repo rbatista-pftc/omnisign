@@ -260,7 +260,7 @@ nav a {
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(0,0,0,0.58);
+  background: rgba(0,0,0,0.78);
 }
 .hero .container {
   position: relative;
