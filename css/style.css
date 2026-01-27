@@ -382,6 +382,16 @@ nav a:hover::after {
   border-radius: 999px;
   box-shadow: 0 6px 14px rgba(20, 184, 166, 0.35);
 }
+.featured-badge::after {
+  content: "";
+  position: absolute;
+  bottom: -6px;
+  left: 14px;
+  width: 10px;
+  height: 10px;
+  background: #14b8a6;
+  transform: rotate(45deg);
+}
 
 /* smaller buttons */
 .btn.small {
