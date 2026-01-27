@@ -113,6 +113,9 @@ footer {
   text-align: center;
   padding: 20px;
   font-size: 0.9rem;
+  border-top: 4px solid #6d28d9; /* soft purple accent */
+}
+
 }
 .top-bar {
   background:#020617;
@@ -257,7 +260,7 @@ nav a:hover::after {
   z-index: 9999;
 }
 .back-text {
-  display: inline-block;
+  display: block;
   margin-bottom: 6px;
   font-size: 0.8rem;
   font-weight: 600;
