@@ -202,18 +202,21 @@
     <!-- RIGHT: CONTACT FORM -->
     <div class="contact-form">
       <h3>Send Us a Message</h3>
-      <form id="contactForm">
-        <input type="text" placeholder="Name" required>
-        <input type="email" placeholder="Email" required>
-        <select required>
-          <option value="">Inquiry Type</option>
-          <option>General Question</option>
-          <option>Booking</option>
-          <option>Pricing</option>
+      <form id="contactForm" action="https://formspree.io/f/xlgbzznl" method="POST">
+        <input type="text" name="name" placeholder="Full Name" required>
+        <input type="email" name="email" placeholder="Email Address" required>
+        <select name="inquiry" required>
+           <option value="">Select Inquiry Type</option>
+           <option value="General Question">General Question</option>
+           <option value="Booking">Booking a Signing</option>
+           <option value="Pricing">Pricing</option>
+           <option value="Other">Other</option>
         </select>
-        <textarea placeholder="Your message…" required></textarea>
+        <textarea name="message" placeholder="How can we help you?" required></textarea>
+        <!-- Honeypot (spam protection) -->
+        <input type="text" name="_gotcha" style="display:none">
         <button type="submit" class="btn primary">Send Message</button>
-        <p id="contactMsg" class="form-msg"></p>
+        <p id="contactMsg" class="form-msg" role="status" aria-live="polite"></p>
       </form>
     </div>
   </div>
@@ -270,6 +273,37 @@
       header.classList.add('scrolled');
     } else {
       header.classList.remove('scrolled');
+    }
+  });
+  const contactForm = document.getElementById("contactForm");
+  const contactMsg = document.getElementById("contactMsg");
+  contactForm.addEventListener("submit", async function (e) {
+    e.preventDefault();
+    contactMsg.textContent = "Sending…";
+    contactMsg.style.color = "#0f172a";
+    const formData = new FormData(contactForm);
+    try {
+      const response = await fetch(contactForm.action, {
+        method: "POST",
+        body: formData,
+        headers: {
+          "Accept": "application/json"
+        }
+      });
+      if (response.ok) {
+        contactForm.reset();
+        contactMsg.textContent =
+          "Thank you for your inquiry. Please allow 1–2 business days for a response.";
+        contactMsg.style.color = "#14b8a6";
+      } else {
+        contactMsg.textContent =
+          "Oops — something went wrong. Please try again or contact us directly.";
+        contactMsg.style.color = "#b91c1c";
+      }
+    } catch (error) {
+      contactMsg.textContent =
+        "Network error. Please check your connection and try again.";
+      contactMsg.style.color = "#b91c1c";
     }
   });
 </script>
