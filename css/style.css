@@ -221,19 +221,32 @@ nav a {
   font-size:2rem;
   margin-bottom:10px;
 }
-#backToTop {
-  position:fixed;
-  bottom:30px;
-  right:30px;
-  background:#14b8a6;
-  color:#fff;
-  border:none;
-  padding:12px 15px;
-  border-radius:50%;
-  font-size:1.2rem;
-  cursor:pointer;
-  display:none;
+#backToTopWrapper {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  display: none;
+  text-align: center;
+  z-index: 9999;
 }
+.back-text {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #0f172a;
+}
+#backToTop {
+  background: #14b8a6;
+  color: #ffffff;
+  border: none;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  font-size: 1.4rem;
+  cursor: pointer;
+}
+
 .hero {
   position: relative;
   overflow: hidden;
