@@ -86,14 +86,90 @@
   </div>
 </section>
 
-<section class="contact" id="contact">
+    <section id="book" class="booking">
   <div class="container">
     <h3>Book a Signing</h3>
-    <p>Need a reliable signing handled with legal-level precision? Let’s get started.</p>
 
-    <a href="mailto:info@omnisign.com" class="btn primary">Email Us</a>
+    <form id="bookingForm">
+      <input type="text" name="name" placeholder="Client Name" required>
+      <input type="tel" name="phone" placeholder="Phone Number" required>
+      <input type="email" name="email" placeholder="Email Address" required>
+
+      <select id="serviceSelect" required>
+        <option value="">Select a Service</option>
+        <option value="notary" data-price="50">General Notary – $50</option>
+        <option value="loan" data-price="175">Loan Signing – $175</option>
+        <option value="estate" data-price="100">Estate / Probate – $100</option>
+        <option value="poa" data-price="75">Power of Attorney – $75</option>
+      </select>
+
+      <input type="text" id="priceField" placeholder="Price" readonly>
+
+      <select id="deliveryMethod" required>
+        <option value="">How will documents be provided?</option>
+        <option value="upload">Upload Instantly</option>
+        <option value="mail">Mail Documents</option>
+      </select>
+
+      <div id="uploadField" style="display:none;">
+        <input type="file" multiple>
+      </div>
+
+      <div id="mailField" style="display:none;">
+        <p>
+          Mail documents to:<br>
+          <strong>391 E. 149th Street, Suite 318<br>
+          Bronx, NY 10455</strong>
+        </p>
+      </div>
+
+      <div class="consent">
+        <label>
+          <input type="checkbox" required>
+          I acknowledge I have read and agree to the
+          <a href="#terms">Terms of Service</a> and
+          <a href="#refund">Refund Policy</a>.
+        </label>
+      </div>
+
+      <button type="submit" class="btn primary">
+        Proceed to Payment
+      </button>
+
+      <p id="bookingMsg" class="form-msg"></p>
+    </form>
   </div>
 </section>
+
+  <section id="contact" class="contact">
+  <div class="container">
+    <h3>Contact Us</h3>
+
+    <p>
+      📞 <a href="tel:+11234567890">(123) 456-7890</a><br>
+      📧 <a href="mailto:info@omnisign.com">info@omnisign.com</a>
+    </p>
+
+    <form id="contactForm">
+      <input type="text" placeholder="Name" required>
+      <input type="email" placeholder="Email" required>
+
+      <select required>
+        <option value="">Inquiry Type</option>
+        <option>General Question</option>
+        <option>Pricing</option>
+        <option>Scheduling</option>
+      </select>
+
+      <textarea placeholder="Your message…" required></textarea>
+
+      <button type="submit" class="btn primary">Send Message</button>
+
+      <p id="contactMsg" class="form-msg"></p>
+    </form>
+  </div>
+</section>
+
 
 <footer>
   <p>© <span id="year"></span> OmniSign. All rights reserved.</p>
@@ -101,6 +177,40 @@
 
 <script>
   document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+<script>
+  // Price auto-fill
+  const serviceSelect = document.getElementById('serviceSelect');
+  const priceField = document.getElementById('priceField');
+
+  serviceSelect.addEventListener('change', () => {
+    const price = serviceSelect.selectedOptions[0].dataset.price;
+    priceField.value = price ? `$${price}` : '';
+  });
+
+  // Delivery toggle
+  const delivery = document.getElementById('deliveryMethod');
+  const upload = document.getElementById('uploadField');
+  const mail = document.getElementById('mailField');
+
+  delivery.addEventListener('change', () => {
+    upload.style.display = delivery.value === 'upload' ? 'block' : 'none';
+    mail.style.display = delivery.value === 'mail' ? 'block' : 'none';
+  });
+
+  // Booking confirmation
+  document.getElementById('bookingForm').addEventListener('submit', e => {
+    e.preventDefault();
+    document.getElementById('bookingMsg').textContent =
+      "Thank you! We’ll contact you shortly to confirm your booking.";
+  });
+
+  // Contact confirmation
+  document.getElementById('contactForm').addEventListener('submit', e => {
+    e.preventDefault();
+    document.getElementById('contactMsg').textContent =
+      "Thank you for your inquiry. Please allow 1–2 business days for a response.";
+  });
 </script>
 
 </body>
