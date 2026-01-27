@@ -14,7 +14,6 @@ body {
   position: sticky;
   top: 0;
   z-index: 1000;
-  background: white;
   border-bottom: 1px solid #e5e7eb;
   transition: box-shadow 0.25s ease;
 }
@@ -113,7 +112,7 @@ footer {
   text-align: center;
   padding: 20px;
   font-size: 0.9rem;
-  border-top: 4px solid #6d28d9; /* soft purple accent */
+  border-top: 2px solid rgba(109, 40, 217, 0.4);
 }
 
 }
