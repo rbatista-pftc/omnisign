@@ -221,4 +221,17 @@ nav a {
   font-size:2rem;
   margin-bottom:10px;
 }
+#backToTop {
+  position:fixed;
+  bottom:30px;
+  right:30px;
+  background:#14b8a6;
+  color:#fff;
+  border:none;
+  padding:12px 15px;
+  border-radius:50%;
+  font-size:1.2rem;
+  cursor:pointer;
+  display:none;
+}
 
