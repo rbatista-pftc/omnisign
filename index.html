@@ -246,21 +246,6 @@
 
 <script>
   document.getElementById("year").textContent = new Date().getFullYear();
-  // Price auto-fill
-  const serviceSelect = document.getElementById('serviceSelect');
-  const priceField = document.getElementById('priceField');
-  serviceSelect.addEventListener('change', () => {
-    const price = serviceSelect.selectedOptions[0].dataset.price;
-    priceField.value = price ? `$${price}` : '';
-  });
-  // Delivery toggle
-  const delivery = document.getElementById('deliveryMethod');
-  const upload = document.getElementById('uploadField');
-  const mail = document.getElementById('mailField');
-  delivery.addEventListener('change', () => {
-    upload.style.display = delivery.value === 'upload' ? 'block' : 'none';
-    mail.style.display = delivery.value === 'mail' ? 'block' : 'none';
-  });
   // Booking confirmation
   document.getElementById('bookingForm').addEventListener('submit', e => {
     e.preventDefault();
