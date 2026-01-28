@@ -422,4 +422,24 @@ nav a:hover::after {
   margin-bottom: 6px;
 }
 
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 20px;
+}
 
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.req {
+  color: #dc2626;
+  margin-left: 2px;
+}
