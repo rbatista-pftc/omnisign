@@ -292,18 +292,6 @@ document.addEventListener("DOMContentLoaded", () => {
     serviceSelect.dispatchEvent(new Event("change"));
   }
   /* =========================
-     BOOKING FORM DELIVERY METHOD TOGGLE
-  ========================== */
-  const deliverySelect = document.getElementById("deliveryMethod");
-  const uploadField = document.getElementById("uploadField");
-  const mailField = document.getElementById("mailField");
-  if (deliverySelect && uploadField && mailField) {
-    deliverySelect.addEventListener("change", () => {
-      uploadField.style.display = deliverySelect.value === "upload" ? "block" : "none";
-      mailField.style.display = deliverySelect.value === "mail" ? "block" : "none";
-    });
-  }
-  /* =========================
      BOOKING FORM MESSAGE
   ========================== */
   const bookingForm = document.getElementById("bookingForm");
