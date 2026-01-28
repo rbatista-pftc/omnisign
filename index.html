@@ -137,7 +137,7 @@
 <section id="book" class="booking">
   <div class="container">
     <h3>Book a Signing</h3>
-
+    
     <form id="bookingForm">
       <input type="text" name="name" placeholder="Client Name" required>
       <input type="tel" name="phone" placeholder="Phone Number" required>
@@ -273,6 +273,7 @@
     document.getElementById('contactMsg').textContent =
       "Thank you for your inquiry. Please allow 1–2 business days for a response.";
   });
+  // Back to Top Buton
   const wrapper = document.getElementById("backToTopWrapper");
   window.addEventListener("scroll", () => {
     wrapper.style.display = window.scrollY > 400 ? "block" : "none";
@@ -280,7 +281,8 @@
   document.getElementById("backToTop").addEventListener("click", () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   });
-   const header = document.querySelector('.main-header');
+  // Stickey header
+  const header = document.querySelector('.main-header');
   window.addEventListener('scroll', () => {
     if (window.scrollY > 50) {
       header.classList.add('scrolled');
@@ -288,6 +290,7 @@
       header.classList.remove('scrolled');
     }
   });
+  // Send contact form
   const contactForm = document.getElementById("contactForm");
   const contactMsg = document.getElementById("contactMsg");
   contactForm.addEventListener("submit", async function (e) {
@@ -319,6 +322,7 @@
       contactMsg.style.color = "#b91c1c";
     }
   });
+  // Preselect service in booking form
   const params = new URLSearchParams(window.location.search);
   const selectedService = params.get("service");
   if (selectedService) {
@@ -327,6 +331,35 @@
       serviceSelect.value = selectedService;
       serviceSelect.dispatchEvent(new Event("change"));
     }
+  }
+  const servicePrices = {
+    legal: "$150",
+    estate: "$100",
+    general: "$50"
+  };
+  const serviceSelect = document.getElementById("serviceSelect");
+  const priceField = document.getElementById("priceField");
+  if (serviceSelect && priceField) {
+    serviceSelect.addEventListener("change", () => {
+      const selected = serviceSelect.value;
+      priceField.value = servicePrices[selected] || "";
+    });
+  }
+  // Booking form mail or upload
+  const deliverySelect = document.getElementById("deliveryMethod");
+  const uploadSection = document.getElementById("uploadSection");
+  const mailSection = document.getElementById("mailSection");
+  if (deliverySelect) {
+    deliverySelect.addEventListener("change", () => {
+      uploadSection.style.display = "none";
+      mailSection.style.display = "none";
+      if (deliverySelect.value === "upload") {
+        uploadSection.style.display = "block";
+      }
+      if (deliverySelect.value === "mail") {
+        mailSection.style.display = "block";
+      }
+    });
   }
 </script>
 
