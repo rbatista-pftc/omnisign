@@ -328,8 +328,12 @@ nav a:hover::after {
   border-radius: 14px;
   box-shadow: 0 10px 22px rgba(0,0,0,0.06);
   position: relative;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
-
+.service-col:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 40px rgba(0,0,0,0.12);
+}
 .service-icon {
   font-size: 2rem;
   margin-bottom: 8px;
