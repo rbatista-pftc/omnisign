@@ -180,11 +180,13 @@
           <label for="neededBy">Needed By<span class="req">*</span></label>
           <input type="date" id="neededBy" name="needed_by" required>
         </div>
-        <div class="form-group">
-    <label for="uploadField">Upload documents (recommended)<span class="req">*</span></label>
-   <input type="file" name="documents" multiple>
-  </div>
-</div>
+       <div class="form-group upload-group">
+         <label for="documents">Upload documents <span class="req">*</span></label>
+         <input type="file" id="documents" name="documents" multiple hidden>
+         <label for="documents" class="upload-btn"><span class="upload-icon">⬆️</span>Upload files</label>
+         <span class="file-name" id="fileName">No files selected</span>
+       </div>
+      </div>
 
       <div class="consent">
         <label>
