@@ -146,9 +146,18 @@
 </div>
     
     <form id="bookingForm">
-      <input type="text" name="name" placeholder="Client Name" required>
-      <input type="tel" name="phone" placeholder="Phone Number" required>
-      <input type="email" name="email" placeholder="Email Address" required>
+      <div class="form-group">
+        <label for="name">Full Name<span class="req">*</span></label>
+        <input type="text" id="name" name="name" required>
+      </div>
+      <div class="form-group">
+        <label for="phone">Phone Number<span class="req">*</span></label>
+        <input type="tel" id="phone" name="phone" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Email Address<span class="req">*</span></label>
+        <input type="email" id="email" name="email" required>
+        </div>
 
       <div class="form-row">
         <div class="form-group">
