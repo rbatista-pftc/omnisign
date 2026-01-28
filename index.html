@@ -278,7 +278,18 @@
   <span class="back-text">Back to top</span>
   <button id="backToTop">↑</button>
 </div>
-  
+
+ <!-- LEGAL MODAL -->
+<div id="legalModal" class="modal-overlay" aria-hidden="true">
+  <div class="modal-box" role="dialog" aria-modal="true">
+    <button class="modal-close" aria-label="Close">&times;</button>
+    <h4 id="modalTitle"></h4>
+    <div class="modal-content" id="modalContent">
+      <!-- Content injected by JS -->
+    </div>
+  </div>
+</div>
+ 
 <script>
 document.addEventListener("DOMContentLoaded", () => {
   /* =========================
@@ -349,6 +360,31 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
+ const legalContent = {
+  terms: {
+    title: "Terms of Service",
+    body: `
+      <p>OmniSign provides mobile signing coordination services overseen by legal professionals.
+      We do not provide legal advice.</p>
+      <p>All booking requests are subject to review, availability, and acceptance.
+      Bookings are not confirmed until payment is received.</p>
+      <p>Clients are responsible for ensuring that all documents provided are accurate,
+      complete, and ready for execution.</p>
+      <p>OmniSign reserves the right to decline or cancel any request that cannot be completed
+      safely, legally, or professionally.</p>
+    `
+  },
+  refund: {
+    title: "Refund Policy",
+    body: `
+      <p>Due to the nature of mobile signing services, refunds are not guaranteed.</p>
+      <p>If a cancellation occurs after a notary has been dispatched, travel or service fees
+      may apply.</p>
+      <p>Refund requests are reviewed on a case-by-case basis and depend on timing,
+      document readiness, and service completion status.</p>
+    `
+  }
+};
 
 });
 </script>
