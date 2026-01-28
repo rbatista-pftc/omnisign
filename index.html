@@ -91,7 +91,7 @@
           <li>Orders to Show Cause</li>
           <li>Judgments & Legal Pleadings</li>
         </ul>
-        <a href="#book" class="btn small primary">Book this service</a>
+        <a href="#book?service=legal" class="btn small primary">Book this service</a>
       </div>
       <!-- ESTATE & PROBATE -->
       <div class="service-col">
@@ -106,12 +106,12 @@
           <li>Trust & Estate Forms</li>
           <li>Executor Authorizations</li>
         </ul>
-        <a href="#book" class="btn small secondary">Book this service</a>
+        <a href="#book?service=estate" class="btn small secondary">Book this service</a>
       </div>
-      <!-- GENERAL NOTARY -->
+      <!-- GENERAL SIGNINGS -->
       <div class="service-col">
         <div class="service-icon">✍️</div>
-        <h4>General Notary</h4>
+        <h4>General Signings</h4>
         <p class="service-desc">
           Personal and administrative documents requiring verification.
         </p>
@@ -121,12 +121,11 @@
           <li>HIPAA Forms</li>
           <li>Travel & School Forms</li>
         </ul>
-        <a href="#book" class="btn small secondary">Book this service</a>
+        <a href="#book?service=general" class="btn small secondary">Book this service</a>
       </div>
     </div>
   </div>
 </section>
-
 
 <section class="areas">
   <div class="container">
@@ -144,12 +143,11 @@
       <input type="tel" name="phone" placeholder="Phone Number" required>
       <input type="email" name="email" placeholder="Email Address" required>
 
-      <select id="serviceSelect" required>
+      <select id="serviceSelect" name="service" required>
         <option value="">Select a Service</option>
-        <option value="notary" data-price="50">General Notary – $50</option>
-        <option value="loan" data-price="175">Loan Signing – $175</option>
-        <option value="estate" data-price="100">Estate / Probate – $100</option>
-        <option value="poa" data-price="75">Power of Attorney – $75</option>
+        <option value="legal">Legal Document Signings</option>
+        <option value="estate">Estate & Probate</option>
+        <option value="general">General Signings</option>
       </select>
 
       <input type="text" id="priceField" placeholder="Price" readonly>
@@ -321,6 +319,15 @@
       contactMsg.style.color = "#b91c1c";
     }
   });
+  const params = new URLSearchParams(window.location.search);
+  const selectedService = params.get("service");
+  if (selectedService) {
+    const serviceSelect = document.getElementById("serviceSelect");
+    if (serviceSelect) {
+      serviceSelect.value = selectedService;
+      serviceSelect.dispatchEvent(new Event("change"));
+    }
+  }
 </script>
 
 </body>
