@@ -584,23 +584,36 @@ nav a:hover::after {
   line-height: 1.4;
 }
 .notary-trust-block {
-  margin-top: 40px;
-  padding: 28px;
-  background: rgba(109, 40, 217, 0.05); /* soft purple */
-  border-radius: 12px;
+  margin-top: 28px;
+  padding-left: 18px;
+  border-left: 3px solid rgba(109, 40, 217, 0.4);
+  font-size: 0.85rem;
+  font-style: italic;
+  color: #475569;
 }
 
 .notary-trust-block h4 {
-  margin-bottom: 14px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #6d28d9;
 }
 
 .notary-trust-block p {
-  margin-bottom: 12px;
-  line-height: 1.6;
+  margin-bottom: 8px;
+  line-height: 1.5;
+}
+
+.notary-trust-block strong {
+  font-weight: 600;
 }
 
 .trust-emphasis {
+  margin-top: 6px;
   font-weight: 600;
+  font-style: italic;
   color: #1e293b;
 }
 
