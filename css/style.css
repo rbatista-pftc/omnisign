@@ -444,12 +444,12 @@ nav a:hover::after {
   margin-left: 2px;
 }
 .booking-timeline {
-  margin-top: 45px;
+  margin-top: 25px;
   text-align: center;
 }
 
 .booking-timeline h4 {
-  margin-bottom: 25px;
+  margin-bottom: 19px;
 }
 
 .timeline {
