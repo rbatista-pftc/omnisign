@@ -614,5 +614,39 @@ nav a:hover::after {
   font-style: italic;
   color: #1e293b;
 }
+.footer-trust {
+  padding: 2rem 1rem 1.5rem;
+  border-top: 1px solid #e5e7eb;
+  margin-top: 3rem;
+}
+
+.trust-items {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2.5rem;
+  flex-wrap: wrap;
+}
+
+.trust-items img {
+  height: 48px;
+  width: auto;
+  opacity: 0.85;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.trust-items img:hover {
+  opacity: 1;
+  transform: translateY(-2px);
+}
+
+.ssl-badge {
+  font-size: 0.9rem;
+  color: #334155;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  opacity: 0.9;
+}
 
 
