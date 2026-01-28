@@ -245,6 +245,7 @@
 </div>
 
 <script>
+  document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("year").textContent = new Date().getFullYear();
   // Booking confirmation
   document.getElementById('bookingForm').addEventListener('submit', e => {
@@ -318,16 +319,25 @@
     }
   }
   // Autopopulate service price in form
-  const servicePrices = {
+   const servicePrices = {
     legal: "$150",
     estate: "$100",
     general: "$50"
   };
   const serviceSelect = document.getElementById("serviceSelect");
   const priceField = document.getElementById("priceField");
-  serviceSelect.addEventListener("change", () => {
-    priceField.value = servicePrices[serviceSelect.value] || "";
-  });
+  if (serviceSelect && priceField) {
+    serviceSelect.addEventListener("change", () => {
+      priceField.value = servicePrices[serviceSelect.value] || "";
+    });
+  }
+  // PRESELECT SERVICE FROM URL
+  const params = new URLSearchParams(window.location.search);
+  const selectedService = params.get("service");
+  if (selectedService && serviceSelect) {
+    serviceSelect.value = selectedService;
+    serviceSelect.dispatchEvent(new Event("change"));
+  }
   // Booking form mail or upload
   const deliverySelect = document.getElementById("deliveryMethod");
   const uploadSection = document.getElementById("uploadSection");
@@ -344,6 +354,7 @@
       }
     });
   }
+);
 </script>
 
 </body>
