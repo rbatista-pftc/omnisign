@@ -410,5 +410,17 @@ nav a:hover::after {
     flex-direction: column;
   }
 }
+.booking-intro {
+  background: rgba(15, 23, 42, 0.05);
+  padding: 16px 18px;
+  border-left: 4px solid #6d28d9; /* subtle purple tie-in */
+  border-radius: 8px;
+  margin-bottom: 25px;
+}
+
+.booking-intro strong {
+  display: block;
+  margin-bottom: 6px;
+}
 
 
