@@ -91,7 +91,7 @@
           <li>Orders to Show Cause</li>
           <li>Judgments & Legal Pleadings</li>
         </ul>
-        <a href="#book?service=legal" class="btn small primary">Book this service</a>
+        <a href="?service=legal#book" class="btn small primary">Book this service</a>
       </div>
       <!-- ESTATE & PROBATE -->
       <div class="service-col">
@@ -106,7 +106,7 @@
           <li>Trust & Estate Forms</li>
           <li>Executor Authorizations</li>
         </ul>
-        <a href="#book?service=estate" class="btn small secondary">Book this service</a>
+        <a href="?service=estate#book" class="btn small secondary">Book this service</a>
       </div>
       <!-- GENERAL SIGNINGS -->
       <div class="service-col">
@@ -121,7 +121,7 @@
           <li>HIPAA Forms</li>
           <li>Travel & School Forms</li>
         </ul>
-        <a href="#book?service=general" class="btn small secondary">Book this service</a>
+        <a href="?service=general#book" class="btn small secondary">Book this service</a>
       </div>
     </div>
   </div>
@@ -332,6 +332,7 @@
       serviceSelect.dispatchEvent(new Event("change"));
     }
   }
+  // Autopopulate service price in form
   const servicePrices = {
     legal: "$150",
     estate: "$100",
@@ -339,12 +340,9 @@
   };
   const serviceSelect = document.getElementById("serviceSelect");
   const priceField = document.getElementById("priceField");
-  if (serviceSelect && priceField) {
-    serviceSelect.addEventListener("change", () => {
-      const selected = serviceSelect.value;
-      priceField.value = servicePrices[selected] || "";
-    });
-  }
+  serviceSelect.addEventListener("change", () => {
+    priceField.value = servicePrices[serviceSelect.value] || "";
+  });
   // Booking form mail or upload
   const deliverySelect = document.getElementById("deliveryMethod");
   const uploadSection = document.getElementById("uploadSection");
