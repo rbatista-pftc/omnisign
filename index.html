@@ -141,7 +141,7 @@
   <strong>We don’t guess. We review.</strong>
   <p>
     Every signing is evaluated by legal professionals to ensure accuracy,
-    safety, and proper execution. Pricing is provided during booking.
+    safety, and proper execution. Pricing is provided after review.
   </p>
 </div>
     
@@ -150,34 +150,32 @@
       <input type="tel" name="phone" placeholder="Phone Number" required>
       <input type="email" name="email" placeholder="Email Address" required>
 
-      <select id="serviceSelect" name="service" required>
-        <option value="">Select a Service</option>
-        <option value="legal">Legal Document Signings</option>
-        <option value="estate">Estate & Probate</option>
-        <option value="general">General Signings</option>
-      </select>
-
-      <input type="number" name="page_count" min="1" placeholder="Approximate number of pages" required>
-      <label for="neededBy">When do you need this completed by?</label>
-      <input type="date" id="neededBy" name="needed_by" required>
-
-      <select id="deliveryMethod" required>
-        <option value="">How will documents be provided?</option>
-        <option value="upload">Upload Instantly</option>
-        <option value="mail">Mail Documents</option>
-      </select>
-
-      <div id="uploadField" style="display:none;">
-        <input type="file" multiple>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="serviceSelect">Service<span class="req">*</span></label>
+          <select id="serviceSelect" name="service" required>
+            <option value="">Select a Service</option>
+            <option value="legal">Legal Document Signings</option>
+            <option value="estate">Estate & Probate</option>
+            <option value="general">General Signings</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="pageCount">Approx. Number of Pages<span class="req">*</span></label>
+          <input type="number" id="pageCount" name="page_count" min="1" required>
+        </div>
       </div>
 
-      <div id="mailField" style="display:none;">
-        <p>
-          Mail documents to:<br>
-          <strong>391 E. 149th Street, Suite 318<br>
-          Bronx, NY 10455</strong>
-        </p>
-      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="neededBy">Needed By<span class="req">*</span></label>
+          <input type="date" id="neededBy" name="needed_by" required>
+        </div>
+        <div class="form-group">
+    <label for="uploadField">Upload documents (recommended)<span class="req">*</span></label>
+   <input type="file" name="documents" multiple>
+  </div>
+</div>
 
       <div class="consent">
         <label>
@@ -191,7 +189,7 @@
       <button type="submit" class="btn primary">
         Book
       </button>
-
+      <p class="booking-note"><strong>Bookings are not confirmed until reviewed and payment is received.</strong></p>
       <p id="bookingMsg" class="form-msg"></p>
     </form>
   </div>
