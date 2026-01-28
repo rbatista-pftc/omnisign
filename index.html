@@ -157,8 +157,6 @@
         <option value="general">General Signings</option>
       </select>
 
-      <input type="text" id="priceField" placeholder="Price" readonly>
-
       <select id="deliveryMethod" required>
         <option value="">How will documents be provided?</option>
         <option value="upload">Upload Instantly</option>
@@ -271,21 +269,6 @@ document.addEventListener("DOMContentLoaded", () => {
   if (backToTopBtn) {
     backToTopBtn.addEventListener("click", () => {
       window.scrollTo({ top: 0, behavior: "smooth" });
-    });
-  }
-  /* =========================
-     SERVICE → PRICE LOGIC
-  ========================== */
-  const servicePrices = {
-    legal: "$150",
-    estate: "$100",
-    general: "$50"
-  };
-  const serviceSelect = document.getElementById("serviceSelect");
-  const priceField = document.getElementById("priceField");
-  if (serviceSelect && priceField) {
-    serviceSelect.addEventListener("change", () => {
-      priceField.value = servicePrices[serviceSelect.value] || "";
     });
   }
   /* =========================
