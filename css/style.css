@@ -577,4 +577,10 @@ nav a:hover::after {
   font-size: 0.85rem;
   color: #64748b;
 }
+.upload-disclaimer {
+  margin-top: 6px;
+  font-size: 0.8rem;
+  color: #64748b;
+  line-height: 1.4;
+}
 
