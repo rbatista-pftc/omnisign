@@ -583,4 +583,24 @@ nav a:hover::after {
   color: #64748b;
   line-height: 1.4;
 }
+.notary-trust-block {
+  margin-top: 40px;
+  padding: 28px;
+  background: rgba(109, 40, 217, 0.05); /* soft purple */
+  border-radius: 12px;
+}
+
+.notary-trust-block h4 {
+  margin-bottom: 14px;
+}
+
+.notary-trust-block p {
+  margin-bottom: 12px;
+  line-height: 1.6;
+}
+
+.trust-emphasis {
+  font-weight: 600;
+  color: #1e293b;
+}
 
