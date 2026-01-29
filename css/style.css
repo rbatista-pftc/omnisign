@@ -629,7 +629,7 @@ nav a:hover::after {
 }
 
 .trust-items img {
-  height: 48px;
+  height: 68px;
   width: auto;
   opacity: 0.85;
   transition: opacity 0.2s ease, transform 0.2s ease;
@@ -642,7 +642,7 @@ nav a:hover::after {
 
 .ssl-badge {
   font-size: 0.9rem;
-  color: #334155;
+  color: white;
   display: flex;
   align-items: center;
   gap: 0.4rem;
