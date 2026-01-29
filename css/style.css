@@ -683,5 +683,11 @@ nav a:hover::after {
   text-decoration: none;
 }
 
+/* FIX: prevent checkbox from inheriting form input styles */
+.booking input[type="checkbox"]{
+  width: auto !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
 
 
