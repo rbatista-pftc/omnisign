@@ -645,34 +645,36 @@ nav a:hover::after {
   gap: 0.4rem;
   opacity: 0.9;
 }
-.consent {
+/* FORCE consent to behave as a normal full-width row */
+.booking .consent {
   width: 100%;
   margin: 20px 0 10px;
+  text-align: left !important;
 }
 
-.consent label {
+/* Force label to behave correctly */
+.booking .consent label {
   display: flex;
-  align-items: flex-start; /* key fix */
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 100%;
+  max-width: 100%;
   gap: 10px;
   font-size: 0.9rem;
   line-height: 1.45;
   color: #334155;
 }
 
-.consent input[type="checkbox"] {
-  margin-top: 3px; /* aligns checkbox with first text line */
-  accent-color: #14b8a6;
+/* Lock checkbox position */
+.booking .consent input[type="checkbox"] {
+  margin-top: 3px;
   flex-shrink: 0;
 }
 
-.consent a {
-  color: #6366f1;
-  font-weight: 500;
-  text-decoration: underline;
+/* Prevent text from floating or spacing out */
+.booking .consent label * {
+  white-space: normal;
 }
 
-.consent a:hover {
-  text-decoration: none;
-}
 
 
