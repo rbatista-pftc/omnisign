@@ -645,35 +645,42 @@ nav a:hover::after {
   gap: 0.4rem;
   opacity: 0.9;
 }
-/* FORCE consent to behave as a normal full-width row */
-.booking .consent {
+.booking .consent{
   width: 100%;
-  margin: 20px 0 10px;
+  margin-top: 18px;
+}
+
+.booking .consent label{
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  width: 100%;
+  justify-content: flex-start !important;
   text-align: left !important;
 }
 
-/* Force label to behave correctly */
-.booking .consent label {
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-  width: 100%;
-  max-width: 100%;
-  gap: 10px;
+.booking .consent input[type="checkbox"]{
+  margin-top: 3px;
+  flex: 0 0 auto;
+  accent-color: #14b8a6;
+}
+
+.booking .consent .consent-text{
+  flex: 1 1 auto;
+  min-width: 0;          /* important for flex wrapping */
   font-size: 0.9rem;
   line-height: 1.45;
   color: #334155;
 }
 
-/* Lock checkbox position */
-.booking .consent input[type="checkbox"] {
-  margin-top: 3px;
-  flex-shrink: 0;
+.booking .consent .consent-text a{
+  color: #6366f1;
+  font-weight: 600;
+  text-decoration: underline;
 }
 
-/* Prevent text from floating or spacing out */
-.booking .consent label * {
-  white-space: normal;
+.booking .consent .consent-text a:hover{
+  text-decoration: none;
 }
 
 
