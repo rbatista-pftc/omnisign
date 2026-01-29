@@ -647,26 +647,26 @@ nav a:hover::after {
 }
 .consent {
   width: 100%;
-  margin-top: 1.25rem;
+  margin: 20px 0 10px;
 }
 
 .consent label {
   display: flex;
-  align-items: flex-start;
-  gap: 0.6rem;
+  align-items: flex-start; /* key fix */
+  gap: 10px;
   font-size: 0.9rem;
+  line-height: 1.45;
   color: #334155;
-  line-height: 1.4;
-  cursor: pointer;
 }
 
 .consent input[type="checkbox"] {
-  margin-top: 0.25rem;
-  accent-color: #14b8a6; /* OmniSign teal */
+  margin-top: 3px; /* aligns checkbox with first text line */
+  accent-color: #14b8a6;
+  flex-shrink: 0;
 }
 
 .consent a {
-  color: #6366f1; /* OmniSign purple */
+  color: #6366f1;
   font-weight: 500;
   text-decoration: underline;
 }
