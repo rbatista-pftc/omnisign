@@ -1,4 +1,4 @@
-* {
+   * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -645,5 +645,5 @@ nav a:hover::after {
   gap: 0.4rem;
   opacity: 0.9;
 }
-
+.consent{display:flex}
 
