@@ -629,7 +629,7 @@ nav a:hover::after {
 }
 
 .trust-items img {
-  height: 68px;
+  height: 150px;
   width: auto;
   opacity: 0.85;
   transition: opacity 0.2s ease, transform 0.2s ease;
