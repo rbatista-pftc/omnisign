@@ -631,12 +631,10 @@ nav a:hover::after {
 .trust-items img {
   height: 150px;
   width: auto;
-  opacity: 0.85;
   transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
 .trust-items img:hover {
-  opacity: 1;
   transform: translateY(-2px);
 }
 
