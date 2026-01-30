@@ -150,6 +150,79 @@
   </div>
 </section>
 
+  <section class="faq">
+  <div class="container">
+    <h3>Frequently Asked Questions</h3>
+    <p class="faq-intro">
+      Common questions we receive before a booking.
+    </p>
+
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-question">
+          <span>Do all documents require notarization?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>
+            No. Some documents only require a professional witness or identity
+            verification. Each request & document is reviewed to determine what is required.
+          </p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">
+          <span>How is pricing determined?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>
+            Pricing depends on document type, page count, urgency, and location.
+            Pricing is provided after review and before payment is collected.
+          </p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">
+          <span>Is payment required upfront?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>
+            Payment is required only after your request has been reviewed and
+            confirmed. Bookings are not finalized until payment is received.
+          </p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">
+          <span>Can I book without uploading documents?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>
+            Yes. Uploading documents is strongly recommended for a faster response, but not required. Secure
+            delivery instructions can be provided after submission if needed.
+          </p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">
+          <span>Do you notarize handwritten documents?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>
+            Handwritten documents may be notarized if they meet legal
+            requirements and are complete at the time of signing.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 <section id="book" class="booking">
   <div class="container">
     <h3>Book a Signing</h3>
@@ -405,6 +478,9 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
+  /* ======================
+  TERMS AND PRIVACY
+  ======================== */
  const legalContent = {
   terms: {
     title: "Terms of Service",
@@ -434,25 +510,20 @@ const modal = document.getElementById("legalModal");
 const modalTitle = document.getElementById("modalTitle");
 const modalContent = document.getElementById("modalContent");
 const closeBtn = document.querySelector(".modal-close");
-
 function openLegalModal(type) {
   modalTitle.textContent = legalContent[type].title;
   modalContent.innerHTML = legalContent[type].body;
   modal.classList.add("active");
   document.body.style.overflow = "hidden";
 }
-
 function closeLegalModal() {
   modal.classList.remove("active");
   document.body.style.overflow = "";
 }
-
 closeBtn.addEventListener("click", closeLegalModal);
-
 modal.addEventListener("click", (e) => {
   if (e.target === modal) closeLegalModal();
 });
-
 document.addEventListener("keydown", (e) => {
   if (e.key === "Escape") closeLegalModal();
 });
@@ -469,9 +540,31 @@ if (fileInput && fileNameDisplay) {
     }
   });
 }
-
+ /* ======================
+ DISABLE BOOKING BUTTON 
+ ======================= */
+const consentCheckbox = document.querySelector(".consent input");
+const submitBtn = document.querySelector("#bookingForm button");
+submitBtn.disabled = true;
+consentCheckbox.addEventListener("change", () => {
+  submitBtn.disabled = !consentCheckbox.checked;
 });
-</script>
-
+/* ========================
+FAQ'S ACCORDION
+========================= */
+  document.querySelectorAll(".faq-question").forEach(button => {
+    button.addEventListener("click", () => {
+      const item = button.parentElement;
+      const isOpen = item.classList.contains("active");
+      document.querySelectorAll(".faq-item").forEach(i => {
+        i.classList.remove("active");
+      });
+      if (!isOpen) {
+        item.classList.add("active");
+      }
+    });
+  });
+  
+});
 </body>
 </html>
