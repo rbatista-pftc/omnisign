@@ -329,7 +329,7 @@
   </p>
 </div>
     
-    <form id="bookingForm">
+    <form id="bookingForm" action="https://formspree.io/f/xzdroogj" method="POST">
       <div class="form-group">
         <label for="name">Full Name<span class="req">*</span></label>
         <input type="text" id="name" name="name" required>
@@ -540,18 +540,50 @@ document.addEventListener("DOMContentLoaded", () => {
     serviceSelect.value = preselectedService;
     serviceSelect.dispatchEvent(new Event("change"));
   }
-  /* =========================
-     BOOKING FORM MESSAGE
-  ========================== */
-  const bookingForm = document.getElementById("bookingForm");
-  const bookingMsg = document.getElementById("bookingMsg");
-  if (bookingForm && bookingMsg) {
-    bookingForm.addEventListener("submit", (e) => {
-      e.preventDefault();
+  /* ==========================
+     BOOKING FORM (AJAX)
+  =========================== */
+const bookingForm = document.getElementById("bookingForm");
+const bookingMsg = document.getElementById("bookingMsg");
+const submitBtn = bookingForm.querySelector("button");
+const consentCheckbox = document.querySelector(".consent input");
+const rushNotice = document.getElementById("rushNotice");
+const neededByInput = document.getElementById("neededBy");
+const fileName = document.getElementById("fileName");
+const urgencyField = document.getElementById("urgencyLevel"); 
+bookingForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  bookingMsg.textContent = "Submitting…";
+  bookingMsg.style.color = "#64748b";
+  const formData = new FormData(bookingForm);
+  try {
+    const response = await fetch(bookingForm.action, {
+      method: "POST",
+      body: formData,
+      headers: { Accept: "application/json" }
+    });
+    if (response.ok) {
       bookingMsg.textContent =
         "Thank you! We’ll contact you shortly to confirm your booking.";
-    });
+      bookingMsg.style.color = "#14b8a6";
+      bookingForm.reset();
+      // 🔁 Reset UI state
+      submitBtn.disabled = true;
+      rushNotice.hidden = true;
+      neededByInput.classList.remove("rush", "priority-rush");
+      fileName.textContent = "No files selected";
+      if (urgencyField) urgencyField.value = "";
+    } else {
+      bookingMsg.textContent =
+        "Something went wrong. Please try again or contact us directly.";
+      bookingMsg.style.color = "#b91c1c";
+    }
+  } catch (err) {
+    bookingMsg.textContent =
+      "Network error. Please check your connection and try again.";
+    bookingMsg.style.color = "#b91c1c";
   }
+});
   /* =========================
      CONTACT FORM (AJAX)
   ========================== */
