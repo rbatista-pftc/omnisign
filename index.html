@@ -269,6 +269,9 @@
           <label for="neededBy">Needed By<span class="req">*</span></label>
           <input type="date" id="neededBy" name="needed_by" required>
         </div>
+        <p id="rushNotice" class="rush-notice" hidden>
+          ⚠️ <strong>Rush signing:</strong>Requests needed within 24 hours are treated as rush & reviewed for availability before confirmation.
+        </p>
        <div class="form-group upload-group">
          <label for="documents">Upload documents (recommended)</label>
          <input type="file" id="documents" name="documents" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" multiple hidden>
@@ -479,7 +482,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
   /* ======================
-  TERMS AND REFUNDS
+    TERMS AND REFUNDS
   ======================== */
  const legalContent = {
   terms: {
@@ -528,9 +531,9 @@ document.addEventListener("keydown", (e) => {
   if (e.key === "Escape") closeLegalModal();
 });
 window.openLegalModal = openLegalModal;
-  /* ======================
-  FILE UPLOAD NAME
-  ====================== */
+/* ======================
+    FILE UPLOAD NAME
+====================== */
 const fileInput = document.getElementById("documents");
 const fileNameDisplay = document.getElementById("fileName");
 if (fileInput && fileNameDisplay) {
@@ -544,9 +547,9 @@ if (fileInput && fileNameDisplay) {
     }
   });
 }
- /* ======================
- DISABLE BOOKING BUTTON 
- ======================= */
+ /* ========================
+    DISABLE BOOKING BUTTON 
+ ========================= */
 const consentCheckbox = document.querySelector(".consent input");
 const submitBtn = document.querySelector("#bookingForm button");
 submitBtn.disabled = true;
@@ -554,7 +557,7 @@ consentCheckbox.addEventListener("change", () => {
   submitBtn.disabled = !consentCheckbox.checked;
 });
 /* ========================
-FAQ'S ACCORDION
+   FAQ'S ACCORDION
 ========================= */
   document.querySelectorAll(".faq-question").forEach(button => {
     button.addEventListener("click", () => {
@@ -567,7 +570,27 @@ FAQ'S ACCORDION
         item.classList.add("active");
       }
     });
-  });  
+  }); 
+ /* ========================
+    RUSH NOTICE
+ ========================= */
+const neededByInput = document.getElementById("neededBy");
+const rushNotice = document.getElementById("rushNotice");
+if (neededByInput && rushNotice) {
+  neededByInput.addEventListener("change", () => {
+    const selectedDate = new Date(neededByInput.value);
+    const now = new Date();
+    // Clear time for accurate comparison
+    selectedDate.setHours(23, 59, 59, 999);
+    const diffMs = selectedDate - now;
+    const diffHours = diffMs / (1000 * 60 * 60);
+    if (diffHours > 0 && diffHours <= 24) {
+      rushNotice.hidden = false;
+    } else {
+      rushNotice.hidden = true;
+    }
+  });
+}
 });
 </script>
   
