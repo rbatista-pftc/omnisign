@@ -797,30 +797,34 @@ nav a:hover::after {
   }
 }
 .rush-notice {
-  margin-top: 6px;
-  font-size: 0.6rem;
-  color: #7c2d12;
-  background: rgba(245, 158, 11, 0.12);
-  padding: 8px 10px;
-  border-radius: 6px;
-  line-height: 1.4;
-}
-/* Rush state for date input */
-.booking input.is-rush {
-  border: 2px solid #facc15; /* soft yellow */
-  background: rgba(250, 204, 21, 0.06);
-  box-shadow: 0 0 0 3px rgba(250, 204, 21, 0.18);
-}
-
-/* Rush notice styling */
-.rush-notice {
   margin-top: 8px;
   font-size: 0.85rem;
   line-height: 1.4;
-  color: #92400e;
-  background: rgba(250, 204, 21, 0.15);
   padding: 8px 10px;
   border-radius: 6px;
 }
+
+.rush-notice.standard {
+  background: rgba(234, 179, 8, 0.12);
+  border-left: 4px solid #eab308;
+  color: #92400e;
+}
+
+.rush-notice.priority {
+  background: rgba(245, 158, 11, 0.15);
+  border-left: 4px solid #f59e0b;
+  color: #78350f;
+  font-weight: 600;
+}
+
+/* Highlight date input */
+input.rush {
+  border: 2px solid #eab308;
+}
+
+input.priority-rush {
+  border: 2px solid #f59e0b;
+}
+
 
 
