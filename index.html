@@ -363,7 +363,7 @@
         <div class="form-group">
           <label for="neededBy">Needed By<span class="req">*</span></label>
           <input type="date" id="neededBy" name="needed_by" required>
-          <p id="rushNotice" class="rush-notice" hidden>
+          <p id="rushNotice" class="rush-notice standard" hidden>
           ⚠️ <strong>Rush Notice:</strong> Requests needed within 24 hours are treated as rush & reviewed for availability & include rush service fees.
         </p>
           <p id="priorityRushNotice" class="rush-notice priority" hidden>
@@ -674,20 +674,23 @@ consentCheckbox.addEventListener("change", () => {
  ========================= */
 const neededByInput = document.getElementById("neededBy");
 const rushNotice = document.getElementById("rushNotice");
-if (neededByInput && rushNotice) {
-  neededByInput.addEventListener("change", () => {
-    const selectedDate = new Date(neededByInput.value);
-    const now = new Date();
-    const diffHours = (selectedDate - now) / (1000 * 60 * 60);
-    if (diffHours > 0 && diffHours <= 24) {
-      rushNotice.hidden = false;
-      neededByInput.classList.add("is-rush");
-    } else {
-      rushNotice.hidden = true;
-      neededByInput.classList.remove("is-rush");
-    }
-  });
-}
+const priorityRushNotice = document.getElementById("priorityRushNotice");
+neededByInput.addEventListener("change", () => {
+  const selectedDate = new Date(neededByInput.value);
+  const now = new Date();
+  const diffHours = (selectedDate - now) / (1000 * 60 * 60);
+  // Reset
+  rushNotice.hidden = true;
+  priorityRushNotice.hidden = true;
+  neededByInput.classList.remove("rush", "priority-rush");
+  if (diffHours > 0 && diffHours <= 4) {
+    priorityRushNotice.hidden = false;
+    neededByInput.classList.add("priority-rush");
+  } else if (diffHours > 4 && diffHours <= 24) {
+    rushNotice.hidden = false;
+    neededByInput.classList.add("rush");
+  }
+});
 
 });
 </script>
