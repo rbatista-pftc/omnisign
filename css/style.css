@@ -796,5 +796,14 @@ nav a:hover::after {
     text-align: center;
   }
 }
+.rush-notice {
+  margin-top: 6px;
+  font-size: 0.8rem;
+  color: #7c2d12;
+  background: rgba(245, 158, 11, 0.12);
+  padding: 8px 10px;
+  border-radius: 6px;
+  line-height: 1.4;
+}
 
 
