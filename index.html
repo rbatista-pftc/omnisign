@@ -722,9 +722,9 @@ consent.addEventListener("change", () => {
     RUSH NOTICE
  ========================= */
 const neededBy = document.getElementById("neededBy");
-const rushNotice = document.getElementById("rushNotice");
-const priorityRushNotice = document.getElementById("priorityRushNotice");
-const urgencyField = document.getElementById("urgencyLevel");
+const rush = document.getElementById("rushNotice");
+const priorityRush = document.getElementById("priorityRushNotice");
+const urgency = document.getElementById("urgencyLevel");
 neededBy.addEventListener("change", () => {
   if (!neededBy.value) return;
   // Parse YYYY-MM-DD safely (LOCAL date)
@@ -735,20 +735,20 @@ neededBy.addEventListener("change", () => {
   const diffDays =
     (selectedDate - today) / (1000 * 60 * 60 * 24);
   // Reset UI
-  rushNotice.hidden = true;
-  priorityRushNotice.hidden = true;
+  rush.hidden = true;
+  priorityRush.hidden = true;
   neededBy.classList.remove("rush", "priority-rush");
-  if (urgencyField) urgencyField.value = "standard";
+  if (urgency) urgency.value = "standard";
   if (diffDays === 0) {
     // SAME DAY → Priority Rush
-    priorityRushNotice.hidden = false;
+    priorityRush.hidden = false;
     neededBy.classList.add("priority-rush");
-    if (urgencyField) urgencyField.value = "priority_rush";
+    if (urgency) urgency.value = "priority_rush";
   } else if (diffDays === 1) {
     // TOMORROW → Rush
-    rushNotice.hidden = false;
+    rush.hidden = false;
     neededBy.classList.add("rush");
-    if (urgencyField) urgencyField.value = "rush";
+    if (urgency) urgency.value = "rush";
   }
  });
 
