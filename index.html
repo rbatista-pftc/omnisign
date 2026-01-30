@@ -363,13 +363,12 @@
         <div class="form-group">
           <label for="neededBy">Needed By<span class="req">*</span></label>
           <input type="date" id="neededBy" name="needed_by" required>
-          <p id="rushNotice" class="rush-notice standard" hidden>
-          ⚠️ <strong>Rush Notice:</strong> Requests needed within 24 hours are treated as rush & reviewed for availability & include rush service fees.
-        </p>
           <p id="priorityRushNotice" class="rush-notice priority" hidden>
-            🚨 <strong>Priority Rush:</strong> Requests needed within 1–4 hours require immediate coordination, are subject to availability, and incur enhanced service fees.
+            🚨 <strong>Priority Rush:</strong>Same-day requests require immediate coordination, are subject to availability & enhanced service fees.
           </p>
-        </div>
+          <p id="rushNotice" class="rush-notice standard" hidden>
+            ⚠️ <strong>Rush Signing:</strong> Requests within 24 hours are reviewed for availability and may include rush service fees.
+          </p>
        <div class="form-group upload-group">
          <label for="documents">Upload documents (recommended)</label>
          <input type="file" id="documents" name="documents" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" multiple hidden>
@@ -594,6 +593,23 @@ document.addEventListener("DOMContentLoaded", () => {
       complete, and ready for execution.</p>
       <p>OmniSign reserves the right to decline or cancel any request that cannot be completed
       safely, legally, or professionally.</p>
+      <p>Requests requiring same-day completion are classified as
+      <strong>Priority Rush</strong> and may incur enhanced service fees due to
+      immediate coordination, scheduling constraints, and resource allocation.
+      </p>
+      <p>Requests requiring completion within 24 hours are classified as
+      <strong>Rush Signings</strong> and may be subject to expedited service fees.
+      </p>
+      <p>In certain circumstances, requests submitted with extremely short notice
+      (including requests requiring completion within a few hours) may be treated
+      as <strong>Expedited or Priority Rush</strong> services, even if not expressly
+      designated as such at the time of submission.
+      </p>
+      <p>All urgency classifications and any applicable fees are determined after
+      review and are based on availability, timing, document requirements, and
+      operational considerations. Clients will be informed of applicable fees
+      prior to confirmation and payment.
+      </p>
     `
   },
   refund: {
@@ -675,23 +691,31 @@ consentCheckbox.addEventListener("change", () => {
 const neededByInput = document.getElementById("neededBy");
 const rushNotice = document.getElementById("rushNotice");
 const priorityRushNotice = document.getElementById("priorityRushNotice");
+const urgencyField = document.getElementById("urgencyLevel");
 neededByInput.addEventListener("change", () => {
   const selectedDate = new Date(neededByInput.value);
-  const now = new Date();
-  const diffHours = (selectedDate - now) / (1000 * 60 * 60);
-  // Reset
+  const today = new Date();
+  // Normalize both to start of day
+  selectedDate.setHours(0, 0, 0, 0);
+  today.setHours(0, 0, 0, 0);
+  const diffDays = (selectedDate - today) / (1000 * 60 * 60 * 24);
+  // Reset state
   rushNotice.hidden = true;
   priorityRushNotice.hidden = true;
   neededByInput.classList.remove("rush", "priority-rush");
-  if (diffHours > 0 && diffHours <= 4) {
+  urgencyField.value = "standard";
+  if (diffDays === 0) {
+    // SAME DAY
     priorityRushNotice.hidden = false;
     neededByInput.classList.add("priority-rush");
-  } else if (diffHours > 4 && diffHours <= 24) {
+    urgencyField.value = "priority_rush";
+  } else if (diffDays === 1) {
+    // WITHIN 24 HOURS (next day)
     rushNotice.hidden = false;
     neededByInput.classList.add("rush");
+    urgencyField.value = "rush";
   }
-});
-
+ });
 });
 </script>
   
