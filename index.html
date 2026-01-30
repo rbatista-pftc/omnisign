@@ -697,11 +697,11 @@ if (fileInput && fileNameDisplay) {
  /* ========================
     DISABLE BOOKING BUTTON 
  ========================= */
-const consentCheckbox = document.querySelector(".consent input");
+const consent = document.querySelector(".consent input");
 const submitBtn = document.querySelector("#bookingForm button");
 submitBtn.disabled = true;
-consentCheckbox.addEventListener("change", () => {
-  submitBtn.disabled = !consentCheckbox.checked;
+consent.addEventListener("change", () => {
+  submitBtn.disabled = !consent.checked;
 });
 /* ========================
    FAQ'S ACCORDION
