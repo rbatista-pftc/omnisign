@@ -825,6 +825,21 @@ input.rush {
 input.priority-rush {
   border: 2px solid #f59e0b;
 }
+/* Disabled Book button */
+.booking button:disabled {
+  background: #cbd5e1;
+  color: #64748b;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+  opacity: 0.75;
+}
+
+/* Prevent hover effects when disabled */
+.booking button:disabled:hover {
+  transform: none;
+  box-shadow: none;
+}
 
 
 
