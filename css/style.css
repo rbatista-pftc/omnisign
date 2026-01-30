@@ -805,5 +805,22 @@ nav a:hover::after {
   border-radius: 6px;
   line-height: 1.4;
 }
+/* Rush state for date input */
+.booking input.is-rush {
+  border: 2px solid #facc15; /* soft yellow */
+  background: rgba(250, 204, 21, 0.06);
+  box-shadow: 0 0 0 3px rgba(250, 204, 21, 0.18);
+}
+
+/* Rush notice styling */
+.rush-notice {
+  margin-top: 8px;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  color: #92400e;
+  background: rgba(250, 204, 21, 0.15);
+  padding: 8px 10px;
+  border-radius: 6px;
+}
 
 
