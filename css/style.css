@@ -759,5 +759,42 @@ nav a:hover::after {
   line-height: 1.5;
   color: #334155;
 }
+/* ==========================
+   BOOKING FORM – MOBILE FIX
+   ========================== */
+@media (max-width: 768px) {
+
+  .booking form {
+    padding: 24px 20px;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr; /* stack vertically */
+    gap: 14px;
+  }
+
+  .form-group {
+    width: 100%;
+  }
+
+  .upload-group {
+    width: 100%;
+  }
+
+  .upload-btn {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .booking .consent label {
+    align-items: flex-start;
+  }
+
+  .booking button.btn {
+    width: 100%;
+    text-align: center;
+  }
+}
 
 
