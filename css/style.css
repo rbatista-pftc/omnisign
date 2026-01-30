@@ -370,7 +370,7 @@ input.priority-rush {border: 2px solid #f59e0b;}
 
 /* Prevent hover effects when disabled */
 .booking button:disabled:hover {transform: none;box-shadow: none;}
-.language-indicator {display: inline-flex;align-items: center;gap: 6px;font-size: 1rem;font-weight: 600;color: #14b8a6;margin-top: 10px;}
+.language-indicator {display: inline-flex;align-items: center;gap: 6px;font-size: 1rem;font-weight: 600;color: #14b8a6;margin-top: 10px;justify-content:center;}
 .language-indicator .globe {display: inline-block;font-size:30px;animation: spin 8s linear infinite;}
 @keyframes spin {
   from { transform: rotate(0deg); }
