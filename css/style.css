@@ -840,6 +840,65 @@ input.priority-rush {
   transform: none;
   box-shadow: none;
 }
+.language-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #14b8a6;
+  margin-top: 10px;
+}
+
+.language-indicator .globe {
+  display: inline-block;
+  animation: spin 8s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+.footer-contact {
+  margin-top: 18px;
+  font-size: 0.85rem;
+  color: #cbd5f5;
+}
+
+.footer-contact a {
+  color: #14b8a6;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.footer-contact a:hover {
+  text-decoration: underline;
+}
+
+.footer-note {
+  margin-top: 6px;
+  font-size: 0.75rem;
+  opacity: 0.8;
+}
+.footer-links {
+  margin-top: 14px;
+  font-size: 0.85rem;
+}
+
+.footer-links a {
+  color: #a5b4fc;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.footer-links a:hover {
+  text-decoration: underline;
+}
+
+.footer-links .divider {
+  margin: 0 6px;
+  opacity: 0.6;
+}
 
 
 
