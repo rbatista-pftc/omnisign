@@ -580,17 +580,17 @@ if (neededByInput && rushNotice) {
   neededByInput.addEventListener("change", () => {
     const selectedDate = new Date(neededByInput.value);
     const now = new Date();
-    // Clear time for accurate comparison
-    selectedDate.setHours(23, 59, 59, 999);
-    const diffMs = selectedDate - now;
-    const diffHours = diffMs / (1000 * 60 * 60);
+    const diffHours = (selectedDate - now) / (1000 * 60 * 60);
     if (diffHours > 0 && diffHours <= 24) {
       rushNotice.hidden = false;
+      neededByInput.classList.add("is-rush");
     } else {
       rushNotice.hidden = true;
+      neededByInput.classList.remove("is-rush");
     }
   });
 }
+
 });
 </script>
   
