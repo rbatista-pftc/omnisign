@@ -710,35 +710,43 @@ neededBy.addEventListener("change", () => {
 /* ===========================
    FORMS (AJAX)
 ============================ */
- form.addEventListener("submit", function (e) {
+const bookingForm = document.getElementById("bookingForm");
+const contactForm = document.getElementById("contactForm");
+if (bookingForm) bookingForm.addEventListener("submit", submitWithRecaptcha);
+if (contactForm) contactForm.addEventListener("submit", submitWithRecaptcha);
+function submitWithRecaptcha(e) {
   e.preventDefault();
-  msg.textContent = "";
-  msg.className = "form-msg";
+  const form = e.target;
+  const msg = form.querySelector(".form-msg");
+  msg.textContent = "Submitting…";
   grecaptcha.ready(() => {
-    grecaptcha.execute("6Lf311ssAAAAAIbXuWdDc6oQUNJAxBXvNrDclFLT", { action: "submit" }).then(token => {
+    grecaptcha.execute("6Lf311ssAAAAAIbXuWdDc6oQUNJAxBXvNrDclFLT", { action: "submit" }).then(async token => {
       const formData = new FormData(form);
+      // identify which form this is
+      formData.append(
+        "form_type",
+        form.id === "bookingForm" ? "booking" : "contact"
+      );
+      // attach recaptcha token
       formData.append("recaptcha_token", token);
-      fetch("https://omni-book.rachelbatista13.workers.dev", {
-        method: "POST",
-        body: formData
-      })
-        .then(res => {
-          if (!res.ok) throw new Error("Request failed");
-          return res.json();
-        })
-        .then(() => {
-          msg.textContent = "Thank you! We’ll contact you shortly.";
-          msg.classList.add("success");
-          form.reset();
-        })
-        .catch(() => {
-          msg.textContent = "Submission failed. Please try again.";
-          msg.classList.add("error");
-        });
+      try {
+        const res = await fetch(
+          "https://omni-book.rachelbatista13.workers.dev",
+          {
+            method: "POST",
+            body: formData
+          }
+        );
+        if (!res.ok) throw new Error("Request failed");
+        msg.textContent = "Thank you! We’ll be in touch shortly.";
+        form.reset();
+      } catch (err) {
+        console.error(err);
+        msg.textContent = "Submission failed. Please try again.";
+      }
     });
   });
-});
-
+ }
 });
 </script>
   
