@@ -1,9 +1,4 @@
-   * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Inter', Arial, sans-serif;
-}
+   * {margin: 0;padding: 0;box-sizing: border-box;font-family: 'Inter', Arial, sans-serif;}
 body {line-height: 1.6;color: #1f2933;background: #ffffff;}
 .main-header {position: sticky;top: 0;z-index: 1000;border-bottom: 1px solid #e5e7eb;background:#fff;transition: box-shadow 0.25s ease;}
 .main-header.scrolled {box-shadow: 0 6px 18px rgba(0,0,0,0.08);}
