@@ -336,7 +336,9 @@
   </p>
 </div>
     
-    <form id="bookingForm" action="https://omni-book.rachelbatista13.workers.dev">
+    <form id="bookingForm" method="POST">
+      <input type="hidden" name="form_type" value="booking">
+      <input type="text" name="company" style="display:none"> 
       <div class="form-group">
         <label for="name">Full Name<span class="req">*</span></label>
         <input type="text" id="name" name="name" required>
@@ -456,7 +458,9 @@
     <!-- RIGHT: CONTACT FORM -->
     <div class="contact-form">
       <h3>Send Us a Message</h3>
-      <form id="contactForm" action="https://formspree.io/f/xlgbzznl" method="POST">
+      <form id="contactForm" method="POST">
+        <input type="hidden" name="form_type" value="contact">
+        <input type="text" name="company" style="display:none">
         <input type="text" name="name" placeholder="Full Name" required>
         <input type="email" name="email" placeholder="Email Address" required>
         <select name="inquiry" required>
@@ -529,7 +533,9 @@
     </div>
   </div>
 </div>
- 
+
+<script src="https://www.google.com/recaptcha/api.js?render=6Lf311ssAAAAAIbXuWdDc6oQUNJAxBXvNrDclFLT"></script>
+  
 <script>
 document.addEventListener("DOMContentLoaded", () => {
   /* =========================
@@ -702,32 +708,37 @@ neededBy.addEventListener("change", () => {
   }
  });
 /* ===========================
-   BOOKING (AJAX)
+   FORMS (AJAX)
 ============================ */
- document.getElementById("bookingForm").addEventListener("submit", async (e) => {
+ form.addEventListener("submit", function (e) {
   e.preventDefault();
-  const form = e.target;
-  const msg = document.getElementById("bookingMsg");
-  // reset message state
   msg.textContent = "";
-  msg.classList.remove("success", "error");
-  try {
-    const response = await fetch("https://omni-book.rachelbatista13.workers.dev", {
-      method: "POST",
-      body: new FormData(form)
+  msg.className = "form-msg";
+  grecaptcha.ready(() => {
+    grecaptcha.execute("6Lf311ssAAAAAIbXuWdDc6oQUNJAxBXvNrDclFLT", { action: "submit" }).then(token => {
+      const formData = new FormData(form);
+      formData.append("recaptcha_token", token);
+      fetch("https://omni-book.rachelbatista13.workers.dev", {
+        method: "POST",
+        body: formData
+      })
+        .then(res => {
+          if (!res.ok) throw new Error("Request failed");
+          return res.json();
+        })
+        .then(() => {
+          msg.textContent = "Thank you! We’ll contact you shortly.";
+          msg.classList.add("success");
+          form.reset();
+        })
+        .catch(() => {
+          msg.textContent = "Submission failed. Please try again.";
+          msg.classList.add("error");
+        });
     });
-    if (!response.ok) throw new Error("Submission failed");
-    // success UI
-    msg.textContent = "Thank you! We’ll contact you shortly to confirm your booking.";
-    msg.classList.add("success");
-    // reset form state
-    form.reset();
-  } catch (err) {
-    console.error(err);
-    msg.textContent = "Something went wrong. Please try again or contact us directly.";
-    msg.classList.add("error");
-  }
- });
+  });
+});
+
 });
 </script>
   
