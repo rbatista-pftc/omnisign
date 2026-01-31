@@ -351,7 +351,6 @@
         <label for="email">Email Address<span class="req">*</span></label>
         <input type="email" id="email" name="email" required>
         </div>
-
       <div class="form-row">
         <div class="form-group">
           <label for="serviceSelect">Service<span class="req">*</span></label>
@@ -367,7 +366,6 @@
           <input type="number" id="pageCount" name="page_count" min="1" required>
         </div>
       </div>
-
       <div class="form-row">
         <div class="form-group">
           <label for="neededBy">Needed By<span class="req">*</span></label>
@@ -390,8 +388,11 @@
            Secure delivery instructions will be provided after review.
          </p>
        </div>
+        <div class="form-group">
+          <label for="instructions">Special Instructions<span class="optional">(optional)</span></label>
+          <textarea id="instructions" name="instructions" rows="4" placeholder="Any special instructions, access notes, timing concerns, or details we should know?"></textarea>
+        </div>
       </div>
-
       <div class="consent">
         <label>
           <input type="checkbox" required>
@@ -402,9 +403,8 @@
           </span>
         </label>
       </div>
-
       <button type="submit" class="btn primary">
-        Book
+        Book Request
       </button>
       <p id="bookingMsg" class="form-msg"></p>
     </form>
