@@ -4,7 +4,6 @@
   box-sizing: border-box;
   font-family: 'Inter', Arial, sans-serif;
 }
-
 body {line-height: 1.6;color: #1f2933;background: #ffffff;}
 .main-header {position: sticky;top: 0;z-index: 1000;border-bottom: 1px solid #e5e7eb;background:#fff;transition: box-shadow 0.25s ease;}
 .main-header.scrolled {box-shadow: 0 6px 18px rgba(0,0,0,0.08);}
@@ -61,8 +60,9 @@ nav a:hover {color: #14b8a6;}
 nav a:hover::after {width: 100%;}
 .booking form {background:#ffffff;padding:35px;border-radius:12px;box-shadow:0 15px 30px rgba(0,0,0,0.08);}
 .booking input,
-.booking select,
-.booking textarea {width:100%;padding:12px;margin:10px 0;}
+.booking select {width:100%;padding:12px;margin:10px 0;}
+textarea {resize: vertical;min-height: 100px;}
+.optional {font-size: 0.75rem;color: #64748b;margin-left: 4px;font-weight: normal;}
 .form-msg {margin-top:15px;color:#14b8a6;font-weight:600;font-size: 0.95rem;}
 .contact-section {background:#f8fafc;}
 .contact-grid {display:grid;grid-template-columns: 1fr 1fr;gap:50px;}
