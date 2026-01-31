@@ -336,7 +336,7 @@
   </p>
 </div>
     
-    <form id="bookingForm" action="https://omni-book.rachelbatista13.workers.dev/" method="POST">
+    <form id="bookingForm">
       <div class="form-group">
         <label for="name">Full Name<span class="req">*</span></label>
         <input type="text" id="name" name="name" required>
@@ -701,6 +701,24 @@ neededBy.addEventListener("change", () => {
     if (urgency) urgency.value = "rush";
   }
  });
+/* ===========================
+   BOOKING (AJAX)
+============================ */
+  document.getElementById("bookingForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const form = e.target;
+  const data = new FormData(form);
+  const res = await fetch("https://omni-book.rachelbatista13.workers.dev", {
+    method: "POST",
+    body: data
+  });
+  if (res.ok) {
+    form.reset();
+    alert("Thank you! We’ll contact you shortly.");
+  } else {
+    alert("Something went wrong. Please try again.");
+  }
+});
 
 });
 </script>
