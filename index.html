@@ -722,7 +722,7 @@ function submitWithRecaptcha(e) {
         "form_type",
         form.id === "bookingForm" ? "booking" : "contact"
       );
-      fetch("https://script.google.com/macros/library/d/1V5TTEDI9C1l83eAkZte0gL3CBewYkJ9KBRO03VJpcE6I01a0drOhpyRB/1", {
+      fetch("https://script.google.com/macros/s/AKfycbwF5n8kS0LmyynQnW9hOTYhgFr-1NKaCVOHBIvpHCM2ybHSp9eC4j7JJH8Nook9SNSjKg/exec", {
         method: "POST",
         body: new URLSearchParams(formData)
       })
