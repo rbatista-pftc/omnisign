@@ -723,21 +723,19 @@ function submitWithRecaptcha(e) {
         form.id === "bookingForm" ? "booking" : "contact"
       );
       fetch("https://script.google.com/macros/s/AKfycbz4E3oEyXPgpjpuBwokB3Cu5dgch7eezpvvdM2SjbKltX-2jwnV_lX-5N_9lxHVDpawlg/exec", {
-        method: "POST",
-        body: new URLSearchParams(formData)
-      })
-        .then(res => res.json())
-        .then(data => {
-          if (!data.success) {
-            throw new Error(data.error || "Submission failed");
-          }
-          msg.textContent = "Thank you! We’ll be in touch shortly.";
-          form.reset();
-        })
-        .catch(err => {
-          console.error(err);
-          msg.textContent = "Submission failed. Please try again.";
-        });
+  method: "POST",
+  body: new URLSearchParams(formData)
+})
+.then(res => res.json())
+.then(data => {
+  if (!data.success) throw new Error(data.error);
+  msg.textContent = "Thank you! We’ll be in touch shortly.";
+  form.reset();
+})
+.catch(err => {
+  console.error(err);
+  msg.textContent = "Submission failed. Please try again.";
+});
     });
   });
 }
