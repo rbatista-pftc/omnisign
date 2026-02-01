@@ -722,16 +722,20 @@ function submitWithRecaptcha(e) {
         "form_type",
         form.id === "bookingForm" ? "booking" : "contact"
       );
-      fetch("https://script.google.com/macros/s/AKfycbwF5n8kS0LmyynQnW9hOTYhgFr-1NKaCVOHBIvpHCM2ybHSp9eC4j7JJH8Nook9SNSjKg/exec", {
+      fetch("https://script.google.com/macros/s/AKfycbz4E3oEyXPgpjpuBwokB3Cu5dgch7eezpvvdM2SjbKltX-2jwnV_lX-5N_9lxHVDpawlg/exec", {
         method: "POST",
-        mode: "no-cors",
         body: new URLSearchParams(formData)
       })
-        .then(() => {
+        .then(res => res.json())
+        .then(data => {
+          if (!data.success) {
+            throw new Error(data.error || "Submission failed");
+          }
           msg.textContent = "Thank you! We’ll be in touch shortly.";
           form.reset();
         })
-        .catch(() => {
+        .catch(err => {
+          console.error(err);
           msg.textContent = "Submission failed. Please try again.";
         });
     });
