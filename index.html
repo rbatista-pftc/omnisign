@@ -7,6 +7,7 @@
   <meta http-equiv="content-language" content="en, es">
   <title>OmniSign | Legal Expertise You Can Trust</title>
   <link rel="stylesheet" href="css/style.css" />
+  <script src="https://www.google.com/recaptcha/api.js?render=6Lf311ssAAAAAIbXuWdDc6oQUNJAxBXvNrDclFLT"></script>
 </head>
   <script type="application/ld+json">
 {
@@ -533,8 +534,6 @@
     </div>
   </div>
 </div>
-
-<script src="https://www.google.com/recaptcha/api.js?render=6Lf311ssAAAAAIbXuWdDc6oQUNJAxBXvNrDclFLT"></script>
   
 <script>
 document.addEventListener("DOMContentLoaded", () => {
@@ -710,43 +709,36 @@ neededBy.addEventListener("change", () => {
 /* ===========================
    FORMS (AJAX)
 ============================ */
-const bookingForm = document.getElementById("bookingForm");
-const contactForm = document.getElementById("contactForm");
-if (bookingForm) bookingForm.addEventListener("submit", submitWithRecaptcha);
-if (contactForm) contactForm.addEventListener("submit", submitWithRecaptcha);
 function submitWithRecaptcha(e) {
   e.preventDefault();
   const form = e.target;
   const msg = form.querySelector(".form-msg");
   msg.textContent = "Submitting…";
   grecaptcha.ready(() => {
-    grecaptcha.execute("6Lf311ssAAAAAIbXuWdDc6oQUNJAxBXvNrDclFLT", { action: "submit" }).then(async token => {
+    grecaptcha.execute("YOUR_SITE_KEY", { action: "submit" }).then(token => {
       const formData = new FormData(form);
-      // identify which form this is
+      formData.append("recaptcha_token", token);
       formData.append(
         "form_type",
         form.id === "bookingForm" ? "booking" : "contact"
       );
-      // attach recaptcha token
-      formData.append("recaptcha_token", token);
-      try {
-        const res = await fetch(
-          "https://omni-book.rachelbatista13.workers.dev",
-          {
-            method: "POST",
-            body: formData
-          }
-        );
-        if (!res.ok) throw new Error("Request failed");
+      fetch("https://script.google.com/macros/s/AKfycbwF5n8kS0LmyynQnW9hOTYhgFr-1NKaCVOHBlvpHCM2ybHSp9eC4j7JUH8Nook9SNSjKg/exec", {
+        method: "POST",
+        body: new URLSearchParams(formData)
+      })
+      .then(res => res.json())
+      .then(() => {
         msg.textContent = "Thank you! We’ll be in touch shortly.";
         form.reset();
-      } catch (err) {
-        console.error(err);
+      })
+      .catch(() => {
         msg.textContent = "Submission failed. Please try again.";
-      }
+      });
     });
   });
- }
+}
+document.getElementById("bookingForm")?.addEventListener("submit", submitWithRecaptcha);
+document.getElementById("contactForm")?.addEventListener("submit", submitWithRecaptcha);
 });
 </script>
   
