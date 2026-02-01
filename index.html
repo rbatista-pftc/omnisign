@@ -384,7 +384,7 @@
          <label for="documents" class="upload-btn"><span class="upload-icon">⬆️</span>Upload files</label>
          <span class="file-name" id="fileName">No files selected</span>
          <p class="upload-disclaimer">
-           Accepted file types: PDF, Word, JPG, PNG.  
+           Accepted file types: PDF, Word, JPG, PNG. Max file size: 5MB 
            For large or sensitive document packages, you may submit the request without uploading files.
            Secure delivery instructions will be provided after review.
          </p>
@@ -706,6 +706,20 @@ neededBy.addEventListener("change", () => {
     if (urgency) urgency.value = "rush";
   }
  });
+/* ============================
+   FILE SIZE VALIDATION
+============================= */
+const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+const fileInput = form.querySelector('input[type="file"]');
+if (fileInput && fileInput.files.length) {
+  for (const file of fileInput.files) {
+    if (file.size > MAX_FILE_SIZE) {
+      msg.textContent = `File "${file.name}" exceeds 5MB limit.`;
+      msg.classList.add("error");
+      return; // STOP submission
+    }
+  }
+}
 /* ===========================
    FORMS (AJAX)
 ============================ */
