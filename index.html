@@ -712,21 +712,60 @@ neededBy.addEventListener("change", () => {
    FILE SIZE VALIDATION
 ============================= */
 const fileInput = document.getElementById("documents");
+const preview = document.getElementById("filePreview");
 const fileError = document.getElementById("fileError");
-if (fileInput) {
-  fileInput.addEventListener("change", () => {
-    fileError.hidden = true;
-    fileInput.classList.remove("upload-error");
-    const maxSize = 5 * 1024 * 1024; // 5MB
-    const files = Array.from(fileInput.files);
-    const tooLarge = files.some(file => file.size > maxSize);
-    if (tooLarge) {
-      fileError.hidden = false;
-      fileInput.classList.add("upload-error");
-      // 🔥 HARD BLOCK
-      fileInput.value = "";
+const MAX_FILES = 3;
+const MAX_SIZE = 5 * 1024 * 1024; // 5MB
+let selectedFiles = [];
+fileInput.addEventListener("change", () => {
+  fileError.hidden = true;
+  for (const file of Array.from(fileInput.files)) {
+    if (selectedFiles.length >= MAX_FILES) {
+      showError("Maximum 3 files allowed.");
+      break;
     }
+    if (file.size > MAX_SIZE) {
+      showError(`"${file.name}" exceeds 5MB.`);
+      continue;
+    }
+    selectedFiles.push(file);
+  }
+  renderPreview();
+  syncFileInput();
+});
+function renderPreview() {
+  preview.innerHTML = "";
+  selectedFiles.forEach((file, index) => {
+    const div = document.createElement("div");
+    div.className = "file-item";
+    const remove = document.createElement("button");
+    remove.textContent = "×";
+    remove.className = "file-remove";
+    remove.onclick = () => {
+      selectedFiles.splice(index, 1);
+      renderPreview();
+      syncFileInput();
+    };
+    if (file.type.startsWith("image/")) {
+      const img = document.createElement("img");
+      img.src = URL.createObjectURL(file);
+      div.appendChild(img);
+    } else {
+      div.innerHTML += `<div>📄</div>`;
+    }
+    div.innerHTML += `<div>${file.name}</div>`;
+    div.appendChild(remove);
+    preview.appendChild(div);
   });
+}
+function syncFileInput() {
+  const dt = new DataTransfer();
+  selectedFiles.forEach(f => dt.items.add(f));
+  fileInput.files = dt.files;
+}
+function showError(msg) {
+  fileError.textContent = msg;
+  fileError.hidden = false;
 }
 /* ===========================
    FORMS (AJAX)
