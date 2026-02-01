@@ -382,7 +382,7 @@
          <label for="documents">Upload documents (recommended)</label>
          <input type="file" id="documents" name="documents" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" multiple hidden>
          <label for="documents" class="upload-btn"><span class="upload-icon">⬆️</span>Upload files</label>
-         <span class="file-name" id="fileName">No files selected</span>
+         <p id="fileError" class="file-error" hidden>⚠️ Each file must be 5MB or less.</p>
          <p class="upload-disclaimer">
            Accepted file types: PDF, Word, JPG, PNG. Max file size: 5MB.
          </p>
@@ -708,16 +708,22 @@ neededBy.addEventListener("change", () => {
 /* ============================
    FILE SIZE VALIDATION
 ============================= */
-const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
-const fileInput = form.querySelector('input[type="file"]');
-if (fileInput && fileInput.files.length) {
-  for (const file of fileInput.files) {
-    if (file.size > MAX_FILE_SIZE) {
-      msg.textContent = `File "${file.name}" exceeds 5MB limit.`;
-      msg.classList.add("error");
-      return; // STOP submission
+const fileInput = document.getElementById("documents");
+const fileError = document.getElementById("fileError");
+if (fileInput) {
+  fileInput.addEventListener("change", () => {
+    fileError.hidden = true;
+    fileInput.classList.remove("upload-error");
+    const maxSize = 5 * 1024 * 1024; // 5MB
+    const files = Array.from(fileInput.files);
+    const tooLarge = files.some(file => file.size > maxSize);
+    if (tooLarge) {
+      fileError.hidden = false;
+      fileInput.classList.add("upload-error");
+      // 🔥 HARD BLOCK
+      fileInput.value = "";
     }
-  }
+  });
 }
 /* ===========================
    FORMS (AJAX)
