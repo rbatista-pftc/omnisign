@@ -384,7 +384,6 @@
          <label for="documents" class="upload-btn"><span class="upload-icon">⬆️</span>Upload files</label>
          <div id="filePreview" class="file-preview"></div>
          <p id="fileError" class="file-error" hidden></p>
-         <span class="file-name" id="fileName">No files selected</span>
          <p id="fileError" class="file-error" hidden>⚠️ Each file must be 5MB or less.</p>
          <p class="upload-disclaimer">
            Accepted file types: PDF, Word, JPG, PNG. Max file size: 5MB.
@@ -635,22 +634,6 @@ document.addEventListener("keydown", (e) => {
   if (e.key === "Escape") closeLegalModal();
 });
 window.openLegalModal = openLegalModal;
-/* ======================
-    FILE UPLOAD NAME
-====================== */
-const file = document.getElementById("documents");
-const fileNameDisplay = document.getElementById("fileName");
-if (file && fileNameDisplay) {
-  file.addEventListener("change", () => {
-    if (file.files.length === 0) {
-      fileNameDisplay.textContent = "No files selected";
-    } else if (file.files.length === 1) {
-      fileNameDisplay.textContent = file.files[0].name;
-    } else {
-      fileNameDisplay.textContent = `${file.files.length} files selected`;
-    }
-  });
-}
  /* ========================
     DISABLE BOOKING BUTTON 
  ========================= */
@@ -708,9 +691,9 @@ neededBy.addEventListener("change", () => {
     if (urgency) urgency.value = "rush";
   }
  });
-/* ============================
-   FILE SIZE VALIDATION
-============================= */
+/* ======================================
+   FILE SIZE, PREVIEW & COUNT VALIDATION
+====================================== */
 const fileInput = document.getElementById("documents");
 const preview = document.getElementById("filePreview");
 const fileError = document.getElementById("fileError");
