@@ -715,7 +715,7 @@ function submitWithRecaptcha(e) {
   const msg = form.querySelector(".form-msg");
   msg.textContent = "Submitting…";
   grecaptcha.ready(() => {
-    grecaptcha.execute("YOUR_SITE_KEY", { action: "submit" }).then(token => {
+    grecaptcha.execute("6Lf311ssAAAAAIbXuWdDc6oQUNJAxBXvNrDclFLT", { action: "submit" }).then(token => {
       const formData = new FormData(form);
       formData.append("recaptcha_token", token);
       formData.append(
