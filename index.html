@@ -691,100 +691,207 @@ neededBy.addEventListener("change", () => {
     if (urgency) urgency.value = "rush";
   }
  });
-/* ======================================
-   FILE SIZE, PREVIEW & COUNT VALIDATION
-====================================== */
-const fileInput = document.getElementById("documents");
-const preview = document.getElementById("filePreview");
-const fileError = document.getElementById("fileError");
+/* ===========================
+   CONFIG
+=========================== */
+const ENDPOINT = "https://script.google.com/macros/s/AKfycbz4E3oEyXPgpjpuBwokB3Cu5dgch7eezpvvdM2SjbKltX-2jwnV_lX-5N_9lxHVDpawlg/exec"; // .../exec
+const RECAPTCHA_SITE_KEY = "6Lf311ssAAAAAIbXuWdDc6oQUNJAxBXvNrDclFLT";
 const MAX_FILES = 3;
-const MAX_SIZE = 5 * 1024 * 1024; // 5MB
+const MAX_MB = 5;
+const MAX_BYTES = MAX_MB * 1024 * 1024;
+/* ===========================
+   BOOKING FILE PREVIEW + LIMITS
+=========================== */
+const fileInput = document.getElementById("documents");
+const filePreview = document.getElementById("filePreview");
+const fileError   = document.getElementById("fileError");
+// We'll maintain our own list so we can remove files (because input.files is read-only)
 let selectedFiles = [];
-fileInput.addEventListener("change", () => {
-  fileError.hidden = true;
-  for (const file of Array.from(fileInput.files)) {
-    if (selectedFiles.length >= MAX_FILES) {
-      showError("Maximum 3 files allowed.");
-      break;
-    }
-    if (file.size > MAX_SIZE) {
-      showError(`"${file.name}" exceeds 5MB.`);
-      continue;
-    }
-    selectedFiles.push(file);
-  }
-  renderPreview();
-  syncFileInput();
-});
 function renderPreview() {
-  preview.innerHTML = "";
-  selectedFiles.forEach((file, index) => {
-    const div = document.createElement("div");
-    div.className = "file-item";
-    const remove = document.createElement("button");
-    remove.textContent = "×";
-    remove.className = "file-remove";
-    remove.onclick = () => {
-      selectedFiles.splice(index, 1);
-      renderPreview();
-      syncFileInput();
-    };
+  if (!filePreview) return;
+  filePreview.innerHTML = "";
+  if (!selectedFiles.length) return;
+  selectedFiles.forEach((file, idx) => {
+    const row = document.createElement("div");
+    row.className = "file-row";
+    row.style.display = "flex";
+    row.style.alignItems = "center";
+    row.style.gap = "10px";
+    row.style.marginTop = "8px";
+    // thumbnail (image only)
+    const thumb = document.createElement("div");
+    thumb.style.width = "42px";
+    thumb.style.height = "42px";
+    thumb.style.border = "1px solid #e5e7eb";
+    thumb.style.borderRadius = "8px";
+    thumb.style.overflow = "hidden";
+    thumb.style.display = "flex";
+    thumb.style.alignItems = "center";
+    thumb.style.justifyContent = "center";
+    thumb.style.fontSize = "12px";
+    thumb.style.color = "#64748b";
     if (file.type.startsWith("image/")) {
       const img = document.createElement("img");
+      img.style.width = "100%";
+      img.style.height = "100%";
+      img.style.objectFit = "cover";
       img.src = URL.createObjectURL(file);
-      div.appendChild(img);
+      thumb.appendChild(img);
     } else {
-      div.innerHTML += `<div>📄</div>`;
+      // simple badge for non-images
+      thumb.textContent = file.name.split(".").pop()?.toUpperCase() || "FILE";
     }
-    div.innerHTML += `<div>${file.name}</div>`;
-    div.appendChild(remove);
-    preview.appendChild(div);
+    const info = document.createElement("div");
+    info.style.flex = "1";
+    const name = document.createElement("div");
+    name.textContent = file.name;
+    name.style.fontSize = "14px";
+    name.style.fontWeight = "600";
+    const meta = document.createElement("div");
+    meta.textContent = `${(file.size / (1024 * 1024)).toFixed(2)} MB`;
+    meta.style.fontSize = "12px";
+    meta.style.color = "#64748b";
+    info.appendChild(name);
+    info.appendChild(meta);
+    const removeBtn = document.createElement("button");
+    removeBtn.type = "button";
+    removeBtn.textContent = "✕";
+    removeBtn.style.border = "0";
+    removeBtn.style.background = "#fee2e2";
+    removeBtn.style.color = "#991b1b";
+    removeBtn.style.width = "34px";
+    removeBtn.style.height = "34px";
+    removeBtn.style.borderRadius = "10px";
+    removeBtn.style.cursor = "pointer";
+    removeBtn.title = "Remove file";
+    removeBtn.addEventListener("click", () => {
+      selectedFiles.splice(idx, 1);
+      syncInputFiles();
+      renderPreview();
+    });
+    row.appendChild(thumb);
+    row.appendChild(info);
+    row.appendChild(removeBtn);
+    filePreview.appendChild(row);
   });
 }
-function syncFileInput() {
+function syncInputFiles() {
+  // rebuild the <input> FileList using DataTransfer
+  if (!fileInput) return;
   const dt = new DataTransfer();
   selectedFiles.forEach(f => dt.items.add(f));
   fileInput.files = dt.files;
 }
-function showError(msg) {
+function showFileError(msg) {
+  if (!fileError) return;
   fileError.textContent = msg;
-  fileError.hidden = false;
+  fileError.style.display = "block";
+}
+function clearFileError() {
+  if (!fileError) return;
+  fileError.textContent = "";
+  fileError.style.display = "none";
+}
+if (fileInput) {
+  fileInput.addEventListener("change", () => {
+    clearFileError();
+    const incoming = Array.from(fileInput.files || []);
+    // validate count (combined with existing)
+    if (selectedFiles.length + incoming.length > MAX_FILES) {
+      showFileError(`Max ${MAX_FILES} files allowed.`);
+      fileInput.value = "";
+      return;
+    }
+    // validate size per file
+    for (const f of incoming) {
+      if (f.size > MAX_BYTES) {
+        showFileError(`"${f.name}" is over ${MAX_MB}MB. Please choose a smaller file.`);
+        fileInput.value = "";
+        return;
+      }
+    }
+    // accept
+    selectedFiles = selectedFiles.concat(incoming);
+    syncInputFiles();
+    renderPreview();
+  });
 }
 /* ===========================
-   FORMS (AJAX)
-============================ */
-function submitWithRecaptcha(e) {
+   HELPERS
+=========================== */
+function fileToBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      // result is like "data:application/pdf;base64,AAAA..."
+      const result = String(reader.result);
+      const base64 = result.split(",")[1] || "";
+      resolve(base64);
+    };
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+function resetBookingFilesUI() {
+  selectedFiles = [];
+  if (fileInput) fileInput.value = "";
+  if (filePreview) filePreview.innerHTML = "";
+}
+/* ===========================
+   SUBMIT (BOTH FORMS)
+=========================== */
+const bookingForm = document.getElementById("bookingForm");
+const contactForm = document.getElementById("contactForm");
+if (bookingForm) bookingForm.addEventListener("submit", submitWithRecaptcha);
+if (contactForm) contactForm.addEventListener("submit", submitWithRecaptcha);
+async function submitWithRecaptcha(e) {
   e.preventDefault();
   const form = e.target;
   const msg = form.querySelector(".form-msg");
-  msg.textContent = "Submitting…";
+  if (msg) msg.textContent = "Submitting…";
+  const formType = form.id === "bookingForm" ? "booking" : "contact";
   grecaptcha.ready(() => {
-    grecaptcha.execute("6Lf311ssAAAAAIbXuWdDc6oQUNJAxBXvNrDclFLT", { action: "submit" }).then(token => {
-      const formData = new FormData(form);
-      formData.append("recaptcha_token", token);
-      formData.append(
-        "form_type",
-        form.id === "bookingForm" ? "booking" : "contact"
-      );
-      fetch("https://script.google.com/macros/s/AKfycbz4E3oEyXPgpjpuBwokB3Cu5dgch7eezpvvdM2SjbKltX-2jwnV_lX-5N_9lxHVDpawlg/exec", {
-  method: "POST",
-  body: new URLSearchParams(formData)
-})
-.then(res => res.json())
-.then(data => {
-  if (!data.success) throw new Error(data.error);
-  msg.textContent = "Thank you! We’ll be in touch shortly.";
-  form.reset();
-})
-.catch(err => {
-  console.error(err);
-  msg.textContent = "Submission failed. Please try again.";
-});
+    grecaptcha.execute(RECAPTCHA_SITE_KEY, { action: "submit" }).then(async token => {
+      try {
+        // Build a plain object payload
+        const fd = new FormData(form);
+        const payload = {};
+        fd.forEach((val, key) => (payload[key] = val));
+        payload.form_type = formType;
+        payload.recaptcha_token = token;
+        // Attach files (booking only) as base64 array
+        payload.files = [];
+        if (formType === "booking" && selectedFiles.length) {
+          for (const f of selectedFiles) {
+            const b64 = await fileToBase64(f);
+            payload.files.push({
+              name: f.name,
+              type: f.type || "application/octet-stream",
+              base64: b64
+            });
+          }
+        }
+        const res = await fetch(ENDPOINT, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+        if (!res.ok || !data.success) {
+          throw new Error(data.error || "Submission failed");
+        }
+        if (msg) msg.textContent = "Thank you! We’ll be in touch shortly.";
+        form.reset();
+        // IMPORTANT: clear custom preview too
+        if (formType === "booking") resetBookingFilesUI();
+
+      } catch (err) {
+        console.error(err);
+        if (msg) msg.textContent = "Submission failed. Please try again.";
+      }
     });
   });
 }
-document.getElementById("bookingForm")?.addEventListener("submit", submitWithRecaptcha);
-document.getElementById("contactForm")?.addEventListener("submit", submitWithRecaptcha);
 });
 </script>
   
