@@ -724,16 +724,16 @@ function submitWithRecaptcha(e) {
       );
       fetch("https://script.google.com/macros/s/AKfycbwF5n8kS0LmyynQnW9hOTYhgFr-1NKaCVOHBIvpHCM2ybHSp9eC4j7JJH8Nook9SNSjKg/exec", {
         method: "POST",
+        mode: "no-cors",
         body: new URLSearchParams(formData)
       })
-      .then(res => res.json())
-      .then(() => {
-        msg.textContent = "Thank you! We’ll be in touch shortly.";
-        form.reset();
-      })
-      .catch(() => {
-        msg.textContent = "Submission failed. Please try again.";
-      });
+        .then(() => {
+          msg.textContent = "Thank you! We’ll be in touch shortly.";
+          form.reset();
+        })
+        .catch(() => {
+          msg.textContent = "Submission failed. Please try again.";
+        });
     });
   });
 }
