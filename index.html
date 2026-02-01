@@ -635,16 +635,16 @@ window.openLegalModal = openLegalModal;
 /* ======================
     FILE UPLOAD NAME
 ====================== */
-const fileInput = document.getElementById("documents");
+const file = document.getElementById("documents");
 const fileNameDisplay = document.getElementById("fileName");
-if (fileInput && fileNameDisplay) {
-  fileInput.addEventListener("change", () => {
-    if (fileInput.files.length === 0) {
+if (file && fileNameDisplay) {
+  file.addEventListener("change", () => {
+    if (file.files.length === 0) {
       fileNameDisplay.textContent = "No files selected";
-    } else if (fileInput.files.length === 1) {
-      fileNameDisplay.textContent = fileInput.files[0].name;
+    } else if (file.files.length === 1) {
+      fileNameDisplay.textContent = file.files[0].name;
     } else {
-      fileNameDisplay.textContent = `${fileInput.files.length} files selected`;
+      fileNameDisplay.textContent = `${file.files.length} files selected`;
     }
   });
 }
