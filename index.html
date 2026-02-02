@@ -7,6 +7,9 @@
   <meta http-equiv="content-language" content="en, es">
   <title>OmniSign | Legal Expertise You Can Trust</title>
   <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
   <script src="https://www.google.com/recaptcha/api.js?render=6Lf311ssAAAAAIbXuWdDc6oQUNJAxBXvNrDclFLT"></script>
 </head>
   <script type="application/ld+json">
@@ -40,7 +43,8 @@
         "Bronx NY",
         "Westchester County NY",
         "Putnam County NY",
-        "Dutchess County NY"
+        "Dutchess County NY",
+        "Orange County NY"
       ],
       "priceRange": "$$",
       "openingHours": "Mo-Su",
@@ -249,7 +253,7 @@
 <section class="areas">
   <div class="container">
     <h3>Service Areas</h3>
-    <p>📍 Bronx &nbsp;•&nbsp; 📍 Westchester County &nbsp;•&nbsp; 📍 Putnam County•&nbsp; 📍 Dutchess County</p>
+    <p>📍 Bronx &nbsp;•&nbsp; 📍 Westchester County &nbsp;•&nbsp; 📍 Putnam County•&nbsp; 📍 Dutchess County•&nbsp; 📍 Orange County</p>
   </div>
 </section>
 
@@ -705,7 +709,6 @@ const MAX_BYTES = MAX_MB * 1024 * 1024;
 const fileInput = document.getElementById("documents");
 const filePreview = document.getElementById("filePreview");
 const fileError   = document.getElementById("fileError");
-// We'll maintain our own list so we can remove files (because input.files is read-only)
 let selectedFiles = [];
 function renderPreview() {
   filePreview.innerHTML = "";
