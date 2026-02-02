@@ -694,7 +694,7 @@ neededBy.addEventListener("change", () => {
 /* ===========================
    CONFIG
 =========================== */
-const ENDPOINT = "https://script.google.com/macros/s/AKfycbz4E3oEyXPgpjpuBwokB3Cu5dgch7eezpvvdM2SjbKltX-2jwnV_lX-5N_9lxHVDpawlg/exec"; // .../exec
+const ENDPOINT = "https://script.google.com/macros/s/AKfycbz4E3oEyXPgpjpuBwokB3Cu5dgch7eezpvvdM2SjbKltX-2jwnV_lX-5N_9lxHVDpawlg/exec";
 const RECAPTCHA_SITE_KEY = "6Lf311ssAAAAAIbXuWdDc6oQUNJAxBXvNrDclFLT";
 const MAX_FILES = 3;
 const MAX_MB = 5;
@@ -708,71 +708,55 @@ const fileError   = document.getElementById("fileError");
 // We'll maintain our own list so we can remove files (because input.files is read-only)
 let selectedFiles = [];
 function renderPreview() {
-  if (!filePreview) return;
   filePreview.innerHTML = "";
-  if (!selectedFiles.length) return;
+  fileError.textContent = "";
   selectedFiles.forEach((file, idx) => {
-    const row = document.createElement("div");
-    row.className = "file-row";
-    row.style.display = "flex";
-    row.style.alignItems = "center";
-    row.style.gap = "10px";
-    row.style.marginTop = "8px";
-    // thumbnail (image only)
-    const thumb = document.createElement("div");
-    thumb.style.width = "42px";
-    thumb.style.height = "42px";
-    thumb.style.border = "1px solid #e5e7eb";
-    thumb.style.borderRadius = "8px";
-    thumb.style.overflow = "hidden";
-    thumb.style.display = "flex";
-    thumb.style.alignItems = "center";
-    thumb.style.justifyContent = "center";
-    thumb.style.fontSize = "12px";
-    thumb.style.color = "#64748b";
+    const item = document.createElement("div");
+    item.className = "file-item";
+    // Thumbnail / icon
+    let visual;
     if (file.type.startsWith("image/")) {
-      const img = document.createElement("img");
-      img.style.width = "100%";
-      img.style.height = "100%";
-      img.style.objectFit = "cover";
-      img.src = URL.createObjectURL(file);
-      thumb.appendChild(img);
+      visual = document.createElement("img");
+    visual.src = URL.createObjectURL(file);
     } else {
-      // simple badge for non-images
-      thumb.textContent = file.name.split(".").pop()?.toUpperCase() || "FILE";
+      visual = document.createElement("div");
+      visual.className = "file-badge";
+      if (file.type === "application/pdf") {
+        visual.innerHTML = `
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="#dc2626">
+        <path d="M6 2h7l5 5v15a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z"/>
+        <text x="7" y="17" font-size="8" fill="white">PDF</text>
+      </svg>
+    `;
+      } else {
+        visual.textContent =
+          file.name.split(".").pop()?.toUpperCase() || "FILE";
+      }
     }
-    const info = document.createElement("div");
-    info.style.flex = "1";
+    item.appendChild(visual);
+    // File name
     const name = document.createElement("div");
+    name.className = "file-name";
     name.textContent = file.name;
-    name.style.fontSize = "14px";
-    name.style.fontWeight = "600";
+    // File size
     const meta = document.createElement("div");
+    meta.className = "file-meta";
     meta.textContent = `${(file.size / (1024 * 1024)).toFixed(2)} MB`;
-    meta.style.fontSize = "12px";
-    meta.style.color = "#64748b";
-    info.appendChild(name);
-    info.appendChild(meta);
+    // Remove button
     const removeBtn = document.createElement("button");
     removeBtn.type = "button";
-    removeBtn.textContent = "✕";
-    removeBtn.style.border = "0";
-    removeBtn.style.background = "#fee2e2";
-    removeBtn.style.color = "#991b1b";
-    removeBtn.style.width = "34px";
-    removeBtn.style.height = "34px";
-    removeBtn.style.borderRadius = "10px";
-    removeBtn.style.cursor = "pointer";
+    removeBtn.className = "file-remove";
+    removeBtn.textContent = "×";
     removeBtn.title = "Remove file";
     removeBtn.addEventListener("click", () => {
       selectedFiles.splice(idx, 1);
       syncInputFiles();
       renderPreview();
     });
-    row.appendChild(thumb);
-    row.appendChild(info);
-    row.appendChild(removeBtn);
-    filePreview.appendChild(row);
+    item.appendChild(removeBtn);
+    item.appendChild(name);
+    item.appendChild(meta);
+    filePreview.appendChild(item);
   });
 }
 function syncInputFiles() {
