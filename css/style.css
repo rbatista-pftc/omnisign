@@ -320,6 +320,9 @@ input.priority-rush {border: 2px solid #f59e0b;}
 .file-badge {height: 60px;display: flex;align-items: center;justify-content: center;background: #f1f5f9;border-radius: 4px;font-weight: 600;color: #475569;}
 .file-name {margin-top: 4px;font-size: 13px;font-weight: 600;word-break: break-all;}
 .file-meta {font-size: 12px;color: #64748b;}
+.recaptcha-disclosure {margin-top: 12px;font-size: 0.78rem;line-height: 1.35;color: rgba(203, 213, 245, 0.85);}
+.recaptcha-disclosure a {color: #a5b4fc;font-weight: 600;text-decoration: none;}
+.recaptcha-disclosure a:hover {text-decoration: underline;}
 
 
 
