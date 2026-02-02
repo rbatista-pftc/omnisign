@@ -801,27 +801,6 @@ if (fileInput) {
   });
 }
 /* ===========================
-   HELPERS
-=========================== */
-function fileToBase64(file) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => {
-      // result is like "data:application/pdf;base64,AAAA..."
-      const result = String(reader.result);
-      const base64 = result.split(",")[1] || "";
-      resolve(base64);
-    };
-    reader.onerror = reject;
-    reader.readAsDataURL(file);
-  });
-}
-function resetBookingFilesUI() {
-  selectedFiles = [];
-  if (fileInput) fileInput.value = "";
-  if (filePreview) filePreview.innerHTML = "";
-}
-/* ===========================
    SUBMIT (BOTH FORMS)
 =========================== */
 const bookingForm = document.getElementById("bookingForm");
@@ -831,51 +810,55 @@ if (contactForm) contactForm.addEventListener("submit", submitWithRecaptcha);
 async function submitWithRecaptcha(e) {
   e.preventDefault();
   const form = e.target;
-  const msg = form.querySelector(".form-msg");
+  const msg  = form.querySelector(".form-msg");
   if (msg) msg.textContent = "Submitting…";
-  const formType = form.id === "bookingForm" ? "booking" : "contact";
+  const formType =
+    form.id === "bookingForm" ? "booking" : "contact";
+  // SAFETY: block submit if file validation error exists
+  if (typeof fileError !== "undefined" && fileError.textContent) {
+    if (msg) msg.textContent = "Please fix the file upload errors.";
+    return;
+  }
   grecaptcha.ready(() => {
-    grecaptcha.execute(RECAPTCHA_SITE_KEY, { action: "submit" }).then(async token => {
-      try {
-        // Build a plain object payload
-        const fd = new FormData(form);
-        const payload = {};
-        fd.forEach((val, key) => (payload[key] = val));
-        payload.form_type = formType;
-        payload.recaptcha_token = token;
-        // Attach files (booking only) as base64 array
-        payload.files = [];
-        if (formType === "booking" && selectedFiles.length) {
-          for (const f of selectedFiles) {
-            const b64 = await fileToBase64(f);
-            payload.files.push({
-              name: f.name,
-              type: f.type || "application/octet-stream",
-              base64: b64
+    grecaptcha.execute(RECAPTCHA_SITE_KEY, { action: "submit" })
+      .then(async token => {
+        try {
+          // Build FormData directly (NO JSON)
+          const formData = new FormData(form);
+          // Required metadata
+          formData.append("form_type", formType);
+          formData.append("recaptcha_token", token);
+          // Attach validated files (booking only)
+          if (formType === "booking" && Array.isArray(selectedFiles)) {
+            selectedFiles.forEach(file => {
+              formData.append("documents", file, file.name);
             });
           }
+          const res = await fetch(ENDPOINT, {
+            method: "POST",
+            body: formData
+          });
+          const data = await res.json();
+          if (!res.ok || !data.success) {
+            throw new Error(data.error || "Submission failed");
+          }
+          // SUCCESS
+          if (msg) msg.textContent = "Thank you! We’ll be in touch shortly.";
+          form.reset();
+          // Clear booking-only UI
+          if (formType === "booking") {
+            selectedFiles.length = 0;
+            if (filePreview) filePreview.innerHTML = "";
+            if (fileInput) fileInput.value = "";
+            if (fileError) fileError.textContent = "";
+          }
+        } catch (err) {
+          console.error(err);
+          if (msg) msg.textContent = "Submission failed. Please try again.";
         }
-        const res = await fetch(ENDPOINT, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload)
-        });
-        const data = await res.json();
-        if (!res.ok || !data.success) {
-          throw new Error(data.error || "Submission failed");
-        }
-        if (msg) msg.textContent = "Thank you! We’ll be in touch shortly.";
-        form.reset();
-        // IMPORTANT: clear custom preview too
-        if (formType === "booking") resetBookingFilesUI();
-
-      } catch (err) {
-        console.error(err);
-        if (msg) msg.textContent = "Submission failed. Please try again.";
-      }
-    });
+      });
   });
-}
+ }
 });
 </script>
   
