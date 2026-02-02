@@ -380,7 +380,7 @@
           <select id="serviceSelect" name="service" required>
             <option value="">Select a Service</option>
             <option value="legal">Legal Document Signings</option>
-            <option value="Real Estate">REal Estate Signings</option>
+            <option value="Real Estate">Real Estate Signings</option>
             <option value="estate">Estate & Probate</option>
             <option value="general">General Signings</option>
           </select>
@@ -834,9 +834,8 @@ async function submitWithRecaptcha(e) {
   const form = e.target;
   const msg  = form.querySelector(".form-msg");
   if (msg) msg.textContent = "Submitting…";
-  const formType =
-    form.id === "bookingForm" ? "booking" : "contact";
-  // SAFETY: block submit if file validation error exists
+  const formType = form.id === "bookingForm" ? "booking" : "contact";
+  // block submit if file validation error exists
   if (typeof fileError !== "undefined" && fileError.textContent) {
     if (msg) msg.textContent = "Please fix the file upload errors.";
     return;
@@ -845,29 +844,45 @@ async function submitWithRecaptcha(e) {
     grecaptcha.execute(RECAPTCHA_SITE_KEY, { action: "submit" })
       .then(async token => {
         try {
-          // Build FormData directly (NO JSON)
-          const formData = new FormData(form);
-          // Required metadata
-          formData.append("form_type", formType);
-          formData.append("recaptcha_token", token);
-          // Attach validated files (booking only)
+          /* =========================
+             BUILD JSON PAYLOAD
+          ========================= */
+          const fd = new FormData(form);
+          const payload = {};
+          fd.forEach((value, key) => {
+            payload[key] = value;
+          });
+          payload.form_type = formType;
+          payload.recaptcha_token = token;
+          payload.files = [];
+          // booking-only files → base64
           if (formType === "booking" && Array.isArray(selectedFiles)) {
-            selectedFiles.forEach(file => {
-              formData.append("documents", file, file.name);
-            });
+            for (const file of selectedFiles) {
+              const base64 = await fileToBase64(file);
+              payload.files.push({
+                name: file.name,
+                type: file.type || "application/octet-stream",
+                base64
+              });
+            }
           }
+          /* =========================
+             SEND JSON (NO HEADERS)
+          ========================= */
           const res = await fetch(ENDPOINT, {
             method: "POST",
-            body: formData
+            body: JSON.stringify(payload)
           });
           const data = await res.json();
           if (!res.ok || !data.success) {
             throw new Error(data.error || "Submission failed");
           }
-          // SUCCESS
+          /* =========================
+             SUCCESS
+          ========================= */
           if (msg) msg.textContent = "Thank you! We’ll be in touch shortly.";
           form.reset();
-          // Clear booking-only UI
+          // clear booking file UI
           if (formType === "booking") {
             selectedFiles.length = 0;
             if (filePreview) filePreview.innerHTML = "";
@@ -880,7 +895,8 @@ async function submitWithRecaptcha(e) {
         }
       });
   });
- }
+}
+
 });
 </script>
   
