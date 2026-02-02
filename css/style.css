@@ -324,6 +324,13 @@ input.priority-rush {border: 2px solid #f59e0b;}
 .recaptcha-disclosure a {color: #a5b4fc;font-weight: 600;text-decoration: none;}
 .recaptcha-disclosure a:hover {text-decoration: underline;}
 .bottom{display:flex;flex-direction:column;}
+/* Hide the reCAPTCHA v3 badge (allowed only if you show disclosure text + links) */
+.grecaptcha-badge {
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
 
 
 
