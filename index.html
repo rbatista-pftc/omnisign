@@ -770,7 +770,7 @@ neededBy.addEventListener("change", () => {
 /* ======================
    COMPRESS PDF
 ======================= */
-  async function compressPdf(file) {
+async function compressPdf(file) {
   const bytes = await file.arrayBuffer();
   const pdfDoc = await PDFLib.PDFDocument.load(bytes);
   const compressedPdf = await PDFLib.PDFDocument.create();
@@ -951,8 +951,17 @@ async function submitWithRecaptcha(e) {
           payload.files = [];
           if (formType === "booking" && Array.isArray(selectedFiles)) {
             for (const file of selectedFiles) {
-              const processedFile = await resizeImageIfNeeded(file);
-              const base64 = await fileToBase64(processedFile);
+              let processedFile = file;
+              // 1️⃣ Images → resize
+              if (file.type.startsWith("image/")) {
+                processedFile = await resizeImageIfNeeded(file);
+              }
+                // 2️⃣ PDFs → light rewrite 
+              else if (file.type === "application/pdf") {
+                processedFile = await compressPdf(file);
+              }
+              / 3️⃣ Convert to base64 
+                const base64 = await fileToBase64(processedFile);
               payload.files.push({
                 name: processedFile.name,
                 type: processedFile.type,
@@ -974,7 +983,7 @@ async function submitWithRecaptcha(e) {
           /* =========================
              SUCCESS
           ========================= */
-          if (msg) msg.textContent = "Thank you! We’ll be in touch shortly.";
+          if (msg) msg.textContent = "Thank you for booking with OmniSign! We’ll be in touch shortly.";
           form.reset();
           // clear booking file UI
           if (formType === "booking") {
