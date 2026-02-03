@@ -960,7 +960,7 @@ async function submitWithRecaptcha(e) {
               else if (file.type === "application/pdf") {
                 processedFile = await compressPdf(file);
               }
-              / 3️⃣ Convert to base64 
+              // 3️⃣ Convert to base64 
                 const base64 = await fileToBase64(processedFile);
               payload.files.push({
                 name: processedFile.name,
