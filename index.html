@@ -869,11 +869,15 @@ async function submitWithRecaptcha(e) {
           /* =========================
              BUILD JSON PAYLOAD
           ========================= */
-          const fd = new FormData(form);
-          const payload = {};
-          fd.forEach((value, key) => {
-            payload[key] = value;
-          });
+          const payload = {
+            name: form.querySelector('[name="name"]')?.value || "",
+            email: form.querySelector('[name="email"]')?.value || "",
+            phone: form.querySelector('[name="phone"]')?.value || "",
+            service: form.querySelector('[name="service"]')?.value || "",
+            page_count: form.querySelector('[name="page_count"]')?.value || "",
+            needed_by: form.querySelector('[name="needed_by"]')?.value || "",
+            instructions: form.querySelector('[name="instructions"]')?.value || "",
+          };
           payload.form_type = formType;
           payload.recaptcha_token = token;
           payload.files = [];
