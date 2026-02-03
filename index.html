@@ -722,6 +722,70 @@ neededBy.addEventListener("change", () => {
     if (urgency) urgency.value = "rush";
   }
  });
+  /* =========================
+   UNIFIED PROCESSOR
+========================== */
+  async function processFile(file) {
+  if (file.type.startsWith("image/")) {
+    return resizeImageIfNeeded(file); 
+  }
+  if (file.type === "application/pdf") {
+    return await compressPdf(file);
+  }
+  return file;
+}
+/* =======================
+    COMPRESS IMAGES
+======================== */
+  async function resizeImageIfNeeded(file, maxWidth = 1600, quality = 0.75) {
+  if (!file.type.startsWith("image/")) return file;
+  const img = document.createElement("img");
+  const url = URL.createObjectURL(file);
+  await new Promise(resolve => {
+    img.onload = resolve;
+    img.src = url;
+  });
+  // No resize needed
+  if (img.width <= maxWidth) {
+    URL.revokeObjectURL(url);
+    return file;
+  }
+  const scale = maxWidth / img.width;
+  const canvas = document.createElement("canvas");
+  canvas.width = maxWidth;
+  canvas.height = Math.round(img.height * scale);
+  const ctx = canvas.getContext("2d");
+  ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+  return new Promise(resolve => {
+    canvas.toBlob(blob => {
+      resolve(new File([blob], file.name.replace(/\.\w+$/, ".jpg"), {
+        type: "image/jpeg"
+      }));
+    }, "image/jpeg", quality);
+  });
+}
+/* ======================
+   COMPRESS PDF
+======================= */
+  async function compressPdf(file) {
+  const bytes = await file.arrayBuffer();
+  const pdfDoc = await PDFLib.PDFDocument.load(bytes);
+  const compressedPdf = await PDFLib.PDFDocument.create();
+  const pages = await compressedPdf.copyPages(
+    pdfDoc,
+    pdfDoc.getPageIndices()
+  );
+  pages.forEach(p => compressedPdf.addPage(p));
+  const compressedBytes = await compressedPdf.save({
+    useObjectStreams: true,
+    compress: true
+  });
+  return new File(
+    [compressedBytes],
+    file.name,
+    { type: "application/pdf" }
+  );
+}
 /* ===========================
    CONFIG
 =========================== */
@@ -851,6 +915,7 @@ const bookingForm = document.getElementById("bookingForm");
 const contactForm = document.getElementById("contactForm");
 if (bookingForm) bookingForm.addEventListener("submit", submitWithRecaptcha);
 if (contactForm) contactForm.addEventListener("submit", submitWithRecaptcha);
+  
 async function submitWithRecaptcha(e) {
   e.preventDefault();
   const form = e.target;
@@ -881,13 +946,13 @@ async function submitWithRecaptcha(e) {
           payload.form_type = formType;
           payload.recaptcha_token = token;
           payload.files = [];
-          // booking-only files → base64
           if (formType === "booking" && Array.isArray(selectedFiles)) {
             for (const file of selectedFiles) {
-              const base64 = await fileToBase64(file);
+              const processedFile = await resizeImageIfNeeded(file);
+              const base64 = await fileToBase64(processedFile);
               payload.files.push({
-                name: file.name,
-                type: file.type || "application/octet-stream",
+                name: processedFile.name,
+                type: processedFile.type,
                 base64
               });
             }
@@ -925,6 +990,7 @@ async function submitWithRecaptcha(e) {
 
 });
 </script>
+<script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
   
 </body>
 </html>
