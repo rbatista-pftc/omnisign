@@ -28,7 +28,7 @@ function setLastActive() {
 function isLocked() {
   const last = localStorage.getItem('omnisign_last_active');
   if (!last) return false;
-  rreturn Date.now() - Number(last) > getTimeout() * 60 * 1000;
+  return Date.now() - Number(last) > getTimeout() * 60 * 1000;
 }
 
 function mountProfileButton() {
