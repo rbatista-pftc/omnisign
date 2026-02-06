@@ -25,6 +25,14 @@ function isLocked() {
   return Date.now() - Number(last) > LOCK_TIMEOUT_MINUTES * 60 * 1000;
 }
 
+function mountProfileButton() {
+  const btn = document.createElement('button');
+  btn.id = 'os-profile-btn';
+  btn.innerText = '👤';
+  btn.onclick = showProfile;
+  document.body.appendChild(btn);
+}
+
 /* ---------- PIN Hash (simple, not bank-level) ---------- */
 
 async function hashPin(pin) {
@@ -116,13 +124,56 @@ function showLock() {
   };
 }
 
+/* ---------- Show Profile ------------- */
+
+function showProfile() {
+  const profile = getProfile();
+  mountOverlay(`
+    <div class="os-modal">
+      <h2>Your Profile</h2>
+
+      <input id="os-p-company" value="${profile.company}">
+      <input id="os-p-name" value="${profile.fullName}">
+      <input id="os-p-phone" value="${profile.phone}">
+      <input id="os-p-email" value="${profile.email}">
+
+      <label>Auto-lock after (minutes)</label>
+      <input id="os-timeout" type="number" min="5" value="${getTimeout()}">
+
+      <input id="os-new-pin" type="password" inputmode="numeric" maxlength="4" placeholder="New PIN (optional)">
+
+      <button id="os-save-profile">Save</button>
+      <button id="os-reset">Reset App</button>
+      <button onclick="removeOverlay()">Close</button>
+    </div>
+  `);
+  document.getElementById('os-save-profile').onclick = async () => {
+    const updated = {
+      company: document.getElementById('os-p-company').value,
+      fullName: document.getElementById('os-p-name').value,
+      phone: document.getElementById('os-p-phone').value,
+      email: document.getElementById('os-p-email').value
+    };
+
+    setProfile(updated);
+    const newPin = document.getElementById('os-new-pin').value;
+    if (newPin.length === 4) {
+      localStorage.setItem('omnisign_pin_hash', await hashPin(newPin));
+    }
+    setTimeoutValue(document.getElementById('os-timeout').value);
+    removeOverlay();
+    prefillBooking(updated);
+  };
+  document.getElementById('os-reset').onclick = resetApp;
+}
+
 /* ---------- Prefill Booking ---------- */
 
 function prefillBooking(profile) {
   if (!profile) return;
 
   document.querySelector('[name="company"]')?.value = profile.company;
-  document.querySelector('[name="fullName"]')?.value = profile.fullName;
+  document.querySelector('[name="name"]')?.value = profile.fullName;
   document.querySelector('[name="phone"]')?.value = profile.phone;
   document.querySelector('[name="email"]')?.value = profile.email;
 }
