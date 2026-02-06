@@ -210,9 +210,9 @@ function prefillBooking(profile) {
 /* ---------- Init ---------- */
 
 document.addEventListener('DOMContentLoaded', () => {
-  localStorage.setItem('omnisign_force_app', 'yes'); // ← ADD THIS
   if (!IS_APP) return;
-
+  localStorage.setItem('omnisign_force_app', 'yes'); // 
+  
   const profile = getProfile();
 
 if (!isInitialized()) {
