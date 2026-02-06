@@ -178,11 +178,14 @@ function showProfile() {
 
 function prefillBooking(profile) {
   if (!profile) return;
-
-  document.querySelector('[name="company"]')?.value = profile.company;
-  document.querySelector('[name="name"]')?.value = profile.fullName;
-  document.querySelector('[name="phone"]')?.value = profile.phone;
-  document.querySelector('[name="email"]')?.value = profile.email;
+  const company = document.querySelector('[name="company"]');
+  if (company) company.value = profile.company;
+  const name = document.querySelector('[name="name"]');
+  if (name) name.value = profile.fullName;
+  const phone = document.querySelector('[name="phone"]');
+  if (phone) phone.value = profile.phone;
+  const email = document.querySelector('[name="email"]');
+  if (email) email.value = profile.email;
 }
 
 /* ---------- Init ---------- */
