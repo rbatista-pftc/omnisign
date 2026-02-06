@@ -361,20 +361,22 @@ input.priority-rush {border: 2px solid #f59e0b;}
   font-size: 18px;
   cursor: pointer;
 }
-/* ---------- App Mode Layout ---------- */
-body.omnisign-app-mode .marketing,
-body.omnisign-app-mode header.site-header,
-body.omnisign-app-mode .hero,
-body.omnisign-app-mode .homepage {
-  display: none !important;
+/* ===============================
+   OmniSign App Mode (STATIC SITE SAFE)
+   =============================== */
+
+/* Default: hide everything */
+body.omnisign-app-mode body > * {
+  display: none;
 }
-/* Booking becomes app home */
-body.omnisign-app-mode #book {
-  margin-top: 0;
-  padding-top: 24px;
+/* Re-show only app-approved sections */
+body.omnisign-app-mode [data-app-visible] {
+  display: block !important;
 }
-/* Make it feel app-like */
-body.omnisign-app-mode {background: #0b1a2b;}
+/* App background */
+body.omnisign-app-mode {
+  background: #0b1a2b;
+}
 #omnisign-app-header {
   position: sticky;
   top: 0;
