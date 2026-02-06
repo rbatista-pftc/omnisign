@@ -9,9 +9,19 @@ function isDefinitelyApp() {
       const standalone =
         window.matchMedia('(display-mode: standalone)').matches ||
         window.navigator.standalone === true; // iOS
-
       resolve(standalone);
     });
+  });
+}
+function onAppReady(callback) {
+  const mq = window.matchMedia('(display-mode: standalone)');
+  if (mq.matches || window.navigator.standalone === true) {
+    callback();
+    return;
+  }
+  // 🔥 CRITICAL: wait for Chrome to flip to standalone
+  mq.addEventListener('change', e => {
+    if (e.matches) callback();
   });
 }
 
@@ -21,38 +31,30 @@ const DEFAULT_TIMEOUT = 30;
 function getTimeout() {
   return Number(localStorage.getItem('omnisign_timeout')) || DEFAULT_TIMEOUT;
 }
-
 function setTimeoutValue(val) {
   localStorage.setItem('omnisign_timeout', Number(val));
 }
-
 /* ---------- Helpers ---------- */
 function isInitialized() {
   return localStorage.getItem('omnisign_initialized') === 'yes';
 }
-
 function setInitialized() {
   localStorage.setItem('omnisign_initialized', 'yes');
 }
-
 function getProfile() {
   return JSON.parse(localStorage.getItem('omnisign_profile'));
 }
-
 function setProfile(data) {
   localStorage.setItem('omnisign_profile', JSON.stringify(data));
 }
-
 function setLastActive() {
   localStorage.setItem('omnisign_last_active', Date.now().toString());
 }
-
 function isLocked() {
   const last = localStorage.getItem('omnisign_last_active');
   if (!last) return false;
   return Date.now() - Number(last) > getTimeout() * 60 * 1000;
 }
-
 /* ---------- Profile Button ---------- */
 function mountProfileButton() {
   const btn = document.createElement('button');
@@ -237,42 +239,32 @@ function showProfile() {
 /* ---------- Prefill Booking ---------- */
 function prefillBooking(profile) {
   if (!profile) return;
-
   const company = document.querySelector('[name="company"]');
   if (company) company.value = profile.company;
-
   const name = document.querySelector('[name="name"]');
   if (name) name.value = profile.fullName;
-
   const phone = document.querySelector('[name="phone"]');
   if (phone) phone.value = profile.phone;
-
   const email = document.querySelector('[name="email"]');
   if (email) email.value = profile.email;
 }
 
-/* ---------- Init (APP ONLY, GUARANTEED) ---------- */
-document.addEventListener('DOMContentLoaded', async () => {
-  const IS_APP = await isDefinitelyApp();
-
-  if (!IS_APP) return; // 🚫 NEVER runs on website
-
-  const profile = getProfile();
-
-  if (!isInitialized() || !profile) {
-    showOnboarding();
-  } else if (isLocked()) {
-    showLock();
-  } else {
-    setLastActive();
-    prefillBooking(profile);
-  }
-
-  mountProfileButton();
-
-  ['click', 'keydown', 'submit'].forEach(evt =>
-    document.addEventListener(evt, setLastActive)
-  );
+document.addEventListener('DOMContentLoaded', () => {
+  onAppReady(() => {
+    const profile = getProfile();
+    if (!isInitialized() || !profile) {
+      showOnboarding();
+    } else if (isLocked()) {
+      showLock();
+    } else {
+      setLastActive();
+      prefillBooking(profile);
+    }
+    mountProfileButton();
+    ['click', 'keydown', 'submit'].forEach(evt =>
+      document.addEventListener(evt, setLastActive)
+    );
+  });
 });
 
 /* ---------- Reset ---------- */
