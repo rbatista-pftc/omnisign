@@ -990,6 +990,18 @@ async function submitWithRecaptcha(e) {
              SUCCESS
           ========================= */
           if (msg) msg.textContent = "Thank you for booking with OmniSign! We’ll be in touch shortly.";
+          // 🔔 DESKTOP NOTIFICATION (APP MODE + BOOKING ONLY)
+          if (
+            formType === "booking" &&
+            window.matchMedia('(display-mode: standalone)').matches &&
+            'Notification' in window &&
+            Notification.permission === 'granted'
+          ) {
+            new Notification('OmniSign Booking Submitted', {
+              body: 'Your signing request was submitted successfully.',
+              icon: '/favicon/android-chrome-192x192.png'
+            });
+          }
           form.reset();
           // clear booking file UI
           if (formType === "booking") {
