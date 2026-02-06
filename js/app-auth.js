@@ -3,7 +3,13 @@
    ============================ */
 
 const IS_APP = window.matchMedia('(display-mode: standalone)').matches;
-const LOCK_TIMEOUT_MINUTES = 30;
+const DEFAULT_TIMEOUT = 30;
+function getTimeout() {
+  return Number(localStorage.getItem('omnisign_timeout')) || DEFAULT_TIMEOUT;
+}
+function setTimeoutValue(val) {
+  localStorage.setItem('omnisign_timeout', Number(val));
+}
 
 /* ---------- Helpers ---------- */
 
@@ -22,7 +28,7 @@ function setLastActive() {
 function isLocked() {
   const last = localStorage.getItem('omnisign_last_active');
   if (!last) return false;
-  return Date.now() - Number(last) > LOCK_TIMEOUT_MINUTES * 60 * 1000;
+  rreturn Date.now() - Number(last) > getTimeout() * 60 * 1000;
 }
 
 function mountProfileButton() {
@@ -93,6 +99,7 @@ function showOnboarding() {
 
     localStorage.setItem('omnisign_pin_hash', await hashPin(pin));
     setProfile(profile);
+    requestNotifications();   
     setLastActive();
     removeOverlay();
     prefillBooking(profile);
@@ -193,8 +200,23 @@ document.addEventListener('DOMContentLoaded', () => {
     setLastActive();
     prefillBooking(profile);
   }
-
+  mountProfileButton();  
   ['click', 'keydown', 'submit'].forEach(evt =>
     document.addEventListener(evt, setLastActive)
   );
 });
+
+function resetApp() {
+  if (!confirm('This will remove your saved info and PIN. Continue?')) return;
+  localStorage.removeItem('omnisign_profile');
+  localStorage.removeItem('omnisign_pin_hash');
+  localStorage.removeItem('omnisign_last_active');
+  localStorage.removeItem('omnisign_timeout');
+  location.reload();
+}
+function requestNotifications() {
+  if ('Notification' in window && Notification.permission === 'default') {
+    Notification.requestPermission();
+  }
+}
+
