@@ -29,23 +29,19 @@ function mountAppHeader() {
   const header = document.createElement('div');
   header.id = 'omnisign-app-header';
   header.innerHTML = `
-    <div class="app-title">OmniSign</div>
-    <div class="app-actions">
-      <button id="os-lock">🔒</button>
-      <button id="os-profile">👤</button>
+    <div class="app-left">
+      <strong>OmniSign</strong>
     </div>
-  `;
+    <div class="app-right">
+      <button id="os-open-profile">👤</button>
+    </div>
+  `
   document.body.prepend(header);
-  document.getElementById('os-profile').onclick = showProfile;
-  document.getElementById('os-lock').onclick = () => {
-    removeOverlay();
-    showLock();
-  };
+  document.getElementById('os-open-profile').onclick = openProfilePanel;
 }
 
 /* ---------- Timeout ---------- */
 const DEFAULT_TIMEOUT = 30;
-
 function getTimeout() {
   return Number(localStorage.getItem('omnisign_timeout')) || DEFAULT_TIMEOUT;
 }
@@ -208,10 +204,10 @@ function showLock() {
 }
 
 /* ---------- Profile ---------- */
-function showProfile() {
+function openProfilePanel() {
   const profile = getProfile();
   mountOverlay(`
-    <div class="os-modal">
+    <div class="os-side-panel">
       <h2>Your Profile</h2>
       <input id="os-p-company" value="${profile.company}">
       <input id="os-p-name" value="${profile.fullName}">
@@ -222,27 +218,29 @@ function showProfile() {
       <input id="os-new-pin" type="password" inputmode="numeric" maxlength="4" placeholder="New PIN (optional)">
       <button id="os-save-profile">Save</button>
       <button id="os-reset">Reset App</button>
-      <button onclick="removeOverlay()">Close</button>
+      <button id="os-close-panel">Close</button>
     </div>
   `);
+  document.getElementById('os-close-panel').onclick = removeOverlay;
   document.getElementById('os-save-profile').onclick = async () => {
-    const updated = {
-      company: document.getElementById('os-p-company').value,
-      fullName: document.getElementById('os-p-name').value,
-      phone: document.getElementById('os-p-phone').value,
-      email: document.getElementById('os-p-email').value
-    };
-    setProfile(updated);
-    const newPin = document.getElementById('os-new-pin').value;
+    setProfile({
+      company: osVal('os-p-company'),
+      fullName: osVal('os-p-name'),
+      phone: osVal('os-p-phone'),
+      email: osVal('os-p-email')
+    });
+    const newPin = osVal('os-new-pin');
     if (newPin.length === 4) {
       localStorage.setItem('omnisign_pin_hash', await hashPin(newPin));
     }
-    setTimeoutValue(document.getElementById('os-timeout').value);
+    setTimeoutValue(osVal('os-timeout'));
     removeOverlay();
-    prefillBooking(updated);
+    prefillBooking(getProfile());
   };
-
   document.getElementById('os-reset').onclick = resetApp;
+}
+function osVal(id) {
+  return document.getElementById(id).value;
 }
 
 /* ---------- Prefill Booking ---------- */
@@ -269,7 +267,7 @@ document.addEventListener('DOMContentLoaded', () => {
       setLastActive();
       prefillBooking(profile);
     }
-    mountProfileButton();
+    mountAppHeader(); 
     ['click', 'keydown', 'submit'].forEach(evt =>
       document.addEventListener(evt, setLastActive)
     );
