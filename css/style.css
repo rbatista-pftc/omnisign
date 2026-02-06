@@ -330,6 +330,23 @@ input.priority-rush {border: 2px solid #f59e0b;}
   opacity: 0 !important;
   pointer-events: none !important;
 }
+/* ======================
+   OPEN IN APP
+======================= */
+#omnisign-app-overlay {position: fixed;inset: 0;background: #0f172a;display: flex;align-items: center;justify-content: center;z-index: 9999;}
+.os-modal {
+  background: #fff;
+  padding: 24px;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 360px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.os-modal h2 {margin: 0 0 6px;}
+.os-modal input,
+.os-modal button {padding: 10px;font-size: 16px;}
 
 
 
