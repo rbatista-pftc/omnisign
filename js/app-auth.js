@@ -13,6 +13,14 @@ function setTimeoutValue(val) {
 
 /* ---------- Helpers ---------- */
 
+function isInitialized() {
+  return localStorage.getItem('omnisign_initialized') === 'yes';
+}
+
+function setInitialized() {
+  localStorage.setItem('omnisign_initialized', 'yes');
+}
+
 function getProfile() {
   return JSON.parse(localStorage.getItem('omnisign_profile'));
 }
@@ -101,6 +109,7 @@ function showOnboarding() {
     setProfile(profile);
     requestNotifications();   
     setLastActive();
+    setInitialized(); 
     removeOverlay();
     prefillBooking(profile);
   };
@@ -195,14 +204,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const profile = getProfile();
 
-  if (!profile) {
-    showOnboarding();
-  } else if (isLocked()) {
-    showLock();
-  } else {
-    setLastActive();
-    prefillBooking(profile);
-  }
+if (!isInitialized()) {
+  showOnboarding();
+} else if (!profile) {
+  showOnboarding();
+} else if (isLocked()) {
+  showLock();
+} else {
+  setLastActive();
+  prefillBooking(profile);
+}
   mountProfileButton();  
   ['click', 'keydown', 'submit'].forEach(evt =>
     document.addEventListener(evt, setLastActive)
