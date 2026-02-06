@@ -2,7 +2,16 @@
    OmniSign App-Only Auth
    ============================ */
 
-const IS_APP = window.matchMedia('(display-mode: standalone)').matches;
+function isRunningAsApp() {
+  return (
+    window.matchMedia('(display-mode: standalone)').matches ||
+    window.navigator.standalone === true ||                // iOS
+    document.referrer.startsWith('android-app://') ||      // Android
+    localStorage.getItem('omnisign_force_app') === 'yes'   // first-launch fix
+  );
+}
+
+const IS_APP = isRunningAsApp();
 const DEFAULT_TIMEOUT = 30;
 function getTimeout() {
   return Number(localStorage.getItem('omnisign_timeout')) || DEFAULT_TIMEOUT;
@@ -110,6 +119,7 @@ function showOnboarding() {
     requestNotifications();   
     setLastActive();
     setInitialized(); 
+    localStorage.removeItem('omnisign_force_app');
     removeOverlay();
     prefillBooking(profile);
   };
@@ -200,6 +210,7 @@ function prefillBooking(profile) {
 /* ---------- Init ---------- */
 
 document.addEventListener('DOMContentLoaded', () => {
+  localStorage.setItem('omnisign_force_app', 'yes'); // ← ADD THIS
   if (!IS_APP) return;
 
   const profile = getProfile();
