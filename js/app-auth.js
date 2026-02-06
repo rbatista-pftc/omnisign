@@ -91,6 +91,10 @@ function showOnboarding() {
       <input id="os-name" placeholder="Full Name">
       <input id="os-phone" placeholder="Phone Number">
       <input id="os-email" placeholder="Email">
+      <hr>
+      <h4 style="margin-top:10px;">Secure Your App</h4>
+      <p style="font-size:14px;opacity:.8;">
+      Set a 4-digit PIN to lock and unlock the OmniSign app.</p>
       <input id="os-pin" type="password" inputmode="numeric" maxlength="4" placeholder="4-Digit PIN">
       <input id="os-pin-confirm" type="password" inputmode="numeric" maxlength="4" placeholder="Confirm PIN">
 
@@ -133,6 +137,9 @@ function showLock() {
       <h2>Enter PIN</h2>
       <input id="os-unlock-pin" type="password" inputmode="numeric" maxlength="4" placeholder="••••">
       <button id="os-unlock">Unlock</button>
+      <button id="os-forgot" style="background:none;border:none;color:#555;">
+      Forgot PIN?
+      </button>
     </div>
   `);
 
@@ -148,6 +155,13 @@ function showLock() {
       alert('Incorrect PIN');
     }
   };
+
+ document.getElementById('os-forgot').onclick = () => {
+  if (!confirm(
+    'Resetting the PIN will remove your saved info on this device. Continue?'
+  )) return;
+  resetApp(); // you already have this function
+ };
 }
 
 /* ---------- Show Profile ------------- */
