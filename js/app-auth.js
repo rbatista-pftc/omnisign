@@ -25,6 +25,23 @@ function onAppReady(callback) {
     if (e.matches) callback();
   });
 }
+function mountAppHeader() {
+  const header = document.createElement('div');
+  header.id = 'omnisign-app-header';
+  header.innerHTML = `
+    <div class="app-title">OmniSign</div>
+    <div class="app-actions">
+      <button id="os-lock">🔒</button>
+      <button id="os-profile">👤</button>
+    </div>
+  `;
+  document.body.prepend(header);
+  document.getElementById('os-profile').onclick = showProfile;
+  document.getElementById('os-lock').onclick = () => {
+    removeOverlay();
+    showLock();
+  };
+}
 
 /* ---------- Timeout ---------- */
 const DEFAULT_TIMEOUT = 30;
@@ -193,27 +210,21 @@ function showLock() {
 /* ---------- Profile ---------- */
 function showProfile() {
   const profile = getProfile();
-
   mountOverlay(`
     <div class="os-modal">
       <h2>Your Profile</h2>
-
       <input id="os-p-company" value="${profile.company}">
       <input id="os-p-name" value="${profile.fullName}">
       <input id="os-p-phone" value="${profile.phone}">
       <input id="os-p-email" value="${profile.email}">
-
       <label>Auto-lock after (minutes)</label>
       <input id="os-timeout" type="number" min="5" value="${getTimeout()}">
-
       <input id="os-new-pin" type="password" inputmode="numeric" maxlength="4" placeholder="New PIN (optional)">
-
       <button id="os-save-profile">Save</button>
       <button id="os-reset">Reset App</button>
       <button onclick="removeOverlay()">Close</button>
     </div>
   `);
-
   document.getElementById('os-save-profile').onclick = async () => {
     const updated = {
       company: document.getElementById('os-p-company').value,
@@ -221,14 +232,11 @@ function showProfile() {
       phone: document.getElementById('os-p-phone').value,
       email: document.getElementById('os-p-email').value
     };
-
     setProfile(updated);
-
     const newPin = document.getElementById('os-new-pin').value;
     if (newPin.length === 4) {
       localStorage.setItem('omnisign_pin_hash', await hashPin(newPin));
     }
-
     setTimeoutValue(document.getElementById('os-timeout').value);
     removeOverlay();
     prefillBooking(updated);
@@ -271,13 +279,11 @@ document.addEventListener('DOMContentLoaded', () => {
 /* ---------- Reset ---------- */
 function resetApp() {
   if (!confirm('This will remove your saved info and PIN. Continue?')) return;
-
   localStorage.removeItem('omnisign_profile');
   localStorage.removeItem('omnisign_pin_hash');
   localStorage.removeItem('omnisign_last_active');
   localStorage.removeItem('omnisign_timeout');
   localStorage.removeItem('omnisign_initialized');
-
   location.reload();
 }
 
