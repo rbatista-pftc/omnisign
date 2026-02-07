@@ -288,6 +288,7 @@ function openProfilePanel() {
   const profile = getProfile();
   mountOverlay(`
     <div class="os-side-panel">
+    <button class="os-panel-close" aria-label="Close profile">✕</button>
       <h2>Your Profile</h2>
       <input id="os-p-company" value="${profile.company}">
       <input id="os-p-name" value="${profile.fullName}">
@@ -300,7 +301,11 @@ function openProfilePanel() {
       <button id="os-reset">Reset App</button>
     </div>
   `);
-  document.getElementById('os-close-panel').onclick = removeOverlay;
+  document.querySelector('.os-panel-close').onclick = () => {
+     const panel = document.querySelector('.os-side-panel');
+     panel.classList.add('closing');
+     setTimeout(removeOverlay, 250);
+  };
   document.getElementById('os-save-profile').onclick = async () => {
     setProfile({
       company: osVal('os-p-company'),
