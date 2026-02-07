@@ -414,17 +414,8 @@ body.omnisign-app-mode {
     0 20px 40px rgba(0,0,0,.25),
     0 2px 8px rgba(0,0,0,.08);
 }
-.os-modal h2 {
-  margin: 0;
-  font-size: 22px;
-  font-weight: 600;
-}
-.os-modal p {
-  margin: 0 0 8px;
-  font-size: 14px;
-  line-height: 1.4;
-  color: #475569;
-}
+.os-modal h2 {margin: 0;font-size: 22px;font-weight: 600;}
+.os-modal p {margin: 0 0 8px;font-size: 14px;line-height: 1.4;color: #475569;}
 .os-modal input {
   width: 100%;
   height: 44px;
@@ -435,25 +426,7 @@ body.omnisign-app-mode {
   outline: none;
   transition: border .15s, box-shadow .15s;
 }
-.os-modal input:focus {
-  border-color: #0f766e;
-  box-shadow: 0 0 0 3px rgba(15,118,110,.15);
-}
-
-#os-profile-btn {
-  position: fixed;
-  top: 12px;
-  right: 12px;
-  z-index: 9000;
-  background: #0f766e;
-  color: #fff;
-  border: none;
-  border-radius: 50%;
-  width: 42px;
-  height: 42px;
-  font-size: 18px;
-  cursor: pointer;
-}
+.os-modal input:focus {border-color: #0f766e;box-shadow: 0 0 0 3px rgba(15,118,110,.15);}
 #os-pin,
 #os-pin-confirm {
   padding-right: 54px;
@@ -493,10 +466,47 @@ body.omnisign-app-mode {
   cursor: pointer;
 }
 #os-save:hover {filter: brightness(1.05);}
-.os-side-panel {border-radius: 0;padding-top: 24px;}
-.os-side-panel h2 {margin-top: 0;font-size: 20px;}
-.os-side-panel input {height: 44px;}
-.os-side-panel button {margin-top: 6px;}
+.os-side-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 320px;
+  height: 100%;
+  background: #ffffff;
+  padding: 20px;
+  box-shadow: -8px 0 24px rgba(0,0,0,.15);
+  border-top-left-radius: 16px;
+  border-bottom-left-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.os-side-panel h2 {margin: 0 0 8px;}
+.os-side-panel input {padding: 10px 12px;border-radius: 10px;border: 1px solid #d1d5db;}
+.os-side-panel button {padding: 10px;border-radius: 10px;font-weight: 600;}
+#os-save-profile {background: linear-gradient(135deg,#0f766e,#14b8a6);color: white;border: none;}
+#os-reset {background: #fee2e2;color: #991b1b;border: none;}
+#os-profile-btn {
+  position: fixed;          
+  top: 12px;
+  right: 12px;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.18);
+  color: white;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 9000;
+}
+#os-profile-btn:hover {background: rgba(255,255,255,0.28);}
+#os-profile-btn:active {transform: scale(0.96);}
+#os-profile-btn .os-avatar {font-size: 18px;line-height: 1;}
+
+
 
 
 
