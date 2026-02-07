@@ -104,6 +104,35 @@ async function hashPin(pin) {
     .map(b => b.toString(16).padStart(2, '0'))
     .join('');
 }
+/* --------- Biometric Unlock -------- */
+async function biometricsAvailable() {
+  return !!(window.PublicKeyCredential &&
+    await PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable());
+}
+async function registerBiometrics() {
+  if (!(await biometricsAvailable())) return;
+  if (localStorage.getItem('omnisign_biometric') === 'enabled') return;
+  const cred = await navigator.credentials.create({
+    publicKey: {
+      challenge: crypto.getRandomValues(new Uint8Array(32)),
+      rp: { name: "OmniSign" },
+      user: {
+        id: crypto.getRandomValues(new Uint8Array(16)),
+        name: "omnisign-user",
+        displayName: "OmniSign User"
+      },
+      pubKeyCredParams: [{ type: "public-key", alg: -7 }],
+      authenticatorSelection: {
+        authenticatorAttachment: "platform",
+        userVerification: "required"
+      },
+      timeout: 60000,
+      attestation: "none"
+    }
+  });
+  // If create() succeeded, enable biometrics
+  localStorage.setItem('omnisign_biometric', 'enabled');
+}
 
 /* ---------- Overlay ---------- */
 function mountOverlay(html) {
@@ -176,6 +205,7 @@ function showOnboarding() {
     setProfile(profile);
     requestNotifications();
     setInitialized();
+    try { await registerBiometrics(); } catch(e) { console.warn('Biometrics not set:', e); }
     setLastActive();
     removeOverlay();
     prefillBooking(profile);
@@ -207,6 +237,37 @@ function showLock() {
       </button>
     </div>
   `);
+   (async () => {
+  const canBio = await biometricsAvailable();
+  const enabled = localStorage.getItem('omnisign_biometric') === 'enabled';
+  if (!canBio || !enabled) return;
+
+  const unlockBtn = document.createElement('button');
+  unlockBtn.id = 'os-bio-unlock';
+  unlockBtn.textContent = 'Unlock with Biometrics';
+
+  // Put it above the PIN input
+  const pinInput = document.getElementById('os-unlock-pin');
+  pinInput?.parentElement?.insertBefore(unlockBtn, pinInput);
+
+  unlockBtn.onclick = async () => {
+    try {
+      await navigator.credentials.get({
+        publicKey: {
+          challenge: crypto.getRandomValues(new Uint8Array(32)),
+          timeout: 60000,
+          userVerification: "required"
+        }
+      });
+      resetPinFailures();
+      setLastActive();
+      removeOverlay();
+      prefillBooking(getProfile());
+    } catch (err) {
+      alert('Biometric authentication failed.');
+    }
+  };
+})();
   document.getElementById('os-unlock').onclick = async () => {
     const entered = document.getElementById('os-unlock-pin').value;
     const stored = localStorage.getItem('omnisign_pin_hash');
