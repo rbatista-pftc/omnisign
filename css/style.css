@@ -355,14 +355,16 @@ body.omnisign-app-mode {
   position: sticky;
   top: 0;
   z-index: 1000;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 12px 16px;
+  height: 52px;
+  padding: 0 16px;
   background: #0f766e;
-  color: white;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 15px;
+  font-weight: 500;
 }
-
 #omnisign-app-header button {
   background: none;
   border: none;
@@ -400,21 +402,44 @@ body.omnisign-app-mode {
   z-index: 9999;
 }
 .os-modal {
-  background: #fff;
-  padding: 24px;
-  border-radius: 12px;
+  background: #ffffff;
+  padding: 28px 24px 24px;
+  border-radius: 16px;
   width: 100%;
-  max-width: 360px;
+  max-width: 380px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 14px;
+  box-shadow:
+    0 20px 40px rgba(0,0,0,.25),
+    0 2px 8px rgba(0,0,0,.08);
 }
-.os-modal h2 { margin: 0 0 6px; }
-.os-modal input,
-.os-modal button {
-  padding: 10px;
-  font-size: 16px;
+.os-modal h2 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 600;
 }
+.os-modal p {
+  margin: 0 0 8px;
+  font-size: 14px;
+  line-height: 1.4;
+  color: #475569;
+}
+.os-modal input {
+  width: 100%;
+  height: 44px;
+  border-radius: 10px;
+  border: 1px solid #cbd5e1;
+  padding: 0 14px;
+  font-size: 15px;
+  outline: none;
+  transition: border .15s, box-shadow .15s;
+}
+.os-modal input:focus {
+  border-color: #0f766e;
+  box-shadow: 0 0 0 3px rgba(15,118,110,.15);
+}
+
 #os-profile-btn {
   position: fixed;
   top: 12px;
@@ -429,22 +454,60 @@ body.omnisign-app-mode {
   font-size: 18px;
   cursor: pointer;
 }
-#os-pin, #os-pin-confirm { 
-  width: 100%;
-  padding-right: 54px; /* reserve space for the eye */
+#os-pin,
+#os-pin-confirm {
+  padding-right: 54px;
 }
-#os-toggle-pin, #os-toggle-pin-confirm {
+#os-toggle-pin,
+#os-toggle-pin-confirm {
   position: absolute;
-  right: 12px;
+  right: 8px;
   top: 50%;
   transform: translateY(-50%);
-  height: 36px;
-  width: 36px;
+  height: 34px;
+  width: 34px;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  background: #f8fafc;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: .7;
+}
+#os-toggle-pin:hover,
+#os-toggle-pin-confirm:hover {
+  opacity: 1;
+}
+.os-modal hr {
   border: none;
-  border-radius: 10px;
-  background: transparent;
+  border-top: 1px solid #e2e8f0;
+  margin: 8px 0;
+}
+.os-modal h4 {
+  margin: 6px 0 2px;
+  font-size: 15px;
+  font-weight: 600;
+}
+.os-modal .os-security-note {
+  font-size: 13px;
+  color: #64748b;
+}
+#os-save {
+  margin-top: 8px;
+  height: 46px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #0f766e, #14b8a6);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
   cursor: pointer;
 }
+#os-save:hover {
+  filter: brightness(1.05);
+}
+
 
 
 
