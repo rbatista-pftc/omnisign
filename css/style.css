@@ -336,19 +336,11 @@ input.priority-rush {border: 2px solid #f59e0b;}
    =============================== */
 
 /* Hide everything by default */
-body.omnisign-app-mode > * {
-  display: none;
-}
-
+body.omnisign-app-mode > * {display: none;}
 /* Re-show only app-approved sections */
-body.omnisign-app-mode [data-app-visible] {
-  display: block !important;
-}
-
+body.omnisign-app-mode [data-app-visible] {display: block !important;}
 /* App background */
-body.omnisign-app-mode {
-  background: #0b1a2b;
-}
+body.omnisign-app-mode {background: #0b1a2b;}
 
 /* App header */
 #omnisign-app-header {
@@ -365,13 +357,6 @@ body.omnisign-app-mode {
   font-size: 15px;
   font-weight: 500;
 }
-#omnisign-app-header button {
-  background: none;
-  border: none;
-  color: white;
-  font-size: 18px;
-  cursor: pointer;
-}
 
 /* Slide-in profile panel */
 .os-side-panel {
@@ -385,18 +370,14 @@ body.omnisign-app-mode {
   box-shadow: -4px 0 12px rgba(0,0,0,.2);
   animation: slideIn .25s ease-out;
 }
-
 @keyframes slideIn {
   from { transform: translateX(100%); }
   to { transform: translateX(0); }
 }
 
 /* Overlay */
-body.omnisign-app-mode main,
-body.omnisign-app-mode section,
-body.omnisign-app-mode .book {
-  background: #f8fafc !important;
-  color: #0f172a;
+body.omnisign-app-mode .section {
+  background: white;
 }
 
 #omnisign-app-overlay {
