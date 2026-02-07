@@ -41,6 +41,9 @@ function mountAppHeader() {
 
 /* ---------- Timeout ---------- */
 const DEFAULT_TIMEOUT = 30;
+const MAX_PIN_ATTEMPTS = 4;
+const LOCKOUT_MINUTES = 30;
+
 function getTimeout() {
   return Number(localStorage.getItem('omnisign_timeout')) || DEFAULT_TIMEOUT;
 }
@@ -67,6 +70,22 @@ function isLocked() {
   const last = localStorage.getItem('omnisign_last_active');
   if (!last) return false;
   return Date.now() - Number(last) > getTimeout() * 60 * 1000;
+}
+function isPinLocked() {
+  const until = localStorage.getItem('omnisign_pin_locked_until');
+  return until && Date.now() < Number(until);
+}
+function recordPinFailure() {
+  let fails = Number(localStorage.getItem('omnisign_pin_failures') || 0) + 1;
+  localStorage.setItem('omnisign_pin_failures', fails);
+  if (fails >= MAX_PIN_ATTEMPTS) {
+    const lockUntil = Date.now() + LOCKOUT_MINUTES * 60 * 1000;
+    localStorage.setItem('omnisign_pin_locked_until', lockUntil);
+  }
+}
+function resetPinFailures() {
+  localStorage.removeItem('omnisign_pin_failures');
+  localStorage.removeItem('omnisign_pin_locked_until');
 }
 /* ---------- Profile Button ---------- */
 function mountProfileButton() {
@@ -170,6 +189,19 @@ function showOnboarding() {
 
 /* ---------- Lock Screen ---------- */
 function showLock() {
+  if (isPinLocked()) {
+  const mins = Math.ceil(
+    (Number(localStorage.getItem('omnisign_pin_locked_until')) - Date.now()) / 60000
+  );
+  mountOverlay(`
+    <div class="os-modal">
+      <h2>App Locked</h2>
+      <p>Too many incorrect PIN attempts.</p>
+      <p>Please try again in <strong>${mins} minutes</strong>.</p>
+    </div>
+  `);
+  return;
+} 
   mountOverlay(`
     <div class="os-modal">
       <h2>Enter PIN</h2>
@@ -180,7 +212,6 @@ function showLock() {
       </button>
     </div>
   `);
-
   document.getElementById('os-unlock').onclick = async () => {
     const entered = document.getElementById('os-unlock-pin').value;
     const stored = localStorage.getItem('omnisign_pin_hash');
