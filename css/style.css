@@ -392,6 +392,13 @@ body.omnisign-app-mode {
 }
 
 /* Overlay */
+body.omnisign-app-mode main,
+body.omnisign-app-mode section,
+body.omnisign-app-mode .book {
+  background: #f8fafc !important;
+  color: #0f172a;
+}
+
 #omnisign-app-overlay {
   position: fixed;
   inset: 0;
