@@ -461,18 +461,19 @@ body.omnisign-app-mode {
 #os-toggle-pin,
 #os-toggle-pin-confirm {
   position: absolute;
-  right: 8px;
+  right: 10px;
   top: 50%;
   transform: translateY(-50%);
-  height: 34px;
-  width: 34px;
-  border-radius: 8px;
-  border: 1px solid #cbd5e1;
-  background: #f8fafc;
+  height: 30px;
+  width: 30px;
+  border-radius: 999px;
+  border: none;
+  background: transparent;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 16px;
   opacity: .7;
 }
 #os-toggle-pin:hover,
