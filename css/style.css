@@ -504,6 +504,9 @@ body.omnisign-app-mode .section {
 #os-profile-btn:hover {background: rgba(255,255,255,0.28);}
 #os-profile-btn:active {transform: scale(0.96);}
 #os-profile-btn .os-avatar {font-size: 18px;line-height: 1;}
+.os-panel-footer {position: absolute;bottom: 20px;left: 20px;right: 20px;}
+.os-panel-footer .danger {width: 100%;background: #fee2e2;color: #991b1b;border: 1px solid #fecaca;}
+
 
 
 
