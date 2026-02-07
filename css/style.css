@@ -366,7 +366,7 @@ input.priority-rush {border: 2px solid #f59e0b;}
    =============================== */
 
 /* Default: hide everything */
-body.omnisign-app-mode body > * {
+body.omnisign-app-mode > * {
   display: none;
 }
 /* Re-show only app-approved sections */
