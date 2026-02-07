@@ -505,11 +505,8 @@ body.omnisign-app-mode .book {background: #f8fafc;}
 #os-profile-btn .os-avatar {font-size: 18px;line-height: 1;}
 .os-panel-footer {position: absolute;bottom: 20px;left: 20px;right: 20px;}
 .os-panel-footer .danger {width: 100%;background: #fee2e2;color: #991b1b;border: 1px solid #fecaca;}
-.os-section-title {font-size: 15px;margin: 12px 0 4px;}
-.os-section-sub {font-size: 12px;color: #6b7280;margin-bottom: 6px;}
-.os-label {font-size: 13px;display: block;margin-bottom: 4px;}
-.os-section-title {font-size: 15px;margin: 12px 0 4px;}
-.os-section-sub {font-size: 12px;color: #6b7280;margin-bottom: 6px;}
+.os-section-title {font-size: 15px;margin: 8px 0 2px;}
+.os-section-sub {font-size: 12px;color: #6b7280;margin-bottom: 3px;}
 .os-label {font-size: 13px;display: block;margin-bottom: 4px;}
 
 
