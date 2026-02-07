@@ -158,8 +158,8 @@ function showOnboarding() {
       <input id="os-email" placeholder="Email">
       <hr>
       <h4>Secure Your App</h4>
-      <p style="font-size:14px;opacity:.8;">
-        Set a 4-digit PIN to lock and unlock the OmniSign app.
+      <p class="os-security-note">
+      Set a 4-digit PIN to lock and unlock OmniSign.
       </p>
       <div style="position:relative;">
         <input id="os-pin" type="password" inputmode="numeric" maxlength="4" placeholder="4-Digit PIN">
