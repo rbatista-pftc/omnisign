@@ -291,5 +291,12 @@ function requestNotifications() {
     Notification.requestPermission();
   }
 }
+document.addEventListener('click', e => {
+  if (!e.target.classList.contains('os-eye')) return;
+  const input = document.getElementById(e.target.dataset.target);
+  if (!input) return;
+  input.type = input.type === 'password' ? 'text' : 'password';
+});
+
 
 
