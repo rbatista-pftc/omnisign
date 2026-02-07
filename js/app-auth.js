@@ -257,7 +257,6 @@ function prefillBooking(profile) {
 
 document.addEventListener('DOMContentLoaded', () => {
   onAppReady(() => {
-   if (IS_APP) {document.body.classList.add('omnisign-app-mode');}
     const profile = getProfile();
     if (!isInitialized() || !profile) {
       showOnboarding();
