@@ -440,9 +440,9 @@ body.omnisign-app-mode {
   transform: translateY(-50%);
   height: 36px;
   width: 36px;
-  border: 1px solid #cbd5e1;
+  border: none;
   border-radius: 10px;
-  background: #f8fafc;
+  background: transparent;
   cursor: pointer;
 }
 
