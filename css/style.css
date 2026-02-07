@@ -477,23 +477,10 @@ body.omnisign-app-mode {
   opacity: .7;
 }
 #os-toggle-pin:hover,
-#os-toggle-pin-confirm:hover {
-  opacity: 1;
-}
-.os-modal hr {
-  border: none;
-  border-top: 1px solid #e2e8f0;
-  margin: 8px 0;
-}
-.os-modal h4 {
-  margin: 6px 0 2px;
-  font-size: 15px;
-  font-weight: 600;
-}
-.os-modal .os-security-note {
-  font-size: 13px;
-  color: #64748b;
-}
+#os-toggle-pin-confirm:hover {opacity: 1;}
+.os-modal hr {border: none;border-top: 1px solid #e2e8f0;margin: 8px 0;}
+.os-modal h4 {margin: 6px 0 2px;font-size: 15px;font-weight: 600;}
+.os-modal .os-security-note {font-size: 13px;color: #64748b;}
 #os-save {
   margin-top: 8px;
   height: 46px;
@@ -505,9 +492,11 @@ body.omnisign-app-mode {
   border: none;
   cursor: pointer;
 }
-#os-save:hover {
-  filter: brightness(1.05);
-}
+#os-save:hover {filter: brightness(1.05);}
+.os-side-panel {border-radius: 0;padding-top: 24px;}
+.os-side-panel h2 {margin-top: 0;font-size: 20px;}
+.os-side-panel input {height: 44px;}
+.os-side-panel button {margin-top: 6px;}
 
 
 
