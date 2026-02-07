@@ -298,7 +298,6 @@ function openProfilePanel() {
       <input id="os-new-pin" type="password" inputmode="numeric" maxlength="4" placeholder="New PIN (optional)">
       <button id="os-save-profile">Save</button>
       <button id="os-reset">Reset App</button>
-      <button id="os-close-panel">Close</button>
     </div>
   `);
   document.getElementById('os-close-panel').onclick = removeOverlay;
