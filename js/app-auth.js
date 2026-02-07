@@ -91,7 +91,10 @@ function resetPinFailures() {
 function mountProfileButton() {
   const btn = document.createElement('button');
   btn.id = 'os-profile-btn';
-  btn.innerText = '👤';
+  btn.type = 'button';
+  btn.setAttribute('aria-label', 'View or edit profile');
+  btn.setAttribute('title', 'View / Edit Profile');
+  btn.innerHTML = `<span class="os-avatar">👤</span>`;
   btn.onclick = showProfile;
   document.body.appendChild(btn);
 }
