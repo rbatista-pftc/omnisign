@@ -123,24 +123,19 @@ function showOnboarding() {
     <div class="os-modal">
       <h2>Welcome to OmniSign</h2>
       <p>This app saves your info for faster bookings.</p>
-
       <input id="os-company" placeholder="Company Name">
       <input id="os-name" placeholder="Full Name">
       <input id="os-phone" placeholder="Phone Number">
       <input id="os-email" placeholder="Email">
-
       <hr>
-
       <h4>Secure Your App</h4>
       <p style="font-size:14px;opacity:.8;">
         Set a 4-digit PIN to lock and unlock the OmniSign app.
       </p>
-
       <div style="position:relative;">
         <input id="os-pin" type="password" inputmode="numeric" maxlength="4" placeholder="4-Digit PIN">
         <button type="button" id="os-toggle-pin" style="position:absolute;right:10px;top:8px;">👁</button>
       </div>
-
       <div style="position:relative;">
         <input id="os-pin-confirm" type="password" inputmode="numeric" maxlength="4" placeholder="Confirm PIN">
         <button type="button" id="os-toggle-pin-confirm" style="position:absolute;right:10px;top:8px;">👁</button>
