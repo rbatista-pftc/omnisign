@@ -175,15 +175,17 @@ function showOnboarding() {
   `);
 
   // Toggle PIN visibility
-  document.getElementById('os-toggle-pin').onclick = () => {
-    const i = document.getElementById('os-pin');
-    i.type = i.type === 'password' ? 'text' : 'password';
-  };
+document.getElementById('os-toggle-pin')?.addEventListener('click', () => {
+  const el = document.getElementById('os-pin');
+  if (!el) return;
+  el.type = el.type === 'password' ? 'text' : 'password';
+});
 
-  document.getElementById('os-toggle-pin-confirm').onclick = () => {
-    const i = document.getElementById('os-pin-confirm');
-    i.type = i.type === 'password' ? 'text' : 'password';
-  };
+document.getElementById('os-toggle-pin-confirm')?.addEventListener('click', () => {
+  const el = document.getElementById('os-pin-confirm');
+  if (!el) return;
+  el.type = el.type === 'password' ? 'text' : 'password';
+});
 
   document.getElementById('os-save').onclick = async () => {
     const pin = document.getElementById('os-pin').value;
