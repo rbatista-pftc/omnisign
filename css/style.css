@@ -429,24 +429,23 @@ body.omnisign-app-mode {
   font-size: 18px;
   cursor: pointer;
 }
-.os-field {
-  position: relative;
-  display: flex;
-  align-items: center;
+#os-pin, #os-pin-confirm { 
+  width: 100%;
+  padding-right: 54px; /* reserve space for the eye */
 }
-.os-field input {width: 100%;padding-right: 42px; }
-.os-eye {
+#os-toggle-pin, #os-toggle-pin-confirm {
   position: absolute;
-  right: 8px;
-  background: none;
-  border: none;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 36px;
+  width: 36px;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  background: #f8fafc;
   cursor: pointer;
-  font-size: 16px;
-  opacity: 0.6;
 }
-.os-eye:hover {
-  opacity: 1;
-}
+
 
 
 
