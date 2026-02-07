@@ -468,6 +468,16 @@ body.omnisign-app-mode .section {
   display: flex;
   flex-direction: column;
   gap: 12px;
+  animation: slideIn .25s ease-out forwards;
+}
+.os-side-panel.closing {animation: slideOut .25s ease-in forwards;}
+@keyframes slideIn {
+  from { transform: translateX(100%); }
+  to   { transform: translateX(0); }
+}
+@keyframes slideOut {
+  from { transform: translateX(0); }
+  to   { transform: translateX(100%); }
 }
 .os-side-panel h2 {margin: 0 0 8px;}
 .os-side-panel input {padding: 10px 12px;border-radius: 10px;border: 1px solid #d1d5db;}
