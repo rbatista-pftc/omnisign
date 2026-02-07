@@ -298,7 +298,9 @@ function openProfilePanel() {
       <input id="os-timeout" type="number" min="5" value="${getTimeout()}">
       <input id="os-new-pin" type="password" inputmode="numeric" maxlength="4" placeholder="New PIN (optional)">
       <button id="os-save-profile">Save</button>
-      <button id="os-reset">Reset App</button>
+      <div class="os-panel-footer">
+        <button id="os-reset" class="danger">Reset App</button>
+      </div>
     </div>
   `);
   document.querySelector('.os-panel-close').onclick = () => {
