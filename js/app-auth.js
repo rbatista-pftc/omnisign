@@ -141,7 +141,6 @@ function mountOverlay(html) {
   overlay.innerHTML = html;
   document.body.appendChild(overlay);
 }
-
 function removeOverlay() {
   document.getElementById('omnisign-app-overlay')?.remove();
 }
@@ -169,7 +168,6 @@ function showOnboarding() {
         <input id="os-pin-confirm" type="password" inputmode="numeric" maxlength="4" placeholder="Confirm PIN">
         <button type="button" id="os-toggle-pin-confirm" style="position:absolute;right:10px;top:8px;">👁</button>
       </div>
-
       <button id="os-save">Save & Continue</button>
     </div>
   `);
@@ -186,23 +184,19 @@ document.getElementById('os-toggle-pin-confirm')?.addEventListener('click', () =
   if (!el) return;
   el.type = el.type === 'password' ? 'text' : 'password';
 });
-
   document.getElementById('os-save').onclick = async () => {
     const pin = document.getElementById('os-pin').value;
     const confirm = document.getElementById('os-pin-confirm').value;
-
     if (pin.length !== 4 || pin !== confirm) {
       alert('PIN must be 4 digits and match.');
       return;
     }
-
     const profile = {
       company: document.getElementById('os-company').value,
       fullName: document.getElementById('os-name').value,
       phone: document.getElementById('os-phone').value,
       email: document.getElementById('os-email').value
     };
-
     localStorage.setItem('omnisign_pin_hash', await hashPin(pin));
     setProfile(profile);
     requestNotifications();
@@ -243,15 +237,12 @@ function showLock() {
   const canBio = await biometricsAvailable();
   const enabled = localStorage.getItem('omnisign_biometric') === 'enabled';
   if (!canBio || !enabled) return;
-
   const unlockBtn = document.createElement('button');
   unlockBtn.id = 'os-bio-unlock';
   unlockBtn.textContent = 'Unlock with Biometrics';
-
   // Put it above the PIN input
   const pinInput = document.getElementById('os-unlock-pin');
   pinInput?.parentElement?.insertBefore(unlockBtn, pinInput);
-
   unlockBtn.onclick = async () => {
     try {
       await navigator.credentials.get({
@@ -273,7 +264,6 @@ function showLock() {
   document.getElementById('os-unlock').onclick = async () => {
     const entered = document.getElementById('os-unlock-pin').value;
     const stored = localStorage.getItem('omnisign_pin_hash');
-
     if (await hashPin(entered) === stored) {
       setLastActive();
       removeOverlay();
@@ -282,7 +272,6 @@ function showLock() {
       alert('Incorrect PIN');
     }
   };
-
   document.getElementById('os-forgot').onclick = () => {
     if (!confirm(
       'Resetting the PIN will remove your saved info on this device. Continue?'
