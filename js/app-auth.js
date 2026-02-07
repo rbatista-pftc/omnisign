@@ -14,7 +14,6 @@ function isDefinitelyApp() {
   });
 }
 function onAppReady(callback) {
- if (IS_APP) {document.body.classList.add('omnisign-app-mode');}
   const mq = window.matchMedia('(display-mode: standalone)');
   if (mq.matches || window.navigator.standalone === true) {
     callback();
