@@ -1,7 +1,29 @@
 /* ======================================================
    OmniSign App Auth (CLEAN + BULLETPROOF)
    ====================================================== */
-
+const OMNISIGN_APP_VERSION = 1;
+function runMigrations() {
+  const storedVersion = Number(
+    localStorage.getItem('omnisign_app_version') || 0
+  );
+  if (storedVersion < 1) {
+    migrateToV1();
+  }
+  localStorage.setItem('omnisign_app_version', OMNISIGN_APP_VERSION);
+}
+function migrateToV1() {
+  // Example: older builds stored fullName as "name"
+  const profile = getProfile();
+  if (profile && profile.name && !profile.fullName) {
+    profile.fullName = profile.name;
+    delete profile.name;
+    setProfile(profile);
+  }
+  // Future-safe: ensure timeout exists
+  if (!localStorage.getItem('omnisign_timeout')) {
+    setTimeoutValue(30);
+  }
+}
 /* ---------- App Detection (THE KEY FIX) ---------- */
 function isDefinitelyApp() {
   return new Promise(resolve => {
@@ -353,6 +375,7 @@ function prefillBooking(profile) {
 
 document.addEventListener('DOMContentLoaded', () => {
   onAppReady(() => {
+  runMigrations();
    document.body.classList.add('omnisign-app-mode');
     const profile = getProfile();
     if (!isInitialized() || !profile) {
