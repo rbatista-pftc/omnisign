@@ -95,6 +95,7 @@ function mountProfileButton() {
   btn.setAttribute('aria-label', 'View or edit profile');
   btn.setAttribute('title', 'View / Edit Profile');
   btn.innerHTML = `<span class="os-avatar">👤</span>`;
+  btn.title = 'View / Edit Profile';
   btn.onclick = showProfile;
   document.body.appendChild(btn);
 }
