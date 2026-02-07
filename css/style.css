@@ -334,13 +334,15 @@ input.priority-rush {border: 2px solid #f59e0b;}
 /* ===============================
    OmniSign App Mode (STATIC SITE SAFE)
    =============================== */
-
 /* Hide everything by default */
 body.omnisign-app-mode > * {display: none;}
 /* Re-show only app-approved sections */
 body.omnisign-app-mode [data-app-visible] {display: block !important;}
 /* App background */
 body.omnisign-app-mode {background: #0b1a2b;}
+body.omnisign-app-mode #book {background: #f8fafc !important;}
+body.omnisign-app-mode section {background: transparent;}
+body.omnisign-app-mode .book {background: #f8fafc;}
 
 /* App header */
 #omnisign-app-header {
@@ -376,10 +378,6 @@ body.omnisign-app-mode {background: #0b1a2b;}
 }
 
 /* Overlay */
-body.omnisign-app-mode .section {
-  background: white;
-}
-
 #omnisign-app-overlay {
   position: fixed;
   inset: 0;
