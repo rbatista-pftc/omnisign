@@ -289,6 +289,9 @@ function openProfilePanel() {
   mountOverlay(`
     <div class="os-side-panel">
     <button class="os-panel-close" aria-label="Close profile">✕</button>
+    <p class="os-panel-helper">
+    Update any field below and click <strong>Save</strong> to apply your changes.
+    </p>
       <h2>Your Profile</h2>
       <input id="os-p-company" value="${profile.company}">
       <input id="os-p-name" value="${profile.fullName}">
