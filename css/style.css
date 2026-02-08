@@ -453,6 +453,7 @@ body.omnisign-app-mode .book {background: #f8fafc;}
 .os-save {background:linear-gradient(135deg,#0f766e,#14b8a6);color: white;border:none;cursor:pointer;padding:12px;}
 .os-save:hover {box-shadow: 0 6px 16px rgba(20, 184, 166, 0.35);transform: translateY(-1px);}
 .os-save:active {transform: translateY(0);}
+#os-save-msg {margin-top: 10px;font-size: 14px;color: #065f46;background: #ecfeff;border: 1px solid #5eead4;padding: 8px 12px;border-radius: 8px;}
 .os-danger-zone{bottom:10px;}
 #os-reset {background: #fee2e2;color: #991b1b;border: none;cursor:pointer;transition:background-color .15s ease,
     box-shadow .15s ease,transform .05s ease;}
@@ -525,15 +526,7 @@ body.omnisign-app-mode .book {background: #f8fafc;}
 }
 #os-update-banner button {background: white;color: #0f766e;border: none;padding: 6px 12px;border-radius: 8px;cursor: pointer;font-weight: 600;}
 /* -------- Profile Button ---------- */
-#os-open-profile {
-  background: transparent;
-  border: none;
-  color: white;
-  font-size: 20px;
-  cursor: pointer;
-  padding: 6px;
-  border-radius: 8px;
-}
+#os-open-profile {background: transparent;border: none;color: white;font-size: 20px;cursor: pointer;padding: 6px;border-radius: 8px;}
 #os-open-profile:hover {background: rgba(255,255,255,.15);}
 #os-open-profile:focus-visible {outline: 3px solid rgba(255,255,255,.6);outline-offset: 2px;}
 .os-avatar{font-size:24px;line-height:1;display:inline-block;color: #e6fffa;filter: drop-shadow(0 1px 1px rgba(0,0,0,.25));}
