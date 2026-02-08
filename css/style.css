@@ -538,6 +538,23 @@ body.omnisign-app-mode .book {background: #f8fafc;}
 #os-open-profile:focus-visible {outline: 3px solid rgba(255,255,255,.6);outline-offset: 2px;}
 .os-avatar{font-size:24px;line-height:1;display:inline-block;color: #e6fffa;filter: drop-shadow(0 1px 1px rgba(0,0,0,.25));}
 #os-open-profile:hover .os-avatar {color:white;}
+/* ------ Lock Icon -------- */
+#os-lock-now {
+  background: none;
+  border: none;
+  padding: 6px;
+  cursor: pointer;
+  color: #ccfbf1; /* lighter mint */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: color .15s ease, transform .1s ease;
+}
+#os-lock-now:hover {color: #ffffff;transform: scale(1.08);}
+#os-lock-now:focus-visible {outline: 2px solid rgba(255,255,255,.6);outline-offset: 3px;}
+.os-lock-icon {display: block;}
+/*----- App Header ----- */
+.os-header-divider {width: 1px;height: 18px;background: rgba(255, 255, 255, 0.35);margin: 0 6px;}
 
 
 
