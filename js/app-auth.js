@@ -339,21 +339,6 @@ function openProfilePanel() {
      panel.classList.add('closing');
      setTimeout(removeOverlay, 250);
   };
-  document.getElementById('os-save-profile').onclick = async () => {
-    setProfile({
-      company: osVal('os-p-company'),
-      fullName: osVal('os-p-name'),
-      phone: osVal('os-p-phone'),
-      email: osVal('os-p-email')
-    });
-    const newPin = osVal('os-new-pin');
-    if (newPin.length === 4) {
-      localStorage.setItem('omnisign_pin_hash', await hashPin(newPin));
-    }
-    setTimeoutValue(osVal('os-timeout'));
-    removeOverlay();
-    prefillBooking(getProfile());
-  };
   document.getElementById('os-reset').onclick = resetApp;
 }
 function osVal(id) {
@@ -372,11 +357,26 @@ function renderProfileForm(profile) {
     <input id="os-timeout" type="number" min="5" value="${getTimeout()}">
     <h4>Change PIN</h4>
     <input id="os-new-pin" type="password" inputmode="numeric" maxlength="4" placeholder="New PIN">
-    <button id="os-save-profile class="os-save">Save</button>
+    <button id="os-save-profile" class="os-save">Save</button>
     <div class="os-danger-zone">
       <button id="os-reset">Reset App</button>
     </div>
   `;
+   document.getElementById('os-save-profile').onclick = async () => {
+    setProfile({
+      company: osVal('os-p-company'),
+      fullName: osVal('os-p-name'),
+      phone: osVal('os-p-phone'),
+      email: osVal('os-p-email')
+    });
+    const newPin = osVal('os-new-pin');
+    if (newPin.length === 4) {
+      localStorage.setItem('omnisign_pin_hash', await hashPin(newPin));
+    }
+    setTimeoutValue(osVal('os-timeout'));
+    removeOverlay();
+    prefillBooking(getProfile());
+  };
 }
 function renderOrders() {
   const orders = getOrders();
