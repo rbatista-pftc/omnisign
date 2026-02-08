@@ -5,7 +5,7 @@ const OMNISIGN_APP_VERSION = 1;
 
 async function checkForUpdate() {
   try {
-    const res = await fetch('/app.js', { cache: 'no-store' });
+    const res = await fetch('/js/app-auth.js', { cache: 'no-store' });
     const text = await res.text();
     const hash = await crypto.subtle.digest(
       'SHA-256',
