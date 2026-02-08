@@ -479,7 +479,7 @@ body.omnisign-app-mode .book {background: #f8fafc;}
   cursor: pointer;
   z-index: 9000;
 }
-.os-panel-helper {font-size: 13px;color: #64748b;margin: 4px 0 14px;}
+.profile-hint {font-size: 13px;color: #64748b;margin: 4px 0 14px;}
 #os-profile-btn:hover {background: rgba(255,255,255,0.28);}
 #os-profile-btn:active {transform: scale(0.96);}
 #os-profile-btn .os-avatar {font-size: 18px;line-height: 1;}
