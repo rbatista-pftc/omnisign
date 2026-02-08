@@ -202,7 +202,7 @@ function showOnboarding() {
         <input id="os-pin-confirm" type="password" inputmode="numeric" maxlength="4" placeholder="Confirm PIN">
         <button type="button" id="os-toggle-pin-confirm" style="position:absolute;right:10px;top:8px;">👁</button>
       </div>
-      <button id="os-save">Save & Continue</button>
+      <button id="os-save" class="os-save">Save & Continue</button>
     </div>
   `);
 
