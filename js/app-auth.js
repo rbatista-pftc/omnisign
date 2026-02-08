@@ -2,6 +2,27 @@
    OmniSign App Auth (CLEAN + BULLETPROOF)
    ====================================================== */
 const OMNISIGN_APP_VERSION = 1;
+
+async function checkForUpdate() {
+  try {
+    const res = await fetch('/app.js', { cache: 'no-store' });
+    const text = await res.text();
+    const hash = await crypto.subtle.digest(
+      'SHA-256',
+      new TextEncoder().encode(text)
+    );
+    const hashHex = [...new Uint8Array(hash)]
+      .map(b => b.toString(16).padStart(2, '0'))
+      .join('');
+    const storedHash = localStorage.getItem('omnisign_app_hash');
+    if (storedHash && storedHash !== hashHex) {
+      showUpdateBanner();
+    }
+    localStorage.setItem('omnisign_app_hash', hashHex);
+  } catch (e) {
+    console.warn('Update check failed', e);
+  }
+}
 function runMigrations() {
   const storedVersion = Number(
     localStorage.getItem('omnisign_app_version') || 0
