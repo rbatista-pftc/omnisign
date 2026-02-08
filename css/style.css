@@ -452,7 +452,7 @@ body.omnisign-app-mode .book {background: #f8fafc;}
 .os-side-panel button {padding: 10px;border-radius: 10px;font-weight: 600;transition: background-color .15s ease,
               box-shadow .15s ease,transform .05s ease;}
 .os-side-panel button:focus-visible {outline: 3px solid rgba(14, 165, 233, 0.6);outline-offset: 2px;}
-#os-save {background: linear-gradient(135deg,#0f766e,#14b8a6);color: white;border: none;cursor:pointer;}
+#os-save {background:linear-gradient(135deg,#0f766e,#14b8a6);color: white;border:none;cursor:pointer;padding:12px;}
 #os-save:hover {box-shadow: 0 6px 16px rgba(20, 184, 166, 0.35);transform: translateY(-1px);}
 #os-save:active {transform: translateY(0);}
 #os-reset {background: #fee2e2;color: #991b1b;border: none;cursor:pointer;transition:background-color .15s ease,
