@@ -23,6 +23,20 @@ async function checkForUpdate() {
     console.warn('Update check failed', e);
   }
 }
+function showUpdateBanner() {
+  if (document.getElementById('os-update-banner')) return;
+  const banner = document.createElement('div');
+  banner.id = 'os-update-banner';
+  banner.innerHTML = `
+    <span>New update available</span>
+    <button>Refresh</button>
+  `;
+  banner.querySelector('button').onclick = () => {
+    localStorage.clear();
+    location.reload(true);
+  };
+  document.body.appendChild(banner);
+}
 function runMigrations() {
   const storedVersion = Number(
     localStorage.getItem('omnisign_app_version') || 0
@@ -323,6 +337,7 @@ function showLock() {
       setLastActive();
       removeOverlay();
       prefillBooking(getProfile());
+      checkForUpdate();
     } else {
       alert('Incorrect PIN');
     }
