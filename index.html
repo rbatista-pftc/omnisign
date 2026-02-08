@@ -1002,6 +1002,14 @@ async function submitWithRecaptcha(e) {
               icon: '/favicon/android-chrome-192x192.png'
             });
           }
+          /* ✅ SAVE ORDER LOCALLY FOR APP (ADD THIS BLOCK) */
+          if (formType === "booking") {
+            saveOrder({
+              service: payload.service || 'Signing',
+              date: new Date().toISOString(),
+              status: 'Submitted'
+            });
+          }
           form.reset();
           // clear booking file UI
           if (formType === "booking") {
