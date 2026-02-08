@@ -529,6 +529,22 @@ body.omnisign-app-mode .book {background: #f8fafc;}
 /* Forgot PIN */
 #os-forgot {background: none;border: none;color: #64748b;font-size: 14px;cursor: pointer;text-align: center;}
 #os-forgot:hover {color: #0f766e;}
+/* ---------- UPDATE BANNER ------- */
+#os-update-banner {
+  position: fixed;
+  bottom: 16px;
+  left: 16px;
+  background: #0f766e;
+  color: white;
+  padding: 12px 16px;
+  border-radius: 12px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  z-index: 9999;
+}
+#os-update-banner button {background: white;color: #0f766e;border: none;padding: 6px 12px;border-radius: 8px;cursor: pointer;font-weight: 600;}
+
 
 
 
