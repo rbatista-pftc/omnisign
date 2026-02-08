@@ -318,28 +318,23 @@ function showLock() {
 function openProfilePanel() {
   const profile = getProfile();
   mountOverlay(`
-    <div class="os-side-panel">
-    <button class="os-panel-close" aria-label="Close profile">✕</button>
-    <p class="os-panel-helper">
-    Update any field below and click <strong>Save</strong> to apply your changes.
-    </p>
-      <h2>Your Profile</h2>
-      <input id="os-p-company" value="${profile.company}">
-      <input id="os-p-name" value="${profile.fullName}">
-      <input id="os-p-phone" value="${profile.phone}">
-      <input id="os-p-email" value="${profile.email}">
-      <h4 class="os-section-title">Auto-Lock</h4>
-      <label class="os-label">Lock app after inactivity (minutes)</label>
-      <input id="os-timeout" type="number" min="5" value="${getTimeout()}">
-      <h4 class="os-section-title">Change Your PIN</h4>
-      <p class="os-section-sub">Leave blank to keep your current PIN.</p>
-      <input id="os-new-pin" type="password" inputmode="numeric" maxlength="4" placeholder="New 4-digit PIN">
-      <button id="os-save">Save</button>
-      <div class="os-panel-footer">
-        <button id="os-reset" class="danger">Reset App</button>
-      </div>
+  <div class="os-side-panel">
+    <div class="os-panel-header">
+      <strong>Account</strong>
+      <button id="os-close-panel" aria-label="Close">✕</button>
     </div>
-  `);
+    <div class="os-tabs">
+      <button class="os-tab active" data-tab="profile">Profile</button>
+      <button class="os-tab" data-tab="orders">Orders</button>
+    </div>
+    <div class="os-tab-content active" id="os-tab-profile">
+      ${renderProfileForm(profile)}
+    </div>
+    <div class="os-tab-content" id="os-tab-orders">
+      ${renderOrders()}
+    </div>
+  </div>
+`);
   document.querySelector('.os-panel-close').onclick = () => {
      const panel = document.querySelector('.os-side-panel');
      panel.classList.add('closing');
@@ -365,7 +360,51 @@ function openProfilePanel() {
 function osVal(id) {
   return document.getElementById(id).value;
 }
+function renderProfileForm(profile) {
+  return `
+    <p class="profile-hint">
+      Update any field and click Save to apply changes.
+    </p>
+    <input id="os-p-company" value="${profile.company || ''}">
+    <input id="os-p-name" value="${profile.fullName || ''}">
+    <input id="os-p-phone" value="${profile.phone || ''}">
+    <input id="os-p-email" value="${profile.email || ''}">
+    <h4>Auto-lock</h4>
+    <input id="os-timeout" type="number" min="5" value="${getTimeout()}">
+    <h4>Change PIN</h4>
+    <input id="os-new-pin" type="password" inputmode="numeric" maxlength="4" placeholder="New PIN">
+    <button id="os-save">Save</button>
+    <div class="os-danger-zone">
+      <button id="os-reset">Reset App</button>
+    </div>
+  `;
+}
+function renderOrders() {
+  const orders = getOrders();
+  if (!orders.length) {return `<p class="os-empty">No orders yet.</p>`;}
+  return `
+    <ul class="os-orders">
+      ${orders.map(o => `
+        <li class="os-order">
+          <strong>${o.service}</strong>
+          <span>${new Date(o.date).toLocaleDateString()}</span>
+          <em>${o.status}</em>
+        </li>
+      `).join('')}
+    </ul>
+  `;
+}
+document.querySelectorAll('.os-tab').forEach(tab => {
+  tab.onclick = () => {
+    document.querySelectorAll('.os-tab, .os-tab-content')
+      .forEach(el => el.classList.remove('active'));
 
+    tab.classList.add('active');
+    document
+      .getElementById(`os-tab-${tab.dataset.tab}`)
+      .classList.add('active');
+  };
+});
 /* ---------- Prefill Booking ---------- */
 function prefillBooking(profile) {
   if (!profile) return;
