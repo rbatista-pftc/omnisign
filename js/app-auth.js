@@ -365,7 +365,6 @@ function openProfilePanel() {
      panel.classList.add('closing');
      setTimeout(removeOverlay, 250);
   };
-  document.getElementById('os-reset').onclick = resetApp;
 }
 function osVal(id) {
   return document.getElementById(id).value;
@@ -379,22 +378,52 @@ function renderProfileForm(profile) {
     <input id="os-p-name" value="${profile.fullName || ''}">
     <input id="os-p-phone" value="${profile.phone || ''}">
     <input id="os-p-email" value="${profile.email || ''}">
-    <h4>Auto-lock</h4>
+    <h4>Auto-lock (mins)</h4>
     <input id="os-timeout" type="number" min="5" value="${getTimeout()}">
     <h4>Change PIN</h4>
     <input id="os-new-pin" type="password" inputmode="numeric" maxlength="4" placeholder="New PIN">
     <button id="os-save-profile" class="os-save">Save</button>
+    <p id="os-save-msg" hidden>Changes saved successfully.</p>
     <div class="os-danger-zone">
       <button id="os-reset">Reset App</button>
     </div>
   `;
-   document.getElementById('os-save-profile').onclick = async () => {
-    setProfile({
-      company: osVal('os-p-company'),
-      fullName: osVal('os-p-name'),
-      phone: osVal('os-p-phone'),
-      email: osVal('os-p-email')
-    });
+  document.getElementById('os-save-profile').onclick = async () => {
+  // 1️⃣ Save profile fields
+  setProfile({
+    company: osVal('os-p-company'),
+    fullName: osVal('os-p-name'),
+    phone: osVal('os-p-phone'),
+    email: osVal('os-p-email')
+  });
+  // 2️⃣ Save auto-lock timeout
+  const timeout = Number(osVal('os-timeout'));
+  if (timeout && timeout >= 5) {
+    setTimeoutValue(timeout);
+  }
+  // 3️⃣ Save new PIN (if provided)
+  const newPin = osVal('os-new-pin');
+  if (newPin) {
+    if (!/^\d{4}$/.test(newPin)) {
+      alert('PIN must be exactly 4 digits');
+      return;
+    }
+    localStorage.setItem(
+      'omnisign_pin_hash',
+      await hashPin(newPin)
+    );
+    document.getElementById('os-new-pin').value = '';
+  }
+  // 4️⃣ Show success message
+  const msg = document.getElementById('os-save-msg');
+  msg.hidden = false;
+  setTimeout(() => {
+    msg.hidden = true;
+  }, 2000);
+  // 5️⃣ Keep session alive
+  setLastActive();
+};
+  document.getElementById('os-reset').onclick = resetApp;
     const newPin = osVal('os-new-pin');
     if (newPin.length === 4) {
       localStorage.setItem('omnisign_pin_hash', await hashPin(newPin));
@@ -402,7 +431,6 @@ function renderProfileForm(profile) {
     setTimeoutValue(osVal('os-timeout'));
     removeOverlay();
     prefillBooking(getProfile());
-  };
 }
 function renderOrders() {
   const orders = getOrders();
@@ -423,7 +451,6 @@ document.querySelectorAll('.os-tab').forEach(tab => {
   tab.onclick = () => {
     document.querySelectorAll('.os-tab, .os-tab-content')
       .forEach(el => el.classList.remove('active'));
-
     tab.classList.add('active');
     document
       .getElementById(`os-tab-${tab.dataset.tab}`)
