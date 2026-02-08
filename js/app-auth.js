@@ -320,13 +320,13 @@ function openProfilePanel() {
       <input id="os-p-name" value="${profile.fullName}">
       <input id="os-p-phone" value="${profile.phone}">
       <input id="os-p-email" value="${profile.email}">
-      <h3 class="os-section-title">Auto-Lock</h3>
+      <h4 class="os-section-title">Auto-Lock</h4>
       <label class="os-label">Lock app after inactivity (minutes)</label>
       <input id="os-timeout" type="number" min="5" value="${getTimeout()}">
-      <h3 class="os-section-title">Change Your PIN</h3>
+      <h4 class="os-section-title">Change Your PIN</h4>
       <p class="os-section-sub">Leave blank to keep your current PIN.</p>
       <input id="os-new-pin" type="password" inputmode="numeric" maxlength="4" placeholder="New 4-digit PIN">
-      <button id="os-save-profile">Save</button>
+      <button id="os-save">Save</button>
       <div class="os-panel-footer">
         <button id="os-reset" class="danger">Reset App</button>
       </div>
