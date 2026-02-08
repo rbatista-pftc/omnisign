@@ -343,7 +343,6 @@ body.omnisign-app-mode {background: #0b1a2b;}
 body.omnisign-app-mode #book {background: #f8fafc !important;}
 body.omnisign-app-mode section {background: transparent;}
 body.omnisign-app-mode .book {background: #f8fafc;}
-
 /* App header */
 #omnisign-app-header {
   position: sticky;
@@ -359,24 +358,6 @@ body.omnisign-app-mode .book {background: #f8fafc;}
   font-size: 15px;
   font-weight: 500;
 }
-
-/* Slide-in profile panel */
-.os-side-panel {
-  position: fixed;
-  top: 0;
-  right: 0;
-  width: 320px;
-  height: 100%;
-  background: white;
-  padding: 20px;
-  box-shadow: -4px 0 12px rgba(0,0,0,.2);
-  animation: slideIn .25s ease-out;
-}
-@keyframes slideIn {
-  from { transform: translateX(100%); }
-  to { transform: translateX(0); }
-}
-
 /* Overlay */
 #omnisign-app-overlay {
   position: fixed;
@@ -440,18 +421,6 @@ body.omnisign-app-mode .book {background: #f8fafc;}
 .os-modal hr {border: none;border-top: 1px solid #e2e8f0;margin: 8px 0;}
 .os-modal h4 {margin: 6px 0 2px;font-size: 15px;font-weight: 600;}
 .os-modal .os-security-note {font-size: 13px;color: #64748b;}
-#os-save {
-  margin-top: 8px;
-  height: 46px;
-  border-radius: 12px;
-  background: linear-gradient(135deg, #0f766e, #14b8a6);
-  color: #fff;
-  font-size: 16px;
-  font-weight: 600;
-  border: none;
-  cursor: pointer;
-}
-#os-save:hover {filter: brightness(1.05);}
 .os-side-panel {
   position: fixed;
   top: 0;
@@ -478,9 +447,17 @@ body.omnisign-app-mode .book {background: #f8fafc;}
   to   { transform: translateX(100%); }
 }
 .os-side-panel h2 {margin: 0 0 8px;}
-.os-side-panel input {padding: 10px 12px;border-radius: 10px;border: 1px solid #d1d5db;}
-.os-side-panel button {padding: 10px;border-radius: 10px;font-weight: 600;}
+.os-side-panel input {padding: 10px 12px;border-radius: 10px;border: 1px solid #d1d5db; transition: border-color .15s ease,
+              box-shadow .15s ease,background-color .15s ease;}
+.os-side-panel input:focus {border-color: #14b8a6;box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.25);background-color: #ffffff;outline: none;}
+/* Keyboard-only focus (extra clarity) */
+.os-side-panel input:focus-visible {box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.4);}
+.os-side-panel button {padding: 10px;border-radius: 10px;font-weight: 600;transition: background-color .15s ease,
+              box-shadow .15s ease,transform .05s ease;}
+.os-side-panel button:focus-visible {outline: 3px solid rgba(14, 165, 233, 0.6);outline-offset: 2px;}
 #os-save-profile {background: linear-gradient(135deg,#0f766e,#14b8a6);color: white;border: none;}
+#os-save-profile:hover {box-shadow: 0 6px 16px rgba(20, 184, 166, 0.35);transform: translateY(-1px);}
+#os-save-profile:active {transform: translateY(0);}
 #os-reset {background: #fee2e2;color: #991b1b;border: none;}
 #os-profile-btn {
   position: fixed;          
@@ -490,7 +467,7 @@ body.omnisign-app-mode .book {background: #f8fafc;}
   height: 42px;
   border-radius: 50%;
   background: rgba(255,255,255,0.18);
-  padding:5px;
+  padding:7px;
   color: white;
   border: none;
   display: flex;
@@ -508,6 +485,17 @@ body.omnisign-app-mode .book {background: #f8fafc;}
 .os-section-title {font-size: 15px;margin: 8px 0 2px;}
 .os-section-sub {font-size: 12px;color: #6b7280;margin-bottom: 3px;}
 .os-label {font-size: 13px;display: block;margin-bottom: 4px;}
+.os-panel-close {
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  color: #475569;
+  padding: 6px;
+  border-radius: 6px;
+}
+.os-panel-close:hover {background: #f1f5f9;}
+.os-panel-close:focus-visible {outline: 2px solid rgba(14, 165, 233, 0.6);}
 
 
 
