@@ -24,6 +24,14 @@ function migrateToV1() {
     setTimeoutValue(30);
   }
 }
+function saveOrder(order) {
+  const orders = JSON.parse(localStorage.getItem('omnisign_orders') || '[]');
+  orders.unshift(order); // most recent first
+  localStorage.setItem('omnisign_orders', JSON.stringify(orders));
+}
+function getOrders() {
+  return JSON.parse(localStorage.getItem('omnisign_orders') || '[]');
+}
 /* ---------- App Detection (THE KEY FIX) ---------- */
 function isDefinitelyApp() {
   return new Promise(resolve => {
