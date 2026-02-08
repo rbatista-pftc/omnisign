@@ -97,6 +97,23 @@ function mountAppHeader() {
       <strong>OmniSign</strong>
     </div>
     <div class="app-right">
+     <button id="os-lock-now" type="button" aria-label="Lock app" title="Lock app">
+      <svg
+    class="os-lock-icon"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="1.75"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    aria-hidden="true"
+  >
+    <rect x="3" y="11" width="18" height="10" rx="2" ry="2"></rect>
+    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+  </svg>
+    </button>
       <button id="os-open-profile" type="button" aria-label="View or edit profile" title="View / Edit Profile">
       <span class="os-avatar">👤</span>
       </button>
@@ -104,6 +121,10 @@ function mountAppHeader() {
   `
   document.body.prepend(header);
   document.getElementById('os-open-profile').onclick = openProfilePanel;
+  document.getElementById('os-lock-now').onclick = () => {
+  localStorage.setItem('omnisign_last_active', '0');
+  showLock();
+ };
 }
 
 /* ---------- Timeout ---------- */
