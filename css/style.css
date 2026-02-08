@@ -330,7 +330,6 @@ input.priority-rush {border: 2px solid #f59e0b;}
   opacity: 0 !important;
   pointer-events: none !important;
 }
-
 /* ===============================
    OmniSign App Mode (STATIC SITE SAFE)
    =============================== */
@@ -395,9 +394,7 @@ body.omnisign-app-mode .book {background: #f8fafc;}
 }
 .os-modal input:focus {border-color: #0f766e;box-shadow: 0 0 0 3px rgba(15,118,110,.15);}
 #os-pin,
-#os-pin-confirm {
-  padding-right: 54px;
-}
+#os-pin-confirm {padding-right: 54px;}
 #os-toggle-pin,
 #os-toggle-pin-confirm {
   position: absolute;
@@ -503,6 +500,24 @@ body.omnisign-app-mode .book {background: #f8fafc;}
 }
 .os-panel-close:hover {background: #f1f5f9;}
 .os-panel-close:focus-visible {outline: 2px solid rgba(14, 165, 233, 0.6);}
+.os-tabs {display: flex;gap: 8px;margin-bottom: 12px;}
+
+/* ------------ Panel tabs ------------- */
+.os-tab {
+  flex: 1;
+  padding: 8px;
+  background: #e5e7eb;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+}
+.os-tab.active {background: #0f766e;color: #fff;}
+.os-tab-content {display: none;}
+.os-tab-content.active {display: block;}
+.os-orders {list-style: none;padding: 0;margin: 0;}
+.os-order {padding: 10px 0;border-bottom: 1px solid #e5e7eb;}
+.os-order em {font-size: 12px;color: #6b7280;}
+.os-empty {color: #6b7280;font-style: italic;}
 
 
 
