@@ -31,10 +31,9 @@ function showUpdateBanner() {
     <span>New update available</span>
     <button>Refresh</button>
   `;
-  banner.querySelector('button').onclick = () => {
-    localStorage.clear();
-    location.reload(true);
-  };
+  banner.querySelector('#os-refresh-app').onclick = () => {
+     location.reload();
+};
   document.body.appendChild(banner);
 }
 function runMigrations() {
@@ -456,7 +455,6 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
       setLastActive();
       checkForUpdate();
-      showUpdateBanner();
       prefillBooking(profile);
     }
     mountAppHeader(); 
