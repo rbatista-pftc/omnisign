@@ -114,6 +114,7 @@ function mountAppHeader() {
     <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
   </svg>
     </button>
+    <span class="os-header-divider" aria-hidden="true"></span>
       <button id="os-open-profile" type="button" aria-label="View or edit profile" title="View / Edit Profile">
       <span class="os-avatar">👤</span>
       </button>
@@ -126,7 +127,6 @@ function mountAppHeader() {
   showLock();
  };
 }
-
 /* ---------- Timeout ---------- */
 const DEFAULT_TIMEOUT = 30;
 const MAX_PIN_ATTEMPTS = 4;
