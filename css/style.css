@@ -368,7 +368,7 @@ body.omnisign-app-mode .book {background: #f8fafc;}
   z-index: 9999;
 }
 .os-modal {
-  background: #ffffff;
+  background: white;
   padding: 28px 24px 24px;
   border-radius: 16px;
   width: 100%;
@@ -500,8 +500,35 @@ body.omnisign-app-mode .book {background: #f8fafc;}
 .os-order {padding: 10px 0;border-bottom: 1px solid #e5e7eb;}
 .os-order em {font-size: 12px;color: #6b7280;}
 .os-empty {color: #6b7280;font-style: italic;}
-
-
+/* ---------- Unlock Screen --------------- */
+/* PIN input */
+#os-unlock-pin {
+  padding: 14px 16px;
+  font-size: 20px;
+  letter-spacing: 6px;
+  text-align: center;
+  border-radius: 14px;
+  border: 1px solid #d1d5db;
+  transition: border-color .15s ease, box-shadow .15s ease;
+}
+#os-unlock-pin:focus {border-color: #14b8a6;box-shadow: 0 0 0 3px rgba(20,184,166,.25);outline: none;}
+/* Primary unlock button */
+#os-unlock {
+  padding: 14px;
+  border-radius: 999px;
+  font-weight: 700;
+  background: linear-gradient(135deg, #0f766e, #14b8a6);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+#os-unlock:hover {filter: brightness(1.05);}
+/* Biometrics button */
+#os-bio-unlock {padding: 10px;border-radius: 999px;background: #f1f5f9;border: 1px solid #e5e7eb;font-weight: 600;cursor: pointer;}
+#os-bio-unlock:hover {background: #e5e7eb;}
+/* Forgot PIN */
+#os-forgot {background: none;border: none;color: #64748b;font-size: 14px;cursor: pointer;text-align: center;}
+#os-forgot:hover {color: #0f766e;}
 
 
 
