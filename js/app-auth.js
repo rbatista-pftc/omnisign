@@ -320,7 +320,7 @@ function openProfilePanel() {
   mountOverlay(`
   <div class="os-side-panel">
     <div class="os-panel-header">
-      <button id="os-close-panel" aria-label="Close">✕</button>
+      <button id="os-panel-close" aria-label="Close">✕</button>
     </div>
     <div class="os-tabs">
       <button class="os-tab active" data-tab="profile">Profile</button>
