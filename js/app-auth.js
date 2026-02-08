@@ -320,7 +320,7 @@ function openProfilePanel() {
   mountOverlay(`
   <div class="os-side-panel">
     <div class="os-panel-header">
-      <button id="os-panel-close" aria-label="Close">✕</button>
+      <button class="os-panel-close" id="os-panel-close" aria-label="Close">✕</button>
     </div>
     <div class="os-tabs">
       <button class="os-tab active" data-tab="profile">Profile</button>
@@ -372,7 +372,7 @@ function renderProfileForm(profile) {
     <input id="os-timeout" type="number" min="5" value="${getTimeout()}">
     <h4>Change PIN</h4>
     <input id="os-new-pin" type="password" inputmode="numeric" maxlength="4" placeholder="New PIN">
-    <button id="os-save">Save</button>
+    <button id="os-save-profile class="os-save">Save</button>
     <div class="os-danger-zone">
       <button id="os-reset">Reset App</button>
     </div>
