@@ -89,6 +89,7 @@ function onAppReady(callback) {
     if (e.matches) callback();
   });
 }
+/* -------- Top of App ----------- */
 function mountAppHeader() {
   const header = document.createElement('div');
   header.id = 'omnisign-app-header';
@@ -97,7 +98,9 @@ function mountAppHeader() {
       <strong>OmniSign</strong>
     </div>
     <div class="app-right">
-      <button id="os-open-profile">👤</button>
+      <button id="os-open-profile" type="button" aria-label="View or edit profile" title="View / Edit Profile">
+      <span class="os-avatar">👤</span>
+      </button>
     </div>
   `
   document.body.prepend(header);
@@ -151,18 +154,6 @@ function recordPinFailure() {
 function resetPinFailures() {
   localStorage.removeItem('omnisign_pin_failures');
   localStorage.removeItem('omnisign_pin_locked_until');
-}
-/* ---------- Profile Button ---------- */
-function mountProfileButton() {
-  const btn = document.createElement('button');
-  btn.id = 'os-profile-btn';
-  btn.type = 'button';
-  btn.setAttribute('aria-label', 'View or edit profile');
-  btn.setAttribute('title', 'View / Edit Profile');
-  btn.innerHTML = `<span class="os-avatar">👤</span>`;
-  btn.title = 'View / Edit Profile';
-  btn.onclick = showProfile;
-  document.body.appendChild(btn);
 }
 
 /* ---------- PIN Hash ---------- */
@@ -464,6 +455,8 @@ document.addEventListener('DOMContentLoaded', () => {
       showLock();
     } else {
       setLastActive();
+      checkForUpdate();
+      showUpdateBanner();
       prefillBooking(profile);
     }
     mountAppHeader(); 
