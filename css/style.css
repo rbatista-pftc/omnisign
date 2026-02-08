@@ -494,7 +494,7 @@ body.omnisign-app-mode .book {background: #f8fafc;}
 .os-tab {flex: 1;padding: 8px;background: #e5e7eb;border: none;cursor: pointer;font-weight: 600;}
 .os-tab.active {background: #0f766e;color: #fff;}
 .os-tab-content {display: none;}
-.os-tab-content.active {display: flex;flex-direction:column;}
+.os-tab-content.active {display: flex;flex-direction:column;gap:12px;}
 .os-orders {list-style: none;padding: 0;margin: 0;}
 .os-order {padding: 10px 0;border-bottom: 1px solid #e5e7eb;}
 .os-order em {font-size: 12px;color: #6b7280;}
