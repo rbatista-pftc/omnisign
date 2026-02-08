@@ -529,14 +529,14 @@ body.omnisign-app-mode .book {background: #f8fafc;}
   background: transparent;
   border: none;
   color: white;
-  font-size: 26px;
+  font-size: 20px;
   cursor: pointer;
   padding: 6px;
   border-radius: 8px;
 }
 #os-open-profile:hover {background: rgba(255,255,255,.15);}
 #os-open-profile:focus-visible {outline: 3px solid rgba(255,255,255,.6);outline-offset: 2px;}
-
+.os-avatar{font-size:24px;line-height:1;display:inline-block;}
 
 
 
